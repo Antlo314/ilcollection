@@ -61,7 +61,7 @@
               "Neem Oil –  powerful botanical scalp care traditionally used to soothe irritation, support a balanced scalp, and nourish dry, troubled skin",
               "Shea Butter – rich conditioning support that helps soften and moisturize hair",
               "Tea Tree + Rosemary Oils – refreshing botanical blend that supports a clean, revitalized scalp",
-              "Rose Oil – delicate floral aroma that adds a luxurious touch to your hair care ritual"
+              "Rose Oil – delicate floral aroma that adds a luxurious touch to your hair care routine"
             ]
           }
         ]
@@ -367,7 +367,7 @@
         "body": [
           {
             "type": "p",
-            "text": "Pair “AWAKEN” with our WOKE Body Oil or AWAKEN Candle to create a sacred self-care ritual that engages your senses while nurturing your soul."
+            "text": "Pair “AWAKEN” with our WOKE Body Oil or AWAKEN Candle to create a sacred self-care moment that engages your senses while nurturing your soul."
           }
         ]
       }
@@ -1325,7 +1325,7 @@
         "body": [
           {
             "type": "p",
-            "text": "Pair “AWAKEN” with our WOKE Body Oil or AWAKEN Candle to create a sacred self-care ritual that engages your senses while nurturing your soul."
+            "text": "Pair “AWAKEN” with our WOKE Body Oil or AWAKEN Candle to create a sacred self-care moment that engages your senses while nurturing your soul."
           }
         ]
       }
@@ -2570,13 +2570,13 @@
   {
     "slug": "glow-grow-duo",
     "name": "Glow & Grow Duo",
-    "sub": "Skin & Hair Ritual",
+    "sub": "A Skin & Hair Indulgence",
     "ribbon": "Bundle & Save",
     "price": 79.98,
     "priceMin": 79.98,
     "priceMax": 109.98,
     "tags": [
-      "rituals"
+      "indulgences"
     ],
     "description": [
       {
@@ -2936,13 +2936,13 @@
   {
     "slug": "incandescent-luxe-box",
     "name": "Incandescent Luxe Box™",
-    "sub": "Five-Piece Self-Care Ritual",
+    "sub": "Five-Piece Self-Care Indulgence",
     "ribbon": "Bundle & Save",
     "price": 154.98,
     "priceMin": 154.98,
     "priceMax": 184.98,
     "tags": [
-      "rituals"
+      "indulgences"
     ],
     "description": [
       {
@@ -2951,7 +2951,7 @@
       },
       {
         "type": "p",
-        "text": "Indulge in the ultimate luxury self-care ritual with the Incandescent Luxe Box, a thoughtfully curated five-piece collection designed to nourish, restore, and awaken your skin, hair, and spirit. Infused with healing botanicals, hydrating oils, and soothing aromatherapy, this set transforms your daily routine into a spa-like experience at home."
+        "text": "Indulge in the ultimate luxury self-care experience with the Incandescent Luxe Box, a thoughtfully curated five-piece collection designed to nourish, restore, and awaken your skin, hair, and spirit. Infused with healing botanicals, hydrating oils, and soothing aromatherapy, this set transforms your daily routine into a spa-like experience at home."
       },
       {
         "type": "p",
@@ -3158,13 +3158,13 @@
   {
     "slug": "woke-his-hers-set",
     "name": "Woke™ His & Hers Set",
-    "sub": "Two 3.4 fl oz Premium Body Oils",
+    "sub": "Two 3.4 fl oz Premium Body Oils, Made to Share",
     "ribbon": "Bundle & Save",
     "price": 110.98,
     "priceMin": 110.98,
     "priceMax": 110.98,
     "tags": [
-      "rituals"
+      "indulgences"
     ],
     "description": [
       {
@@ -3226,7 +3226,7 @@
     "priceMin": 54.98,
     "priceMax": 54.98,
     "tags": [
-      "rituals"
+      "indulgences"
     ],
     "description": [
       {

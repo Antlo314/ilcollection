@@ -49,7 +49,7 @@ Motion is declared in markup with data attributes; `motion.ts` wires them up:
 - `data-clip` — arch/frame wipes open with an image zoom-settle
 - `data-parallax="0.12"` — scrubbed parallax (wrap in `data-parallax-scope`)
 - `data-lightup` — words brighten as they scroll through (mission statement)
-- `data-hscroll` / `data-hscroll-track` — pinned horizontal scroll (Rituals, desktop)
+- `data-hscroll` / `data-hscroll-track` — pinned horizontal scroll (Indulgences, desktop; swipe on mobile)
 - `data-expand` — rounded window that opens to full bleed (texture film)
 - `data-marquee` — endless marquee that leans into scroll velocity
 - `data-magnetic`, `data-spin`, `data-hero` (entrance after the intro curtain)

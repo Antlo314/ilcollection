@@ -4,15 +4,15 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
 const is = (p: string) => (p === '/' ? path === '/' : path.startsWith(p));
 const nav = [
   { href: '/shop', label: 'Shop' },
-  { href: '/shop?c=rituals', label: 'Rituals' },
+  { href: '/shop?c=indulgences', label: 'Indulgences' },
   { href: '/our-story', label: 'Our Story' },
   { href: '/contact', label: 'Contact' },
 ];
 ---
 <header class="site-header" data-header>
   <div class="announce" aria-label="Announcement">
-    <p class="announce__long">Handcrafted in small batches with purity, purpose &amp; divine intention <span aria-hidden="true">✦</span> Shipping within the U.S. &amp; USVI</p>
-    <p class="announce__short">Plant-based <span aria-hidden="true">✦</span> Small batch <span aria-hidden="true">✦</span> Black-owned</p>
+    <p class="announce__long">Lovingly handcrafted in small batches <span aria-hidden="true">✦</span> Gently shipped across the U.S. &amp; USVI</p>
+    <p class="announce__short">Plant-born <span aria-hidden="true">✦</span> Small batch <span aria-hidden="true">✦</span> Black-owned</p>
   </div>
   <div class="bar wrap">
     <nav class="nav nav--left" aria-label="Primary">
@@ -77,7 +77,7 @@ const nav = [
   :global(.header-hidden) .site-header { transform: translateY(calc(-100% + 0px)); }
 
   .announce {
-    height: 34px; display: grid; place-items: center; overflow: hidden;
+    height: var(--announce-h); display: grid; place-items: center; overflow: hidden;
     background: var(--plum); color: rgba(247, 242, 235, 0.86);
     font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
     padding-inline: 1rem;
@@ -102,7 +102,7 @@ const nav = [
   }
   .nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); transform-origin: left; }
 
-  .logo { position: relative; display: block; width: clamp(150px, 15vw, 210px); }
+  .logo { position: relative; display: block; width: clamp(138px, 15vw, 210px); }
   .logo img { width: 100%; height: auto; }
   .logo__light { position: absolute; inset: 0; opacity: 0; }
 
@@ -123,14 +123,14 @@ const nav = [
   .menu {
     position: fixed; inset: 0; z-index: 90;
     background: var(--plum); color: var(--bone);
-    padding-top: calc(var(--header-h) + 34px + 2rem);
+    padding-top: calc(var(--top-h) + 2rem);
     overflow: hidden auto;
   }
   .menu[hidden] { display: none; }
   .menu__inner { min-height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; padding-bottom: 2.5rem; }
   .menu__nav { display: flex; flex-direction: column; }
   .menu__link {
-    font-family: var(--serif); font-weight: 300; font-size: clamp(2.8rem, 11vw, 5rem); line-height: 1.08;
+    font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 10.5vw, 5rem); line-height: 1.1;
     display: block; overflow: hidden;
   }
   .menu__link:hover { color: var(--honey-soft); font-style: italic; }
@@ -152,7 +152,11 @@ const nav = [
     .bar { grid-template-columns: auto 1fr auto; }
     .logo { grid-column: 1; }
     .nav--right { grid-column: 3; gap: 0.25rem; }
-    .announce { font-size: 0.58rem; letter-spacing: 0.14em; }
+    .announce { font-size: 0.58rem; letter-spacing: 0.16em; }
+    .icon-btn, .menu-btn { width: 44px; height: 44px; }
+    .menu-btn__line:first-of-type { top: 18px; }
+    .menu-btn__line:last-of-type { top: 25px; }
+    .menu-btn[aria-expanded='true'] .menu-btn__line { top: 22px !important; }
     .announce__long { display: none; }
     .announce__short { display: block; }
   }

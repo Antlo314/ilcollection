@@ -32,7 +32,7 @@ import { site, faqs, media } from '../data/site';
         <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
         <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="5"></textarea></div>
         <p class="form__error" data-form-error role="alert" hidden>Please add your name and a valid email.</p>
-        <button type="submit" class="btn btn--block">Send message <span class="arrow" aria-hidden="true">→</span></button>
+        <button type="submit" class="btn btn--block">Send your note <span class="arrow" aria-hidden="true">→</span></button>
         <p class="form__note muted">Sending opens your email app with your message ready to go to {site.email}.</p>
       </form>
     </div>
@@ -42,7 +42,7 @@ import { site, faqs, media } from '../data/site';
     <div class="wrap faq">
       <div class="faq__head">
         <p class="eyebrow" data-reveal>Frequently asked</p>
-        <h2 class="h2" data-split>Questions, <em>answered.</em></h2>
+        <h2 class="h2" data-split>Questions, <em>gently answered.</em></h2>
         <div class="frame frame--arch faq__img" data-clip>
           <Img media={media.brand.salveInfographic} alt="Healing Salve benefits: 100% plant-based, vegan, anti-aging, moisture retention, non-comedogenic, gentle for sensitive skin" sizes="(max-width: 960px) 70vw, 28vw" />
         </div>
@@ -76,13 +76,14 @@ import { site, faqs, media } from '../data/site';
 </script>
 
 <style>
-  .contact { padding: calc(var(--header-h) + 34px + clamp(3rem, 9vh, 6rem)) 0 var(--section); }
+  .contact { padding: calc(var(--top-h) + clamp(3rem, 9vh, 6rem)) 0 var(--section); }
   .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 7vw, 8rem); align-items: start; }
   .contact__intro { display: grid; gap: 1.6rem; justify-items: start; }
   .details { display: grid; gap: 0; width: 100%; margin-top: 1rem; border-top: 1px solid rgba(34, 23, 39, 0.12); }
   .details > div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(34, 23, 39, 0.12); }
   .details dt { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute); padding-top: 0.2rem; }
   .details dd { margin: 0; }
+  .details a { display: inline-block; padding-block: 0.55rem; margin-block: -0.55rem; }
   .details a:hover { color: var(--lily); }
   .details__social { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
 

@@ -11,7 +11,7 @@ export const site = {
   short: 'IL Collection',
   tagline: 'Black-owned, plant-based body care',
   description:
-    'Luxurious, plant-based wellness and body care crafted with pure ingredients and divine intention. Black-owned and handmade in small batches.',
+    'Velvety, plant-based body care and wellness — lovingly handmade in small batches with pure ingredients and divine intention. Black-owned.',
   email: 'ilcollection@nebaministry.org',
   phone: '(470) 562-2852',
   phoneHref: 'tel:+14705622852',
@@ -33,7 +33,7 @@ export const collections = [
   { key: 'body', label: 'Body' },
   { key: 'wellness', label: 'Wellness' },
   { key: 'home', label: 'Home & Aroma' },
-  { key: 'rituals', label: 'Rituals & Sets' },
+  { key: 'indulgences', label: 'Indulgences' },
   { key: 'devotional', label: 'Devotionals' },
 ] as const;
 

@@ -108,8 +108,8 @@ const jsonLd = {
           </form>
 
           <div class="buy" data-reveal data-buy>
-            <a href={product.buyUrl} class="btn btn--block" data-magnetic>Purchase <span class="arrow" aria-hidden="true">→</span></a>
-            <p class="buy__note muted">Secure checkout on the IL Collection store · Ships in 2–4 business days</p>
+            <a href={product.buyUrl} class="btn btn--block" data-magnetic>Make it yours <span class="arrow" aria-hidden="true">→</span></a>
+            <p class="buy__note muted">Secure checkout on the IL Collection store · Lovingly packed in 2–4 business days</p>
           </div>
 
           <ul class="standard" role="list" data-reveal>
@@ -138,14 +138,14 @@ const jsonLd = {
               </details>
             ))}
             <details>
-              <summary>The ILC Standard<span class="plus" aria-hidden="true"></span></summary>
+              <summary>Our Gentle Promise<span class="plus" aria-hidden="true"></span></summary>
               <div class="panel"><div class="panel-inner prose">
                 <p>Products created with plants to combat premature aging, nurture hypersensitive skin, and help skin naturally heal — aiding common conditions such as eczema, acne, hyperpigmentation, psoriasis, and scarring.</p>
                 <ul>{standard.map((s) => <li>{s}</li>)}</ul>
               </div></div>
             </details>
             <details>
-              <summary>Shipping &amp; Care<span class="plus" aria-hidden="true"></span></summary>
+              <summary>Shipping &amp; Tender Care<span class="plus" aria-hidden="true"></span></summary>
               <div class="panel"><div class="panel-inner prose">
                 <p>Orders are made in small batches and processed within 2–4 business days. Standard shipping arrives 3–7 business days after processing; expedited in 2–3. We currently ship within the United States and to the US Virgin Islands.</p>
                 <p>Because our products are handmade, personal-use items, all sales are final. If your order arrives damaged or incorrect, contact us within 48 hours. <a href="/shipping-returns">Read the full policy</a>.</p>
@@ -160,7 +160,7 @@ const jsonLd = {
   <section class="section related bg-linen">
     <div class="wrap">
       <div class="related__head">
-        <p class="eyebrow" data-reveal>Complete the ritual</p>
+        <p class="eyebrow" data-reveal>Layer the glow</p>
         <h2 class="h2" data-split>Pairs <em>beautifully</em> with</h2>
       </div>
       <div class="related__grid">
@@ -175,7 +175,7 @@ const jsonLd = {
         <span class="buybar__name">{product.name}</span>
         <span class="buybar__price" data-price>{money(startPrice)}</span>
       </div>
-      <a href={product.buyUrl} class="btn" tabindex="-1">Purchase</a>
+      <a href={product.buyUrl} class="btn" tabindex="-1">Make it yours</a>
     </div>
   </div>
 </Base>
@@ -237,9 +237,10 @@ const jsonLd = {
 </script>
 
 <style>
-  .pdp { padding-top: calc(var(--header-h) + 34px + 2rem); padding-bottom: var(--section); }
+  .pdp { padding-top: calc(var(--top-h) + 2rem); padding-bottom: var(--section); }
   .pdp__grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 1.5rem clamp(2rem, 5vw, 6rem); }
   .crumbs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); }
+  .crumbs a { padding-block: 0.6rem; }
   .crumbs a:hover { color: var(--lily); }
   .crumbs [aria-current] { color: var(--ink); }
 
@@ -255,7 +256,7 @@ const jsonLd = {
 
   /* info */
   .info { min-width: 0; }
-  .info__sticky { position: sticky; top: calc(var(--header-h) + 34px + 1.5rem); display: grid; gap: 1.3rem; padding-bottom: 2rem; }
+  .info__sticky { position: sticky; top: calc(var(--top-h) + 1.5rem); display: grid; gap: 1.3rem; padding-bottom: 2rem; }
   .info__ribbon { justify-self: start; background: var(--linen); }
   .info__name { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 1.6rem + 2.4vw, 3.9rem); line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance; }
   .info__sub { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
@@ -330,4 +331,6 @@ const jsonLd = {
     .related__grid { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; }
   }
   @media (min-width: 961px) { .buybar { display: none; } }
+  @media (hover: none) { .swatch { width: 2.75rem; height: 2.75rem; } .pill { min-height: 3rem; } }
+  @media (max-width: 420px) { .standard { grid-template-columns: 1fr; } }
 </style>

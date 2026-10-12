@@ -4,7 +4,7 @@ import Img from '../../components/Img.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { products, collections, media } from '../../data/site';
 
-// Merchandised order: signature skin + body first, rituals and devotionals last.
+// Merchandised order: signature skin + body first, indulgences and devotionals last.
 const order = [
   'favor-face-serum', 'illumine-brightening-serum', 'brightstar-glow-bar', 'whole-body-healing-salve', 'blush-bloom-toner',
   'brightstar-cleanser', 'manuka-honey-mask', 'lip-love-balm', 'woke-body-oil', 'lemongrass-growth-mist',
@@ -15,12 +15,12 @@ const order = [
 const sorted = [...products].sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
 const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all' ? products.length : products.filter((p) => p.tags.includes(c.key)).length]));
 ---
-<Base title="Shop the Collection" description="Shop the Incandescent Lily Collection: plant-based skin care, hair care, body oils, herbal teas, candles, and curated rituals — handmade in small batches.">
+<Base title="Shop the Collection" description="Shop the Incandescent Lily Collection: plant-based skin care, hair care, body oils, herbal teas, candles, and curated indulgences — lovingly handmade in small batches.">
   <section class="shop-hero" data-hero>
     <div class="wrap shop-hero__inner">
       <p class="eyebrow" data-reveal>The Collection</p>
-      <h1 class="h1" data-split>Pure plants, <em>poured with intention.</em></h1>
-      <p class="lead" data-reveal>Every formula is 100% plant-based and handmade in small batches — free of parabens, sulfates, dyes, and synthetic fragrance.</p>
+      <h1 class="h1" data-split>Pure plants, <em>poured with love.</em></h1>
+      <p class="lead" data-reveal>Every formula is 100% plant-based and lovingly handmade in small batches — nothing harsh, nothing synthetic, only what your skin adores.</p>
     </div>
     <div class="shop-hero__band wrap" data-parallax-scope>
       <div class="frame frame--soft shop-hero__img" data-clip>
@@ -99,7 +99,7 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
 </script>
 
 <style>
-  .shop-hero { padding-top: calc(var(--header-h) + 34px + clamp(3rem, 8vh, 6rem)); }
+  .shop-hero { padding-top: calc(var(--top-h) + clamp(3rem, 8vh, 6rem)); }
   .shop-hero__inner { display: grid; grid-template-columns: 1fr minmax(0, 24rem); gap: 1.6rem 3rem; align-items: end; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
   .shop-hero__inner .eyebrow { grid-column: 1 / -1; }
   .shop-hero__inner h1 { max-width: 13ch; }
@@ -112,7 +112,7 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
   :global(.header-hidden) .filters { top: 0.75rem; }
   .filters {
     display: flex; gap: 0.5rem; flex-wrap: wrap;
-    position: sticky; top: calc(var(--header-h) + 34px + 0.75rem); z-index: 5;
+    position: sticky; top: calc(var(--top-h) + 0.75rem); z-index: 5;
     transition: top 0.7s var(--ease-out);
     padding: 0.5rem; margin: 0 -0.5rem;
   }
@@ -124,7 +124,7 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
     font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
     transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out), border-color 0.4s;
   }
-  .chip sup { font-size: 0.62em; letter-spacing: 0.05em; opacity: 0.6; top: -0.1em; }
+  .chip sup { font-size: 0.62rem; letter-spacing: 0.04em; opacity: 0.6; top: -0.15em; }
   .chip:hover { border-color: var(--ink); }
   .chip.is-active { background: var(--ink); color: var(--bone); border-color: var(--ink); }
   .shop__count { margin: 1.4rem 0 2rem; font-size: 0.85rem; letter-spacing: 0.04em; }
@@ -135,7 +135,7 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
     .shop-hero__img { aspect-ratio: 16 / 10; }
     .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
     .filters::-webkit-scrollbar { display: none; }
-    .chip { flex: none; }
+    .chip { flex: none; min-height: 2.75rem; align-items: center; padding: 0 1.1rem; }
     :global(.card__name) { font-size: 1.2rem; }
   }
   @media (max-width: 420px) {

@@ -13,22 +13,22 @@ const mostLoved = [
   'awaken-healing-candle', 'favor-face-serum', 'lemongrass-growth-mist', 'brightstar-cleanser', 'manuka-honey-mask',
 ].map(bySlug);
 
-const rituals = ['incandescent-luxe-box', 'glow-grow-duo', 'woke-his-hers-set', 'four-step-miracle-kit'].map(bySlug);
+const indulgences = ['incandescent-luxe-box', 'glow-grow-duo', 'woke-his-hers-set', 'four-step-miracle-kit'].map(bySlug);
 
 const pillars = [
   {
     word: 'Spirit', img: b.lifeTeaBible, alt: 'An open Bible and journal beside a cup of Garden Restoré tea',
-    copy: 'Light the Awaken™ candle, steep a cup of tea, and open a 30-day devotional — moments of reflection, prayer, and rest.',
+    copy: 'Light the Awaken™ candle, let a cup of tea steep slowly, and settle into a 30-day devotional — quiet moments for reflection, prayer, and rest.',
     links: [{ href: '/shop?c=devotional', label: 'Devotionals' }, { href: '/shop/awaken-healing-candle', label: 'Awaken Candle' }],
   },
   {
     word: 'Mind', img: b.lifeMistsTray, alt: 'Three Enlighten Mist bottles on a stone tray with eucalyptus',
-    copy: 'Layered aromas and potent herbal blends that bring calm, clarity, and quiet sophistication to every space you move through.',
+    copy: 'Lingering aromas and warm herbal blends that soften the air around you and invite calm, clarity, and ease.',
     links: [{ href: '/shop/enlighten-mist', label: 'Enlighten Mist' }, { href: '/shop/garden-restore-teas', label: 'Teas' }],
   },
   {
     word: 'Body', img: b.lifeLocs, alt: 'A woman with long locs misting her hair with Lemongrass Growth & Refresher Mist',
-    copy: 'Healing botanicals, butters, and oils that nurture skin and hair — from eczema-prone skin to locs, curls, and beards.',
+    copy: 'Silky oils, rich butters, and healing botanicals that melt into skin and hair — tender enough for eczema-prone skin, locs, curls, and beards.',
     links: [{ href: '/shop?c=skin', label: 'Skin' }, { href: '/shop?c=hair', label: 'Hair' }],
   },
 ];
@@ -42,20 +42,20 @@ const results = [
 ];
 
 const blends = [
-  { name: 'Vital Balance™', note: 'Moroccan green tea for daily balance, natural energy & skin radiance' },
-  { name: 'Revive Essence™', note: 'Rhodiola & gotu kola for clarity, focus & balanced energy' },
-  { name: 'Metabolic Blossom™', note: 'A gentle daily detox to support digestion & ease bloating' },
-  { name: 'Sacred Stillness™', note: 'A calming nighttime blend for deep, peaceful rest' },
-  { name: 'Eve’s Ease™', note: 'A restorative women’s blend for monthly & midlife balance' },
+  { name: 'Vital Balance™', note: 'Moroccan green tea for gentle energy, balance & radiant skin' },
+  { name: 'Revive Essence™', note: 'Rhodiola & gotu kola for a clear, softly focused mind' },
+  { name: 'Metabolic Blossom™', note: 'A light daily cleanse that soothes digestion & bloating' },
+  { name: 'Sacred Stillness™', note: 'A calming evening cup for deep, peaceful rest' },
+  { name: 'Eve’s Ease™', note: 'A comforting women’s blend for monthly & midlife balance' },
 ];
 
 const gallery = [
   { img: b.lifeLip, alt: 'A smiling woman applying Lip Love balm', label: 'Lip Love™', href: '/shop/lip-love-balm', speed: 0.12 },
-  { img: b.lifeBeard, alt: 'A man misting his beard with Lemongrass mist', label: 'Beard care', href: '/shop/lemongrass-growth-mist', speed: -0.1 },
+  { img: b.lifeBeard, alt: 'A man misting his beard with Lemongrass mist', label: 'Beard care', href: '/shop/lemongrass-growth-mist', speed: 0.1 },
   { img: b.lifeLinen, alt: 'A woman misting her bed linens before rest', label: 'Linen mist for deeper rest', href: '/shop/lemongrass-growth-mist', speed: 0.18 },
-  { img: b.lifeTowel, alt: 'A woman wearing the Manuka Honey mask', label: 'Manuka Honey Mask', href: '/shop/manuka-honey-mask', speed: -0.06 },
+  { img: b.lifeTowel, alt: 'A woman wearing the Manuka Honey mask', label: 'Manuka Honey Mask', href: '/shop/manuka-honey-mask', speed: 0.06 },
   { img: b.lifeLipHim, alt: 'A man applying Lip Love balm', label: 'Lip Love™ for him', href: '/shop/lip-love-balm', speed: 0.1 },
-  { img: b.lifeCleanser, alt: 'Brightstar cleanser bottles on a wooden tray', label: 'Brightstar™ Cleanser', href: '/shop/brightstar-cleanser', speed: -0.14 },
+  { img: b.lifeCleanser, alt: 'Brightstar cleanser bottles on a wooden tray', label: 'Brightstar™ Cleanser', href: '/shop/brightstar-cleanser', speed: 0.14 },
 ];
 
 const reign = bySlug('reign-sanitary-napkins');
@@ -65,11 +65,11 @@ const reign = bySlug('reign-sanitary-napkins');
   <section class="hero" data-hero>
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="eyebrow" data-reveal>Plant-based wellness &amp; body care</p>
-        <h1 class="h1" data-split>Rooted in <em>purity.</em> Crafted with <em>purpose.</em></h1>
-        <p class="lead" data-reveal>Luxurious body care made from the plants given to us by God — for the way you nurture your spirit, mind, and body.</p>
+        <p class="eyebrow" data-reveal>Plant-born body care, made by hand</p>
+        <h1 class="h1 hero__title" data-split>Tender care,<br /> rooted in <em>purity.</em></h1>
+        <p class="lead" data-reveal>Velvety oils, healing butters, and warm botanicals — lovingly made from the plants God gave us, so your spirit, mind, and body feel cherished.</p>
         <div class="hero__ctas" data-reveal>
-          <a href="/shop" class="btn" data-magnetic>Shop the Collection <span class="arrow" aria-hidden="true">→</span></a>
+          <a href="/shop" class="btn" data-magnetic>Explore the Collection <span class="arrow" aria-hidden="true">→</span></a>
           <a href="/our-story" class="link-line">Our Story</a>
         </div>
       </div>
@@ -97,25 +97,25 @@ const reign = bySlug('reign-sanitary-napkins');
 
   <Marquee items={values} />
 
-  <!-- ============ MOST LOVED ============ -->
+  <!-- ============ MOST ADORED ============ -->
   <section class="section" id="loved">
     <div class="wrap section-head">
       <div>
-        <p class="eyebrow" data-reveal>Most Loved</p>
-        <h2 class="h2" data-split>Rituals our community <em>returns to.</em></h2>
+        <p class="eyebrow" data-reveal>Most Adored</p>
+        <h2 class="h2" data-split>Little luxuries our community <em>keeps reaching for.</em></h2>
       </div>
       <div class="section-head__aside" data-reveal>
         <div class="rail-nav">
           <button class="rail-btn" type="button" data-rail-prev aria-label="Previous products">←</button>
           <button class="rail-btn" type="button" data-rail-next aria-label="Next products">→</button>
         </div>
-        <a href="/shop" class="link-line">Shop all</a>
+        <a href="/shop" class="link-line">Explore all</a>
       </div>
     </div>
     <div class="rail" data-rail data-drag-scroll>
       {mostLoved.map((p, i) => (
         <div class="rail__item" data-reveal>
-          <ProductCard product={p} sizes="(max-width: 640px) 75vw, (max-width: 1100px) 40vw, 24vw" eager={i < 2} />
+          <ProductCard product={p} sizes="(max-width: 640px) 72vw, (max-width: 1100px) 40vw, 24vw" eager={i < 2} />
         </div>
       ))}
     </div>
@@ -125,26 +125,26 @@ const reign = bySlug('reign-sanitary-napkins');
   <section class="section bg-linen pillars">
     <div class="wrap">
       <div class="pillars__head">
-        <p class="eyebrow" data-reveal>Holistic by design</p>
+        <p class="eyebrow" data-reveal>A gentler way to glow</p>
         <h2 class="display" data-split>True beauty is nurtured in <em>spirit, mind &amp; body.</em></h2>
       </div>
-      <div class="pillars__grid">
-        {pillars.map((p, i) => (
-          <article class="pillar" style={`--i:${i}`}>
-            <div class="frame frame--arch pillar__img" data-clip data-parallax-scope>
-              <div data-parallax="0.12" class="pillar__parallax">
-                <Img media={p.img} alt={p.alt} sizes="(max-width: 860px) 90vw, 30vw" />
-              </div>
+    </div>
+    <div class="pillars__grid" data-drag-scroll>
+      {pillars.map((p, i) => (
+        <article class="pillar">
+          <div class="frame frame--arch pillar__img" data-clip data-parallax-scope>
+            <div data-parallax="0.12" class="pillar__parallax">
+              <Img media={p.img} alt={p.alt} sizes="(max-width: 860px) 78vw, 30vw" />
             </div>
-            <p class="pillar__num" data-reveal>0{i + 1}</p>
-            <h3 class="pillar__word" data-reveal>{p.word}</h3>
-            <p class="pillar__copy" data-reveal>{p.copy}</p>
-            <div class="pillar__links" data-reveal>
-              {p.links.map((l) => <a href={l.href} class="link-line">{l.label}</a>)}
-            </div>
-          </article>
-        ))}
-      </div>
+          </div>
+          <p class="pillar__num" data-reveal>0{i + 1}</p>
+          <h3 class="pillar__word" data-reveal>{p.word}</h3>
+          <p class="pillar__copy" data-reveal>{p.copy}</p>
+          <div class="pillar__links" data-reveal>
+            {p.links.map((l) => <a href={l.href} class="link-line">{l.label}</a>)}
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -183,47 +183,49 @@ const reign = bySlug('reign-sanitary-napkins');
         <video src={v['manuka-pour'].src} poster={v['manuka-pour'].poster} autoplay muted loop playsinline preload="metadata" aria-label="Manuka honey mask being poured into a jar"></video>
       </div>
       <div class="textures__copy">
-        <p class="eyebrow" data-reveal>Handmade in small batches</p>
-        <h2 class="h2" data-split>Raw honey. Botanical oils. <em>Pure intention.</em></h2>
-        <p class="lead" data-reveal>Every order is prepared in small batches with care and intention, so you receive each formula in its purest form — velvety, potent, and alive.</p>
+        <p class="eyebrow" data-reveal>Made slowly, by hand</p>
+        <h2 class="h2" data-split>Warm honey. Silken oils. <em>Pure intention.</em></h2>
+        <p class="lead" data-reveal>Every jar is poured in small batches with care, so each formula reaches you at its purest — velvety, potent, and alive on the skin.</p>
         <div class="textures__drop" data-reveal>
           <div class="frame textures__circle">
             <video src={v['oil-drop'].src} poster={v['oil-drop'].poster} autoplay muted loop playsinline preload="metadata" aria-label="A golden drop of Brightstar cleanser"></video>
           </div>
-          <p><span class="eyebrow eyebrow--plain">Brightstar™ Cleanser</span><br />Manuka honey + turmeric, gentle enough for daily use.</p>
+          <p><span class="eyebrow eyebrow--plain">Brightstar™ Cleanser</span><br />Manuka honey and turmeric, gentle enough for every day.</p>
         </div>
-        <a href="/shop/manuka-honey-mask" class="btn btn--ghost" data-reveal data-magnetic>Discover the Manuka Mask <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/shop/manuka-honey-mask" class="btn btn--ghost" data-reveal data-magnetic>Melt into the Manuka Mask <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
 
-  <!-- ============ RITUALS (pinned horizontal) ============ -->
-  <section class="rituals bg-linen" data-hscroll>
-    <div class="rituals__track" data-hscroll-track>
-      <div class="rituals__intro">
-        <p class="eyebrow" data-reveal>Bundle &amp; Save</p>
-        <h2 class="display" data-split>Rituals, <em>curated.</em></h2>
-        <p class="lead" data-reveal>Thoughtfully curated kits that turn your daily routine into a spa-like experience at home — and make a beautiful gift.</p>
-        <a href="/shop?c=rituals" class="link-line" data-reveal>All rituals &amp; sets</a>
+  <!-- ============ INDULGENCES (pinned horizontal on desktop, swipe on mobile) ============ -->
+  <section class="indulge bg-linen" data-hscroll>
+    <div class="indulge__track" data-hscroll-track>
+      <div class="indulge__intro">
+        <p class="eyebrow" data-reveal>Better together</p>
+        <h2 class="display" data-split>Indulgences, <em>softly curated.</em></h2>
+        <p class="lead" data-reveal>Thoughtfully paired sets that turn an ordinary evening into a spa-like moment at home — and make the most tender gift.</p>
+        <a href="/shop?c=indulgences" class="link-line" data-reveal>All indulgences &amp; sets</a>
       </div>
-      {rituals.map((p, i) => (
-        <a href={`/shop/${p.slug}`} class="ritual" data-hscroll-item>
-          <div class="ritual__media frame frame--soft">
-            <Img media={firstImage(p)} alt={p.name} sizes="(max-width: 960px) 85vw, 40vw" />
-            {p.ribbon && <span class="ribbon ritual__ribbon">{p.ribbon}</span>}
-          </div>
-          <div class="ritual__meta">
-            <span class="ritual__num">0{i + 1}</span>
-            <div>
-              <h3 class="h3">{p.name}</h3>
-              <p class="muted">{p.sub}</p>
+      <div class="indulge__cards" data-drag-scroll>
+        {indulgences.map((p, i) => (
+          <a href={`/shop/${p.slug}`} class="set" data-hscroll-item>
+            <div class="set__media frame frame--soft">
+              <Img media={firstImage(p)} alt={p.name} sizes="(max-width: 960px) 82vw, 40vw" />
+              {p.ribbon && <span class="ribbon set__ribbon">{p.ribbon}</span>}
             </div>
-            <span class="ritual__price">{priceLabel(p)}</span>
-          </div>
-        </a>
-      ))}
+            <div class="set__meta">
+              <span class="set__num">0{i + 1}</span>
+              <div>
+                <h3 class="set__name">{p.name}</h3>
+                <p class="muted set__sub">{p.sub}</p>
+              </div>
+              <span class="set__price">{priceLabel(p)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
-    <div class="rituals__progress" aria-hidden="true"><span data-hscroll-progress></span></div>
+    <div class="indulge__progress" aria-hidden="true"><span data-hscroll-progress></span></div>
   </section>
 
   <!-- ============ RESULTS ============ -->
@@ -239,7 +241,7 @@ const reign = bySlug('reign-sanitary-napkins');
       {results.map((r) => (
         <a href={r.href} class="result" data-reveal>
           <div class="frame frame--soft result__img">
-            <Img media={r.img} alt={`Before and after: ${r.title}, ${r.note}`} sizes="(max-width: 640px) 80vw, 30vw" />
+            <Img media={r.img} alt={`Before and after: ${r.title}, ${r.note}`} sizes="(max-width: 640px) 78vw, 30vw" />
           </div>
           <p class="result__note eyebrow eyebrow--plain">{r.note}</p>
           <h3 class="result__title">{r.title}</h3>
@@ -258,13 +260,13 @@ const reign = bySlug('reign-sanitary-napkins');
           </div>
         </div>
         <div class="garden__pouch halo" data-reveal>
-          <Img media={b.teaPouch} alt="Garden Restoré tea pouch with a steeped cup" sizes="(max-width: 960px) 50vw, 22vw" />
+          <Img media={b.teaPouch} alt="Garden Restoré tea pouch with a steeped cup" sizes="(max-width: 960px) 46vw, 22vw" />
         </div>
       </div>
       <div class="garden__copy">
         <p class="eyebrow" data-reveal>Garden Restoré™ Teas</p>
         <h2 class="h2" data-split>Restoration begins in <em>the Garden.</em></h2>
-        <p class="lead" data-reveal>Potent blends of raw roots, leaves, and bark — carefully cut, sifted, and cleansed, then sealed in organic corn-fiber sachets.</p>
+        <p class="lead" data-reveal>Raw roots, leaves, and bark — gently cut, sifted, and cleansed, then sealed in organic corn-fiber sachets for a slow, soothing steep.</p>
         <ol class="blends" role="list">
           {blends.map((bl, i) => (
             <li data-reveal>
@@ -274,7 +276,7 @@ const reign = bySlug('reign-sanitary-napkins');
             </li>
           ))}
         </ol>
-        <a href="/shop/garden-restore-teas" class="btn" data-reveal data-magnetic>Explore the blends <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/shop/garden-restore-teas" class="btn" data-reveal data-magnetic>Find your blend <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -285,14 +287,14 @@ const reign = bySlug('reign-sanitary-napkins');
       <div class="gallery__head">
         <p class="eyebrow" data-reveal>For every crown</p>
         <h2 class="display" data-split>Every texture, <em>every tone.</em></h2>
-        <p class="lead" data-reveal>Gentle yet effective for locs, braids, curls, beards, and sensitive skin — plant-based blends that adapt to your body’s natural rhythms.</p>
+        <p class="lead" data-reveal>Soft enough for sensitive skin, nourishing enough for locs, braids, curls, and beards — plant-based blends that move with your body’s natural rhythms.</p>
       </div>
       <div class="gallery__grid">
         {gallery.map((g) => (
           <a href={g.href} class="gallery__item" data-parallax-scope>
             <div class="frame frame--soft" data-clip>
-              <div data-parallax={String(Math.abs(g.speed))} class="gallery__parallax">
-                <Img media={g.img} alt={g.alt} sizes="(max-width: 700px) 50vw, 32vw" />
+              <div data-parallax={String(g.speed)} class="gallery__parallax">
+                <Img media={g.img} alt={g.alt} sizes="(max-width: 700px) 46vw, 32vw" />
               </div>
             </div>
             <span class="gallery__label">{g.label} <span aria-hidden="true">↗</span></span>
@@ -307,10 +309,10 @@ const reign = bySlug('reign-sanitary-napkins');
     <div class="wrap reign__grid">
       <div class="reign__copy">
         <span class="ribbon">HSA Eligible</span>
-        <h2 class="h2" data-split>Feminine wellness, <em>made pure.</em></h2>
-        <p class="lead" data-reveal>Reign pads are all-natural and ultra-thin, designed without harmful chemicals or fragrances — with a super-soft top layer, high leak guards, and a graphene mineral strip.</p>
+        <h2 class="h2" data-split>Soft protection, <em>made pure.</em></h2>
+        <p class="lead" data-reveal>Reign pads are all-natural and ultra-thin, made without harsh chemicals or fragrances — with a cloud-soft top layer, gentle leak guards, and a graphene mineral strip.</p>
         <div class="reign__row" data-reveal>
-          <a href={`/shop/${reign.slug}`} class="btn" data-magnetic>Shop Reign <span class="arrow" aria-hidden="true">→</span></a>
+          <a href={`/shop/${reign.slug}`} class="btn" data-magnetic>Discover Reign <span class="arrow" aria-hidden="true">→</span></a>
           <span class="muted">{priceLabel(reign)}</span>
         </div>
       </div>
@@ -323,11 +325,11 @@ const reign = bySlug('reign-sanitary-napkins');
   <!-- ============ FAQ ============ -->
   <section class="section faq">
     <div class="wrap faq__grid">
-      <div>
+      <div class="faq__head">
         <p class="eyebrow" data-reveal>Good to know</p>
-        <h2 class="h2" data-split>Questions, <em>answered.</em></h2>
-        <p class="lead" data-reveal>Still wondering? We’re here Monday through Friday.</p>
-        <a href="/contact" class="link-line" data-reveal>Contact customer care</a>
+        <h2 class="h2" data-split>Questions, <em>gently answered.</em></h2>
+        <p class="lead" data-reveal>Still curious? We’d love to hear from you, Monday through Friday.</p>
+        <a href="/contact" class="link-line" data-reveal>Reach out to us</a>
       </div>
       <div class="accordion" data-reveal>
         {faqs.map((f) => (
@@ -343,7 +345,7 @@ const reign = bySlug('reign-sanitary-napkins');
   <!-- ============ COMMUNITY ============ -->
   <section class="section--tight community">
     <div class="wrap community__inner">
-      <p class="eyebrow eyebrow--plain" data-reveal>Join the community</p>
+      <p class="eyebrow eyebrow--plain" data-reveal>Come glow with us</p>
       <a href={site.social.instagram} target="_blank" rel="noopener" class="community__handle" data-split>{site.handle}</a>
       <div class="community__links" data-reveal>
         <a href={site.social.instagram} target="_blank" rel="noopener" class="btn btn--ghost">Instagram</a>
@@ -356,15 +358,16 @@ const reign = bySlug('reign-sanitary-napkins');
 
 <style>
   /* ---------- hero ---------- */
-  .hero { position: relative; min-height: 100svh; padding: calc(var(--header-h) + 34px + clamp(2rem, 6vh, 5rem)) 0 clamp(3rem, 8vh, 6rem); display: flex; align-items: center; }
+  .hero { position: relative; min-height: 100svh; padding: calc(var(--top-h) + clamp(2rem, 6vh, 5rem)) 0 clamp(3rem, 8vh, 6rem); display: flex; align-items: center; }
   .hero__grid { display: grid; grid-template-columns: 1.08fr 0.92fr; align-items: center; gap: clamp(2rem, 5vw, 6rem); }
   .hero__copy { display: grid; gap: clamp(1.4rem, 2.6vw, 2.2rem); justify-items: start; }
-  .hero__copy .lead { max-width: 34ch; }
+  .hero__title { text-wrap: wrap; }
+  .hero__copy .lead { max-width: 36ch; }
   .hero__ctas { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 0.4rem; }
   .hero__art { position: relative; padding: 4% 8% 10% 12%; }
   .hero__arch .frame { aspect-ratio: 3 / 4; }
   .hero__inset { position: absolute; left: 0; bottom: 2%; width: 40%; aspect-ratio: 1; border: 6px solid var(--bone); border-radius: 50%; }
-  .badge { position: absolute; right: 0; top: 0; width: clamp(110px, 11vw, 150px); aspect-ratio: 1; display: grid; place-items: center; }
+  .badge { position: absolute; right: 0; top: 0; width: clamp(96px, 11vw, 150px); aspect-ratio: 1; display: grid; place-items: center; }
   .badge__ring { position: absolute; inset: 0; width: 100%; height: 100%; }
   .badge__ring text { font-family: var(--sans); font-size: 13.4px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; fill: var(--ink); }
   .badge__lily { width: 38%; height: auto; }
@@ -375,7 +378,7 @@ const reign = bySlug('reign-sanitary-napkins');
 
   /* ---------- section heads & rails ---------- */
   .section-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(2.4rem, 5vw, 4rem); }
-  .section-head h2 { margin-top: 1.1rem; max-width: 15ch; }
+  .section-head h2 { margin-top: 1.1rem; max-width: 16ch; }
   .section-head__aside { display: flex; align-items: center; gap: 2rem; flex: none; }
   .section-head__note { max-width: 30ch; font-size: 0.9rem; }
   .rail-nav { display: flex; gap: 0.5rem; }
@@ -384,19 +387,21 @@ const reign = bySlug('reign-sanitary-napkins');
   .rail {
     display: grid; grid-auto-flow: column; grid-auto-columns: clamp(250px, 23vw, 340px); gap: clamp(1rem, 2vw, 1.75rem);
     overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
-    padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
-    scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2 + var(--gutter)));
+    padding-inline: var(--rail-pad); scroll-padding-inline: var(--rail-pad);
     padding-bottom: 0.5rem;
   }
   .rail::-webkit-scrollbar { display: none; }
   .rail > * { scroll-snap-align: start; }
-  .rail.is-dragging { scroll-snap-type: none; cursor: grabbing; }
-  .rail.is-dragging a { pointer-events: none; }
+  .rail.is-dragging, .pillars__grid.is-dragging, .indulge__cards.is-dragging { scroll-snap-type: none; cursor: grabbing; }
+  .rail.is-dragging a, .indulge__cards.is-dragging a { pointer-events: none; }
 
   /* ---------- pillars ---------- */
   .pillars__head { text-align: center; display: grid; justify-items: center; gap: 1.4rem; margin-bottom: clamp(3rem, 6vw, 5.5rem); }
   .pillars__head h2 { max-width: 17ch; }
-  .pillars__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3vw, 3rem); }
+  .pillars__grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3vw, 3rem);
+    width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter);
+  }
   .pillar { display: grid; gap: 0.8rem; align-content: start; }
   .pillar:nth-child(2) { margin-top: clamp(0rem, 6vw, 6rem); }
   .pillar__img { aspect-ratio: 4 / 5; margin-bottom: 1.4rem; }
@@ -419,7 +424,7 @@ const reign = bySlug('reign-sanitary-napkins');
   .mission__inner { position: relative; display: grid; justify-items: center; gap: 2rem; }
   .mission__eyebrow { color: var(--honey-soft); }
   .mission__text {
-    font-family: var(--serif); font-weight: 300; font-size: clamp(1.75rem, 1rem + 2.6vw, 3.4rem); line-height: 1.22;
+    font-family: var(--serif); font-weight: 300; font-size: clamp(1.5rem, 1rem + 2.4vw, 3.3rem); line-height: 1.24;
     max-width: 30ch; text-wrap: pretty; letter-spacing: -0.005em;
   }
   .mission__values { display: grid; grid-template-columns: repeat(4, auto); gap: clamp(1.5rem, 5vw, 5rem); margin-top: 2.5rem; color: var(--honey-soft); }
@@ -433,24 +438,26 @@ const reign = bySlug('reign-sanitary-napkins');
   .textures__drop { display: flex; align-items: center; gap: 1.4rem; padding: 1.2rem 0; border-block: 1px solid rgba(34, 23, 39, 0.12); width: 100%; color: var(--ink-soft); font-size: 0.95rem; }
   .textures__circle { width: 96px; height: 96px; border-radius: 50%; flex: none; }
 
-  /* ---------- rituals ---------- */
-  .rituals { position: relative; overflow: hidden; }
-  .rituals__track { display: flex; align-items: center; gap: clamp(1.5rem, 3vw, 3rem); padding: clamp(5rem, 10vh, 7rem) var(--gutter); min-height: 100svh; width: max-content; }
-  .rituals__intro { width: min(30rem, 80vw); display: grid; gap: 1.5rem; justify-items: start; padding-right: 2rem; flex: none; }
-  .ritual { flex: none; width: clamp(300px, 36vw, 560px); display: grid; gap: 1.2rem; }
-  .ritual__media { aspect-ratio: 5 / 4; }
-  .ritual__media :global(img) { transition: transform 1.2s var(--ease-out); }
-  .ritual:hover .ritual__media :global(img) { transform: scale(1.04); }
-  .ritual__ribbon { position: absolute; top: 1rem; left: 1rem; }
-  .ritual__meta { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: baseline; border-top: 1px solid rgba(34, 23, 39, 0.14); padding-top: 1.1rem; }
-  .ritual__num { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--honey); }
-  .ritual__price { font-size: 0.95rem; }
-  .rituals__progress { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 2.5rem; height: 1px; background: rgba(34, 23, 39, 0.12); }
-  .rituals__progress span { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(0); }
+  /* ---------- indulgences ---------- */
+  .indulge { position: relative; overflow: hidden; }
+  .indulge__track { display: flex; align-items: center; gap: clamp(1.5rem, 3vw, 3rem); padding: clamp(5rem, 10vh, 7rem) var(--gutter); min-height: 100svh; width: max-content; }
+  .indulge__intro { width: min(30rem, 80vw); display: grid; gap: 1.5rem; justify-items: start; padding-right: 2rem; flex: none; }
+  .indulge__cards { display: flex; gap: clamp(1.5rem, 3vw, 3rem); }
+  .set { flex: none; width: clamp(300px, 36vw, 560px); display: grid; gap: 1.2rem; }
+  .set__media { aspect-ratio: 5 / 4; }
+  .set__media :global(img) { transition: transform 1.2s var(--ease-out); }
+  .set:hover .set__media :global(img) { transform: scale(1.04); }
+  .set__ribbon { position: absolute; top: 1rem; left: 1rem; }
+  .set__meta { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: baseline; border-top: 1px solid rgba(34, 23, 39, 0.14); padding-top: 1.1rem; }
+  .set__num { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--honey); }
+  .set__name { font-family: var(--serif); font-weight: 400; font-size: var(--fs-h3); line-height: 1.08; }
+  .set__price { font-size: 0.95rem; white-space: nowrap; }
+  .indulge__progress { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 2.5rem; height: 1px; background: rgba(34, 23, 39, 0.12); }
+  .indulge__progress span { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(0); }
 
   /* ---------- results ---------- */
   .rail--results { grid-auto-columns: clamp(260px, 30vw, 420px); }
-  .result { display: grid; gap: 0.7rem; }
+  .result { display: grid; gap: 0.7rem; align-content: start; }
   .result__img { aspect-ratio: 4 / 5; background: var(--white); }
   .result__img :global(img) { object-fit: contain; transition: transform 1s var(--ease-out); }
   .result:hover .result__img :global(img) { transform: scale(1.03); }
@@ -470,7 +477,7 @@ const reign = bySlug('reign-sanitary-napkins');
   .blends li {
     display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.15rem 1rem; padding: 1rem 0;
     border-bottom: 1px solid rgba(34, 23, 39, 0.14);
-    transition: padding 0.5s var(--ease-out), background 0.5s;
+    transition: padding 0.5s var(--ease-out);
   }
   .blends li:hover { padding-left: 0.8rem; }
   .blends__num { grid-row: span 2; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--honey); padding-top: 0.45rem; }
@@ -494,49 +501,84 @@ const reign = bySlug('reign-sanitary-napkins');
   .reign { background: linear-gradient(180deg, var(--bone), #efe7f2 30%, #efe7f2 70%, var(--bone)); padding-block: var(--section) calc(var(--section) * 0.5); }
   .reign__grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 6vw, 7rem); align-items: center; }
   .reign__copy { display: grid; gap: 1.5rem; justify-items: start; }
-  .reign__row { display: flex; align-items: center; gap: 1.5rem; }
+  .reign__row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
   .reign__img { aspect-ratio: 5 / 4; }
 
   /* ---------- faq ---------- */
   .faq__grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 6vw, 7rem); align-items: start; }
-  .faq__grid > div:first-child { display: grid; gap: 1.4rem; justify-items: start; position: sticky; top: calc(var(--header-h) + 2rem); }
+  .faq__head { display: grid; gap: 1.4rem; justify-items: start; position: sticky; top: calc(var(--header-h) + 2rem); }
 
   /* ---------- community ---------- */
   .community { border-top: 1px solid rgba(34, 23, 39, 0.1); }
   .community__inner { display: grid; justify-items: center; gap: 1.6rem; text-align: center; }
   .community__handle {
     font-family: var(--serif); font-style: italic; font-weight: 300;
-    font-size: clamp(2.8rem, 1rem + 8vw, 9rem); line-height: 1; letter-spacing: -0.02em;
+    font-size: clamp(2.4rem, 1rem + 8vw, 9rem); line-height: 1; letter-spacing: -0.02em;
+    max-width: 100%; overflow-wrap: anywhere;
     transition: color 0.5s;
   }
   .community__handle:hover { color: var(--lily); }
   .community__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
 
-  /* ---------- responsive ---------- */
+  /* ---------- tablet & mobile ---------- */
   @media (max-width: 960px) {
-    .hero { min-height: auto; }
-    .hero__grid { grid-template-columns: 1fr; }
-    .hero__art { max-width: 520px; width: 100%; margin-inline: auto; padding: 4% 6% 12% 12%; }
-    .section-head { flex-direction: column; align-items: start; }
-    .pillars__grid { grid-template-columns: 1fr; gap: 4rem; }
+    .hero { min-height: auto; padding-top: calc(var(--top-h) + 2.2rem); padding-bottom: 3.5rem; }
+    .hero__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero__art { max-width: 460px; width: 100%; margin-inline: auto; padding: 3% 7% 12% 11%; }
+    .scroll-cue { display: none; }
+    .section-head { flex-direction: column; align-items: start; gap: 1.2rem; }
+
+    /* pillars become a gentle swipe */
+    .pillars__grid {
+      grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(78vw, 360px);
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+      padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); gap: 1.25rem;
+    }
+    .pillars__grid::-webkit-scrollbar { display: none; }
+    .pillar { scroll-snap-align: start; }
     .pillar:nth-child(2) { margin-top: 0; }
-    .pillar__img { max-width: 520px; }
+    .pillar__img { margin-bottom: 0.8rem; }
+
     .textures__grid, .garden__grid, .reign__grid, .faq__grid { grid-template-columns: 1fr; }
-    .textures__film { max-width: 460px; margin-inline: auto; }
-    .rituals__track { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; min-height: 0; padding-block: var(--section); }
-    .rituals__track::-webkit-scrollbar { display: none; }
-    .ritual { width: 80vw; scroll-snap-align: start; }
-    .rituals__progress { display: none; }
-    .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+    .textures__film { aspect-ratio: 4 / 5; max-width: 480px; margin-inline: auto; }
+
+    /* indulgences: intro on top, cards swipe beneath */
+    .indulge__track { display: block; width: auto; min-height: 0; padding: var(--section) 0; }
+    .indulge__intro { width: auto; padding: 0 var(--gutter); margin-bottom: 2.2rem; }
+    .indulge__cards {
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+      padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); gap: 1.1rem;
+    }
+    .indulge__cards::-webkit-scrollbar { display: none; }
+    .set { width: min(82vw, 440px); scroll-snap-align: start; }
+    .indulge__progress { display: none; }
+
+    .garden__media { padding-bottom: 18%; }
+    .garden__pouch { right: 0; width: 44%; }
+
+    .gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .gallery__item:nth-child(n) { margin-top: 0; }
-    .gallery__item:nth-child(2n) { margin-top: 3rem; }
-    .faq__grid > div:first-child { position: static; }
-    .mission__values { grid-template-columns: repeat(2, auto); }
+    .gallery__item:nth-child(2n) { margin-top: 2.5rem; }
+    .faq__head { position: static; }
+    .mission__values { grid-template-columns: repeat(2, auto); gap: 2rem 3.5rem; }
   }
-  @media (max-width: 560px) {
-    .rail { grid-auto-columns: 74vw; }
-    .rail--results { grid-auto-columns: 80vw; }
+  @media (max-width: 640px) {
+    .hero__copy { gap: 1.2rem; }
     .hero__ctas { gap: 1.4rem; }
-    .badge { width: 96px; }
+    .rail-nav { display: none; }
+    .rail { grid-auto-columns: 72vw; gap: 0.9rem; }
+    .rail--results { grid-auto-columns: 78vw; }
+    .mission__inner { gap: 1.5rem; }
+    .mission__values { margin-top: 1.5rem; }
+    .textures__drop { gap: 1rem; font-size: 0.9rem; }
+    .textures__circle { width: 76px; height: 76px; }
+    .textures__copy .btn { width: 100%; }
+    .set__meta { grid-template-columns: auto 1fr; gap: 0.3rem 0.9rem; }
+    .set__price { grid-column: 2; }
+    .result__title { font-size: 1.25rem; }
+    .blends__name { font-size: 1.3rem; }
+    .gallery__label { font-size: 0.62rem; letter-spacing: 0.14em; }
+    .reign__row .btn { flex: 1 1 auto; }
+    .community__links .btn { min-height: 2.9rem; padding: 0 1.3rem; }
   }
 </style>

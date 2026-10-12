@@ -9,6 +9,8 @@ import { SplitText } from 'gsap/SplitText';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
+// Mobile address bars resize the viewport while scrolling; don't re-measure (avoids jumps).
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const root = document.documentElement;
 // `?nomotion` renders every final state immediately (handy for QA screenshots).
