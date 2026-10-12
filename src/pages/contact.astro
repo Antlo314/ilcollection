@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import { site, faqs, media } from '../data/site';
+---
+<Base title="Contact & FAQ" description="Reach Incandescent Lily Collection customer care by phone, email, or social media — Monday through Friday, 9am to 7pm EST.">
+  <section class="contact" data-hero>
+    <div class="wrap contact__grid">
+      <div class="contact__intro">
+        <p class="eyebrow" data-reveal>Get in touch</p>
+        <h1 class="h1" data-split>We’d love to <em>hear from you.</em></h1>
+        <p class="lead" data-reveal>We love our customers. Feel free to contact us at any time — we’re available via email, phone, or social media.</p>
+
+        <dl class="details" data-reveal>
+          <div><dt>Phone</dt><dd><a href={site.phoneHref}>{site.phone}</a></dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+          <div><dt>Hours</dt><dd>{site.hours}</dd></div>
+          <div><dt>Social</dt><dd class="details__social">
+            <a href={site.social.instagram} target="_blank" rel="noopener">Instagram</a>
+            <a href={site.social.facebook} target="_blank" rel="noopener">Facebook</a>
+            <a href={site.social.tiktok} target="_blank" rel="noopener">TikTok</a>
+          </dd></div>
+        </dl>
+      </div>
+
+      <form class="form" data-contact-form data-email={site.email} data-reveal novalidate>
+        <div class="form__row">
+          <div class="field"><label for="first">First name *</label><input id="first" name="first" autocomplete="given-name" required /></div>
+          <div class="field"><label for="last">Last name *</label><input id="last" name="last" autocomplete="family-name" required /></div>
+        </div>
+        <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" /></div>
+        <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="5"></textarea></div>
+        <p class="form__error" data-form-error role="alert" hidden>Please add your name and a valid email.</p>
+        <button type="submit" class="btn btn--block">Send message <span class="arrow" aria-hidden="true">→</span></button>
+        <p class="form__note muted">Sending opens your email app with your message ready to go to {site.email}.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section bg-linen">
+    <div class="wrap faq">
+      <div class="faq__head">
+        <p class="eyebrow" data-reveal>Frequently asked</p>
+        <h2 class="h2" data-split>Questions, <em>answered.</em></h2>
+        <div class="frame frame--arch faq__img" data-clip>
+          <Img media={media.brand.salveInfographic} alt="Healing Salve benefits: 100% plant-based, vegan, anti-aging, moisture retention, non-comedogenic, gentle for sensitive skin" sizes="(max-width: 960px) 70vw, 28vw" />
+        </div>
+      </div>
+      <div class="accordion" data-reveal>
+        {faqs.map((f, i) => (
+          <details open={i === 0}>
+            <summary>{f.q}<span class="plus" aria-hidden="true"></span></summary>
+            <div class="panel"><div class="panel-inner prose"><p>{f.a}</p></div></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const error = document.querySelector<HTMLElement>('[data-form-error]');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const get = (k: string) => String(data.get(k) || '').trim();
+    const ok = get('first') && get('last') && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(get('email'));
+    if (error) error.hidden = !!ok;
+    if (!ok) return;
+    const subject = `Website inquiry from ${get('first')} ${get('last')}`;
+    const body = [get('message'), '', `— ${get('first')} ${get('last')}`, get('email'), get('phone')].filter((l, i) => l || i === 1).join('\n');
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .contact { padding: calc(var(--header-h) + 34px + clamp(3rem, 9vh, 6rem)) 0 var(--section); }
+  .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 7vw, 8rem); align-items: start; }
+  .contact__intro { display: grid; gap: 1.6rem; justify-items: start; }
+  .details { display: grid; gap: 0; width: 100%; margin-top: 1rem; border-top: 1px solid rgba(34, 23, 39, 0.12); }
+  .details > div { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid rgba(34, 23, 39, 0.12); }
+  .details dt { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute); padding-top: 0.2rem; }
+  .details dd { margin: 0; }
+  .details a:hover { color: var(--lily); }
+  .details__social { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; }
+
+  .form { display: grid; gap: 1.8rem; padding: clamp(1.6rem, 3vw, 2.8rem); border-radius: 18px; background: var(--white); box-shadow: 0 40px 80px -50px rgba(42, 25, 50, 0.35); }
+  .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .form__error { color: #9b2c3a; font-size: 0.88rem; }
+  .form__note { font-size: 0.78rem; text-align: center; }
+
+  .faq { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 6vw, 7rem); align-items: start; }
+  .faq__head { display: grid; gap: 1.4rem; justify-items: start; position: sticky; top: calc(var(--header-h) + 3rem); }
+  .faq__img { width: min(100%, 340px); aspect-ratio: 1; margin-top: 1rem; }
+
+  @media (max-width: 960px) {
+    .contact__grid, .faq { grid-template-columns: 1fr; }
+    .faq__head { position: static; }
+  }
+  @media (max-width: 520px) {
+    .form__row { grid-template-columns: 1fr; }
+    .details > div { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
+</style>

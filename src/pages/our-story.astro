@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Marquee from '../components/Marquee.astro';
+import { media, mission, standard, values, site } from '../data/site';
+const b = media.brand;
+const v = media.video;
+---
+<Base title="Our Story" description="Incandescent Lily Collection creates luxurious, plant-based wellness and body care rooted in purity, purpose, and divine intention — a Black-owned collection from NEBA Ministry & Mentorship.">
+  <section class="story-hero" data-hero>
+    <div class="wrap story-hero__inner">
+      <p class="eyebrow" data-reveal>Our Story</p>
+      <h1 class="h1" data-split>Beauty and healing, <em>nurtured from within.</em></h1>
+      <p class="lead" data-reveal>Incandescent Lily Collection is transforming the beauty industry with wellness and body care rooted in purity, purpose, and divine intention.</p>
+    </div>
+  </section>
+
+  <section class="band wrap" data-parallax-scope>
+    <div class="frame frame--soft band__img" data-clip>
+      <div data-parallax="0.1" class="band__parallax">
+        <Img media={b.lineupAlt} alt="Incandescent Lily Collection bottles and jars arranged in a studio" sizes="(max-width: 1440px) 96vw, 1380px" eager />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="split__head">
+        <p class="eyebrow" data-reveal>The ILC Mission</p>
+        <h2 class="h2" data-split>From the plants <em>given to us by God.</em></h2>
+      </div>
+      <div class="split__body">
+        <p class="story-quote" data-lightup>{mission}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-linen">
+    <div class="wrap split split--reverse">
+      <div class="frame frame--arch halo-frame" data-clip>
+        <Img media={b.lifeTowel} alt="A woman smiling with the Manuka Honey mask on her face and a towel wrapped around her hair" sizes="(max-width: 960px) 80vw, 38vw" />
+      </div>
+      <div class="split__body split__body--center">
+        <p class="eyebrow" data-reveal>What is ILC?</p>
+        <h2 class="h2" data-split>Created with plants, for skin that <em>heals.</em></h2>
+        <p class="lead" data-reveal>Products created with plants to combat premature aging, nurture hypersensitive skin, and help skin naturally heal — aiding common conditions such as eczema, acne, hyperpigmentation, psoriasis, and scarring.</p>
+        <p class="muted" data-reveal>Our hair care products contain extracts that improve dandruff, condition locs, and are excellent for beard care — stimulating follicles for healthy growth.</p>
+        <ul class="std" role="list">
+          {standard.map((s) => <li data-reveal>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-plum ministry" data-glow-zone>
+    <div class="wrap split">
+      <div class="split__body split__body--center">
+        <img src="/media/brand/lily-mark-honey.png" alt="" width="524" height="512" class="ministry__mark" data-reveal />
+        <p class="eyebrow" data-reveal>A NEBA Ministry &amp; Mentorship collection</p>
+        <h2 class="h2" data-split>One product, <em>one story</em> at a time.</h2>
+        <p class="lead" data-reveal>We are a small, faith-rooted business. Every purchase helps us continue our mission of helping women heal and break cycles.</p>
+        <p class="ministry__note" data-reveal>Pair the Awaken™ devotional with our Woke™ Body Oil or Awaken™ Candle to create a sacred self-care ritual that engages your senses while nurturing your soul.</p>
+        <div class="ministry__ctas" data-reveal>
+          <a href="/shop?c=devotional" class="btn btn--light" data-magnetic>Explore the devotionals <span class="arrow" aria-hidden="true">→</span></a>
+          <a href={site.ministryUrl} target="_blank" rel="noopener" class="link-line">Visit NEBA Ministry</a>
+        </div>
+      </div>
+      <div class="ministry__video" data-reveal>
+        <div class="frame frame--soft">
+          <video src={v['awaken-devotional'].src} poster={v['awaken-devotional'].poster} controls playsinline preload="none" aria-label="Introducing the Awaken 30-day mentorship devotional"></video>
+        </div>
+        <p class="ministry__caption">Introducing <em>Awaken™</em> — a 30-day mentorship devotional</p>
+      </div>
+    </div>
+  </section>
+
+  <Marquee items={values} />
+
+  <section class="section closing">
+    <div class="wrap closing__inner">
+      <h2 class="display" data-split>Glow and grow in restoration — <em>inside and out.</em></h2>
+      <div class="closing__ctas" data-reveal>
+        <a href="/shop" class="btn" data-magnetic>Shop the Collection <span class="arrow" aria-hidden="true">→</span></a>
+        <a href="/contact" class="link-line">Get in touch</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .story-hero { padding-top: calc(var(--header-h) + 34px + clamp(3rem, 9vh, 7rem)); padding-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+  .story-hero__inner { display: grid; grid-template-columns: 1fr minmax(0, 24rem); gap: 1.6rem 3rem; align-items: end; }
+  .story-hero__inner .eyebrow { grid-column: 1 / -1; }
+  .story-hero__inner h1 { max-width: 14ch; }
+  .story-hero__inner .lead { padding-bottom: 0.6rem; }
+  @media (max-width: 860px) { .story-hero__inner { grid-template-columns: 1fr; } }
+  .band__img { aspect-ratio: 2 / 1; }
+  .band__parallax { position: absolute; inset: -12% 0; }
+  .band__parallax :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  .split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 6vw, 7rem); align-items: start; }
+  .split--reverse { grid-template-columns: 0.85fr 1.15fr; align-items: center; }
+  .split__head { display: grid; gap: 1.4rem; position: sticky; top: calc(var(--header-h) + 3rem); }
+  .split__body { display: grid; gap: 1.5rem; }
+  .split__body--center { align-content: center; justify-items: start; }
+  .story-quote { font-family: var(--serif); font-weight: 300; font-size: clamp(1.7rem, 1rem + 2vw, 2.8rem); line-height: 1.25; }
+  .halo-frame { aspect-ratio: 3 / 4; max-width: 520px; width: 100%; }
+  .std { display: grid; gap: 0.7rem; margin-top: 0.6rem; }
+  .std li { display: flex; gap: 0.9rem; align-items: baseline; font-size: 0.98rem; padding-bottom: 0.7rem; border-bottom: 1px solid rgba(34, 23, 39, 0.1); }
+  .std li::before { content: '✦'; color: var(--honey); font-size: 0.75rem; }
+
+  .ministry .split { grid-template-columns: 1.05fr 0.95fr; align-items: center; }
+  .ministry__mark { width: 56px; height: auto; }
+  .ministry__note { color: rgba(247, 242, 235, 0.6); max-width: 46ch; font-size: 0.95rem; }
+  .ministry__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 1.8rem; margin-top: 0.5rem; }
+  .ministry__video { max-width: 400px; width: 100%; justify-self: center; display: grid; gap: 1rem; }
+  .ministry__video .frame { aspect-ratio: 9 / 16; background: var(--plum-deep); }
+  .ministry__caption { font-family: var(--serif); font-size: 1.15rem; text-align: center; color: rgba(247, 242, 235, 0.75); }
+  .ministry__caption em { color: var(--honey-soft); }
+
+  .closing__inner { display: grid; justify-items: center; text-align: center; gap: 2.2rem; }
+  .closing__inner h2 { max-width: 16ch; }
+  .closing__ctas { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+
+  @media (max-width: 960px) {
+    .split, .split--reverse, .ministry .split { grid-template-columns: 1fr; }
+    .split__head { position: static; }
+    .band__img { aspect-ratio: 4 / 3; }
+    .halo-frame { margin-inline: auto; }
+  }
+</style>

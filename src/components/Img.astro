@@ -1,0 +1,25 @@
+---
+// Responsive <img> for media records produced by the importer ({ src, srcset, width, height }).
+interface Props {
+  media: { src: string; srcset?: string; width: number; height: number };
+  alt: string;
+  sizes?: string;
+  class?: string;
+  eager?: boolean;
+  [key: string]: unknown;
+}
+const { media, alt, sizes = '100vw', class: className, eager = false, ...rest } = Astro.props;
+---
+<img
+  src={media.src}
+  srcset={media.srcset}
+  sizes={sizes}
+  width={media.width}
+  height={media.height}
+  alt={alt}
+  class={className}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding={eager ? 'sync' : 'async'}
+  fetchpriority={eager ? 'high' : undefined}
+  {...rest}
+/>

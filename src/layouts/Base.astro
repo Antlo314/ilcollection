@@ -1,0 +1,94 @@
+---
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource-variable/jost';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  jsonLd?: Record<string, unknown>;
+  bodyClass?: string;
+}
+const { title, description = site.description, image = '/og.jpg', jsonLd, bodyClass } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Black-Owned, Plant-Based Body Care`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#f7f2eb" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try { if (sessionStorage.getItem('ilc-intro')) document.documentElement.classList.add('intro-seen'); } catch (e) {}
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="preloader" data-preloader aria-hidden="true">
+      <div class="preloader__inner">
+        <div class="preloader__lily"><img src="/media/brand/lily-mark.png" alt="" width="524" height="512" /></div>
+        <p class="preloader__word"><span>Incandescent</span> <em>Lily</em></p>
+      </div>
+    </div>
+
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <div class="glow-cursor" data-glow aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <script>
+      import '../scripts/motion';
+      import '../scripts/interactions';
+    </script>
+
+    <style>
+      .preloader {
+        position: fixed; inset: 0; z-index: 300;
+        display: grid; place-items: center;
+        background: var(--bone);
+      }
+      :global(html:not(.js)) .preloader,
+      :global(html.intro-seen) .preloader { display: none; }
+      .preloader__inner { display: grid; justify-items: center; gap: 1.4rem; }
+      .preloader__lily { width: 96px; clip-path: inset(100% 0 0 0); }
+      .preloader__lily img { width: 100%; height: auto; }
+      .preloader__word {
+        font-family: var(--serif); font-weight: 300; font-size: clamp(1.6rem, 4vw, 2.4rem);
+        letter-spacing: 0.32em; text-transform: uppercase; overflow: hidden; padding-left: 0.32em;
+      }
+      .preloader__word span, .preloader__word em { display: inline-block; transform: translateY(110%); }
+      .preloader__word em { font-style: italic; color: var(--lily); text-transform: none; letter-spacing: 0.04em; }
+      /* safety: never trap visitors behind the curtain */
+      :global(html.js:not(.motion-ready)) .preloader { animation: preloader-out 0.6s 3s forwards; }
+      @keyframes preloader-out { to { opacity: 0; visibility: hidden; } }
+    </style>
+  </body>
+</html>

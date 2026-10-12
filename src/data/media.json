@@ -1,0 +1,223 @@
+{
+  "brand": {
+    "logo": {
+      "src": "/media/brand/logo-1250.webp",
+      "srcset": "/media/brand/logo-800.webp 800w, /media/brand/logo-1250.webp 1250w",
+      "width": 1250,
+      "height": 1250,
+      "alpha": true
+    },
+    "nebaLogo": {
+      "src": "/media/brand/neba-logo-600.webp",
+      "srcset": "/media/brand/neba-logo-600.webp 600w",
+      "width": 600,
+      "height": 600,
+      "alpha": true
+    },
+    "heroLineup": {
+      "src": "/media/brand/hero-lineup-2000.webp",
+      "srcset": "/media/brand/hero-lineup-960.webp 960w, /media/brand/hero-lineup-1600.webp 1600w, /media/brand/hero-lineup-2000.webp 2000w",
+      "width": 2000,
+      "height": 1063,
+      "alpha": false
+    },
+    "lineupWide": {
+      "src": "/media/brand/lineup-wide-2000.webp",
+      "srcset": "/media/brand/lineup-wide-960.webp 960w, /media/brand/lineup-wide-1600.webp 1600w, /media/brand/lineup-wide-2000.webp 2000w",
+      "width": 2000,
+      "height": 935,
+      "alpha": false
+    },
+    "lineupAlt": {
+      "src": "/media/brand/lineup-alt-2000.webp",
+      "srcset": "/media/brand/lineup-alt-960.webp 960w, /media/brand/lineup-alt-1600.webp 1600w, /media/brand/lineup-alt-2000.webp 2000w",
+      "width": 2000,
+      "height": 1248,
+      "alpha": false
+    },
+    "resultsAcne": {
+      "src": "/media/brand/results-acne-1200.webp",
+      "srcset": "/media/brand/results-acne-700.webp 700w, /media/brand/results-acne-1200.webp 1200w",
+      "width": 1200,
+      "height": 1006,
+      "alpha": false
+    },
+    "resultsHair": {
+      "src": "/media/brand/results-hair-1200.webp",
+      "srcset": "/media/brand/results-hair-700.webp 700w, /media/brand/results-hair-1200.webp 1200w",
+      "width": 1200,
+      "height": 1500,
+      "alpha": false
+    },
+    "resultsNeck": {
+      "src": "/media/brand/results-neck-1200.webp",
+      "srcset": "/media/brand/results-neck-700.webp 700w, /media/brand/results-neck-1200.webp 1200w",
+      "width": 1200,
+      "height": 1553,
+      "alpha": true
+    },
+    "resultsBrows": {
+      "src": "/media/brand/results-brows-1200.webp",
+      "srcset": "/media/brand/results-brows-700.webp 700w, /media/brand/results-brows-1200.webp 1200w",
+      "width": 1200,
+      "height": 1553,
+      "alpha": false
+    },
+    "resultsGlowBar": {
+      "src": "/media/brand/results-glow-bar-1200.webp",
+      "srcset": "/media/brand/results-glow-bar-700.webp 700w, /media/brand/results-glow-bar-1200.webp 1200w",
+      "width": 1200,
+      "height": 1200,
+      "alpha": false
+    },
+    "lifeLinen": {
+      "src": "/media/brand/life-linen-1200.webp",
+      "srcset": "/media/brand/life-linen-700.webp 700w, /media/brand/life-linen-1200.webp 1200w",
+      "width": 1200,
+      "height": 1267,
+      "alpha": false
+    },
+    "lifeBeard": {
+      "src": "/media/brand/life-beard-1200.webp",
+      "srcset": "/media/brand/life-beard-700.webp 700w, /media/brand/life-beard-1200.webp 1200w",
+      "width": 1200,
+      "height": 872,
+      "alpha": false
+    },
+    "lifeLocs": {
+      "src": "/media/brand/life-locs-1200.webp",
+      "srcset": "/media/brand/life-locs-700.webp 700w, /media/brand/life-locs-1200.webp 1200w",
+      "width": 1200,
+      "height": 922,
+      "alpha": false
+    },
+    "lifeLip": {
+      "src": "/media/brand/life-lip-1280.webp",
+      "srcset": "/media/brand/life-lip-700.webp 700w, /media/brand/life-lip-1280.webp 1280w",
+      "width": 1280,
+      "height": 1280,
+      "alpha": false
+    },
+    "lifeLipHim": {
+      "src": "/media/brand/life-lip-him-1024.webp",
+      "srcset": "/media/brand/life-lip-him-700.webp 700w, /media/brand/life-lip-him-1024.webp 1024w",
+      "width": 1024,
+      "height": 1024,
+      "alpha": false
+    },
+    "lifeTeaBible": {
+      "src": "/media/brand/life-tea-bible-1600.webp",
+      "srcset": "/media/brand/life-tea-bible-960.webp 960w, /media/brand/life-tea-bible-1600.webp 1600w",
+      "width": 1600,
+      "height": 987,
+      "alpha": false
+    },
+    "lifeMistsTray": {
+      "src": "/media/brand/life-mists-tray-1369.webp",
+      "srcset": "/media/brand/life-mists-tray-700.webp 700w, /media/brand/life-mists-tray-1369.webp 1369w",
+      "width": 1369,
+      "height": 1149,
+      "alpha": false
+    },
+    "lifeCleanser": {
+      "src": "/media/brand/life-cleanser-768.webp",
+      "srcset": "/media/brand/life-cleanser-768.webp 768w",
+      "width": 768,
+      "height": 1024,
+      "alpha": false
+    },
+    "lifeTowel": {
+      "src": "/media/brand/life-towel-1200.webp",
+      "srcset": "/media/brand/life-towel-700.webp 700w, /media/brand/life-towel-1200.webp 1200w",
+      "width": 1200,
+      "height": 1882,
+      "alpha": true
+    },
+    "lifeReignStack": {
+      "src": "/media/brand/life-reign-stack-1170.webp",
+      "srcset": "/media/brand/life-reign-stack-700.webp 700w, /media/brand/life-reign-stack-1170.webp 1170w",
+      "width": 1170,
+      "height": 936,
+      "alpha": false
+    },
+    "barGlow": {
+      "src": "/media/brand/bar-glow-1088.webp",
+      "srcset": "/media/brand/bar-glow-700.webp 700w, /media/brand/bar-glow-1088.webp 1088w",
+      "width": 1088,
+      "height": 1445,
+      "alpha": false
+    },
+    "barNewLife": {
+      "src": "/media/brand/bar-new-life-1112.webp",
+      "srcset": "/media/brand/bar-new-life-700.webp 700w, /media/brand/bar-new-life-1112.webp 1112w",
+      "width": 1112,
+      "height": 1414,
+      "alpha": false
+    },
+    "barLavender": {
+      "src": "/media/brand/bar-lavender-1091.webp",
+      "srcset": "/media/brand/bar-lavender-700.webp 700w, /media/brand/bar-lavender-1091.webp 1091w",
+      "width": 1091,
+      "height": 1442,
+      "alpha": false
+    },
+    "teaPouch": {
+      "src": "/media/brand/tea-pouch-1600.webp",
+      "srcset": "/media/brand/tea-pouch-960.webp 960w, /media/brand/tea-pouch-1600.webp 1600w",
+      "width": 1600,
+      "height": 1067,
+      "alpha": true
+    },
+    "salveInfographic": {
+      "src": "/media/brand/salve-infographic-1200.webp",
+      "srcset": "/media/brand/salve-infographic-700.webp 700w, /media/brand/salve-infographic-1200.webp 1200w",
+      "width": 1200,
+      "height": 1200,
+      "alpha": true
+    },
+    "candle": {
+      "src": "/media/brand/candle-1200.webp",
+      "srcset": "/media/brand/candle-700.webp 700w, /media/brand/candle-1200.webp 1200w",
+      "width": 1200,
+      "height": 1200,
+      "alpha": false
+    },
+    "kit": {
+      "src": "/media/brand/kit-1400.webp",
+      "srcset": "/media/brand/kit-700.webp 700w, /media/brand/kit-1400.webp 1400w",
+      "width": 1400,
+      "height": 1400,
+      "alpha": true
+    },
+    "mistsTrio": {
+      "src": "/media/brand/mists-trio-1122.webp",
+      "srcset": "/media/brand/mists-trio-700.webp 700w, /media/brand/mists-trio-1122.webp 1122w",
+      "width": 1122,
+      "height": 1402,
+      "alpha": false
+    }
+  },
+  "video": {
+    "manuka-pour": {
+      "src": "/media/video/manuka-pour.mp4",
+      "poster": "/media/video/manuka-pour.webp",
+      "width": 720,
+      "height": 1280,
+      "muted": true
+    },
+    "oil-drop": {
+      "src": "/media/video/oil-drop.mp4",
+      "poster": "/media/video/oil-drop.webp",
+      "width": 720,
+      "height": 782,
+      "muted": true
+    },
+    "awaken-devotional": {
+      "src": "/media/video/awaken-devotional.mp4",
+      "poster": "/media/video/awaken-devotional.webp",
+      "width": 720,
+      "height": 1280,
+      "muted": false
+    }
+  }
+}

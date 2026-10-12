@@ -1,0 +1,21 @@
+# build output
+dist/
+.astro/
+.vercel/
+
+# dependencies
+node_modules/
+
+# migration workspace (raw Wix downloads + one-off scripts)
+_source/
+_tools/
+
+# env + logs
+.env
+.env.*
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# local tooling
+.claude/

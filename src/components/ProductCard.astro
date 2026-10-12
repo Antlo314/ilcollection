@@ -1,0 +1,21 @@
+---
+import Img from './Img.astro';
+import { priceLabel, type Product } from '../data/site';
+interface Props { product: Product; sizes?: string; eager?: boolean }
+const { product, sizes = '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25vw', eager = false } = Astro.props;
+// 4:5 card derivatives produced by _tools/cards.mjs (saliency crops / blurred-extension fits).
+const [first, second] = product.card;
+---
+<article class="card" data-tags={product.tags.join(' ')} data-card>
+  <div class="card__media">
+    {product.ribbon && <span class="ribbon card__ribbon">{product.ribbon}</span>}
+    <Img media={first} alt={product.name} sizes={sizes} eager={eager} />
+    {second && <Img media={second} alt="" sizes={sizes} class="alt" aria-hidden="true" />}
+    <span class="card__cta" aria-hidden="true">Discover</span>
+  </div>
+  <div class="card__body">
+    <h3 class="card__name"><a href={`/shop/${product.slug}`}>{product.name}</a></h3>
+    <p class="card__price">{priceLabel(product)}</p>
+    <p class="card__sub">{product.sub}</p>
+  </div>
+</article>

@@ -1,0 +1,333 @@
+---
+import Base from '../../layouts/Base.astro';
+import Img from '../../components/Img.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { products, collections, standard, money, type Product, type Media } from '../../data/site';
+
+export function getStaticPaths() {
+  return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props as { product: Product };
+
+const firstTag = product.tags[0];
+const collection = collections.find((c) => c.key === firstTag);
+const related = products
+  .filter((p) => p.slug !== product.slug && p.tags.some((t) => product.tags.includes(t)))
+  .slice(0, 4);
+const fill = products.filter((p) => p.slug !== product.slug && !related.includes(p));
+while (related.length < 4 && fill.length) related.push(fill.shift()!);
+
+const defaultKey = product.options.map((o) => o.values[0].id).sort((a, b) => a - b).join('-');
+const defaultVariant = product.variants.find((v) => v.key === defaultKey);
+const startPrice = defaultVariant?.price ?? product.price;
+const variantMap = Object.fromEntries(product.variants.map((v) => [v.key, v.price]));
+const plain = product.description.map((d) => ('text' in d ? d.text : (d.items ?? []).join(' '))).join(' ');
+const metaDescription = `${product.name} — ${product.sub}. ${plain}`.slice(0, 155).replace(/\s+\S*$/, '') + '…';
+const imgs = product.media.filter((m) => m.type === 'image') as unknown as Media[];
+// Mobile carousel slot shape: the media's own aspect, clamped so slides stay a similar height.
+const slotRatio = (m: { width: number; height: number }) => Math.min(1.5, Math.max(0.8, m.width / m.height)).toFixed(3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: plain.slice(0, 500),
+  image: imgs.map((m) => m.src),
+  brand: { '@type': 'Brand', name: 'Incandescent Lily Collection' },
+  offers: {
+    '@type': product.priceMin === product.priceMax ? 'Offer' : 'AggregateOffer',
+    priceCurrency: 'USD',
+    ...(product.priceMin === product.priceMax ? { price: product.priceMin } : { lowPrice: product.priceMin, highPrice: product.priceMax }),
+    availability: 'https://schema.org/InStock',
+    url: product.buyUrl,
+  },
+};
+---
+<Base title={product.name} description={metaDescription} image={imgs[0]?.src} jsonLd={jsonLd}>
+  <article class="pdp">
+    <div class="wrap pdp__grid">
+      <nav class="crumbs" aria-label="Breadcrumb" data-reveal>
+        <a href="/shop">Shop</a>
+        {collection && <><span aria-hidden="true">/</span><a href={`/shop?c=${collection.key}`}>{collection.label}</a></>}
+        <span aria-hidden="true">/</span><span aria-current="page">{product.name}</span>
+      </nav>
+
+      <div class="gallery" data-gallery>
+        <div class="gallery__track" data-gallery-track>
+          {product.media.map((m, i) => (
+            <figure class:list={['gallery__slide', `is-${m.type}`]}>
+              {m.type === 'image' ? (
+                <div class="gallery__frame" style={`--ar:${slotRatio(m as unknown as Media)}`} data-clip={i === 0 ? '' : undefined} data-reveal={i > 0 ? '' : undefined}>
+                  <Img media={m as unknown as Media} alt={i === 0 ? product.name : `${product.name} — image ${i + 1}`} sizes="(max-width: 960px) 92vw, 52vw" eager={i === 0} />
+                </div>
+              ) : (
+                <div class="gallery__frame gallery__frame--video" style={`--ar:${slotRatio(m as unknown as Media)}`} data-reveal>
+                  {'muted' in m && m.muted ? (
+                    <video src={m.src} poster={m.poster} autoplay muted loop playsinline preload="metadata" aria-label={`${product.name} texture video`}></video>
+                  ) : (
+                    <video src={m.src} poster={m.poster} controls playsinline preload="none" aria-label={`${product.name} video`}></video>
+                  )}
+                </div>
+              )}
+            </figure>
+          ))}
+        </div>
+        {product.media.length > 1 && (
+          <div class="gallery__dots" aria-hidden="true">
+            {product.media.map((_, i) => <span class:list={{ 'is-active': i === 0 }}></span>)}
+          </div>
+        )}
+      </div>
+
+      <div class="info">
+        <div class="info__sticky" data-hero>
+          {product.ribbon && <span class="ribbon info__ribbon" data-reveal>{product.ribbon}</span>}
+          <h1 class="info__name" data-split>{product.name}</h1>
+          <p class="info__sub" data-reveal>{product.sub}</p>
+          <p class="info__price" data-reveal><span data-price>{money(startPrice)}</span>{product.priceMin !== product.priceMax && <span class="muted info__range"> · {money(product.priceMin)} – {money(product.priceMax)}</span>}</p>
+
+          <form class="options" data-options data-variants={JSON.stringify(variantMap)} data-reveal onsubmit="return false">
+            {product.options.map((o, oi) => (
+              <fieldset class="opt">
+                <legend class="opt__legend">{o.title}<span class="opt__value" data-opt-label>{o.values[0].label}</span></legend>
+                <div class:list={['opt__values', `opt__values--${o.kind}`]}>
+                  {o.values.map((val, vi) => (
+                    <label class:list={['opt__choice', { 'opt__choice--swatch': o.kind === 'swatch' }]} title={val.label}>
+                      <input type="radio" name={`opt-${oi}`} value={val.id} data-label={val.label} checked={vi === 0} />
+                      {o.kind === 'swatch' ? (
+                        <span class="swatch" style={`--c:${val.color}`}><span class="sr-only">{val.label}</span></span>
+                      ) : (
+                        <span class="pill">{val.label}</span>
+                      )}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+          </form>
+
+          <div class="buy" data-reveal data-buy>
+            <a href={product.buyUrl} class="btn btn--block" data-magnetic>Purchase <span class="arrow" aria-hidden="true">→</span></a>
+            <p class="buy__note muted">Secure checkout on the IL Collection store · Ships in 2–4 business days</p>
+          </div>
+
+          <ul class="standard" role="list" data-reveal>
+            {standard.slice(0, 4).map((s) => <li>{s}</li>)}
+          </ul>
+
+          <div class="prose info__desc" data-reveal>
+            {product.description.map((d) =>
+              d.type === 'ul' ? <ul>{d.items!.map((it) => <li>{it}</li>)}</ul>
+              : d.type === 'h' ? <h3>{d.text}</h3>
+              : <p>{d.text}</p>
+            )}
+          </div>
+
+          <div class="accordion info__acc" data-reveal>
+            {product.info.map((sec) => (
+              <details>
+                <summary>{sec.title}<span class="plus" aria-hidden="true"></span></summary>
+                <div class="panel"><div class="panel-inner prose">
+                  {sec.body.map((d) =>
+                    d.type === 'ul' ? <ul>{d.items!.map((it) => <li>{it}</li>)}</ul>
+                    : d.type === 'h' ? <h3>{d.text}</h3>
+                    : <p>{d.text}</p>
+                  )}
+                </div></div>
+              </details>
+            ))}
+            <details>
+              <summary>The ILC Standard<span class="plus" aria-hidden="true"></span></summary>
+              <div class="panel"><div class="panel-inner prose">
+                <p>Products created with plants to combat premature aging, nurture hypersensitive skin, and help skin naturally heal — aiding common conditions such as eczema, acne, hyperpigmentation, psoriasis, and scarring.</p>
+                <ul>{standard.map((s) => <li>{s}</li>)}</ul>
+              </div></div>
+            </details>
+            <details>
+              <summary>Shipping &amp; Care<span class="plus" aria-hidden="true"></span></summary>
+              <div class="panel"><div class="panel-inner prose">
+                <p>Orders are made in small batches and processed within 2–4 business days. Standard shipping arrives 3–7 business days after processing; expedited in 2–3. We currently ship within the United States and to the US Virgin Islands.</p>
+                <p>Because our products are handmade, personal-use items, all sales are final. If your order arrives damaged or incorrect, contact us within 48 hours. <a href="/shipping-returns">Read the full policy</a>.</p>
+              </div></div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <section class="section related bg-linen">
+    <div class="wrap">
+      <div class="related__head">
+        <p class="eyebrow" data-reveal>Complete the ritual</p>
+        <h2 class="h2" data-split>Pairs <em>beautifully</em> with</h2>
+      </div>
+      <div class="related__grid">
+        {related.map((p) => <div data-reveal><ProductCard product={p} /></div>)}
+      </div>
+    </div>
+  </section>
+
+  <div class="buybar" data-buybar aria-hidden="true">
+    <div class="buybar__inner">
+      <div class="buybar__meta">
+        <span class="buybar__name">{product.name}</span>
+        <span class="buybar__price" data-price>{money(startPrice)}</span>
+      </div>
+      <a href={product.buyUrl} class="btn" tabindex="-1">Purchase</a>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { gsap } from 'gsap';
+
+  /* variant selection -> live price */
+  const form = document.querySelector<HTMLFormElement>('[data-options]');
+  const prices = Array.from(document.querySelectorAll<HTMLElement>('[data-price]'));
+  if (form) {
+    const map: Record<string, number> = JSON.parse(form.dataset.variants || '{}');
+    const update = () => {
+      const ids = Array.from(form.querySelectorAll<HTMLInputElement>('input:checked')).map((i) => Number(i.value)).sort((a, b) => a - b);
+      form.querySelectorAll('fieldset').forEach((fs) => {
+        const checked = fs.querySelector<HTMLInputElement>('input:checked');
+        const label = fs.querySelector<HTMLElement>('[data-opt-label]');
+        if (checked && label) label.textContent = checked.dataset.label || '';
+      });
+      const price = map[ids.join('-')];
+      if (price === undefined) return;
+      const text = `$${price.toFixed(2)}`;
+      prices.forEach((el) => {
+        if (el.textContent === text) return;
+        gsap.to(el, { yPercent: -40, opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
+          el.textContent = text;
+          gsap.fromTo(el, { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.5, ease: 'expo.out' });
+        } });
+      });
+    };
+    form.addEventListener('change', update);
+  }
+
+  /* mobile gallery dots */
+  const track = document.querySelector<HTMLElement>('[data-gallery-track]');
+  const dots = Array.from(document.querySelectorAll<HTMLElement>('.gallery__dots span'));
+  if (track && dots.length) {
+    track.addEventListener('scroll', () => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      dots.forEach((d, j) => d.classList.toggle('is-active', i === j));
+    }, { passive: true });
+  }
+
+  /* sticky purchase bar once the main button scrolls away */
+  const buy = document.querySelector('[data-buy]');
+  const bar = document.querySelector<HTMLElement>('[data-buybar]');
+  const related = document.querySelector('.related');
+  if (buy && bar) {
+    let pastBuy = false, atRelated = false;
+    const sync = () => {
+      const on = pastBuy && !atRelated;
+      bar.classList.toggle('is-on', on);
+      bar.setAttribute('aria-hidden', String(!on));
+      bar.querySelector('a')?.setAttribute('tabindex', on ? '0' : '-1');
+    };
+    new IntersectionObserver(([e]) => { pastBuy = !e.isIntersecting && e.boundingClientRect.top < 0; sync(); }).observe(buy);
+    if (related) new IntersectionObserver(([e]) => { atRelated = e.isIntersecting; sync(); }, { rootMargin: '0px 0px -40% 0px' }).observe(related);
+  }
+</script>
+
+<style>
+  .pdp { padding-top: calc(var(--header-h) + 34px + 2rem); padding-bottom: var(--section); }
+  .pdp__grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 1.5rem clamp(2rem, 5vw, 6rem); }
+  .crumbs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.6rem; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); }
+  .crumbs a:hover { color: var(--lily); }
+  .crumbs [aria-current] { color: var(--ink); }
+
+  /* gallery */
+  .gallery { min-width: 0; }
+  .gallery__track { display: grid; gap: 1rem; }
+  .gallery__slide { margin: 0; }
+  .gallery__frame { position: relative; overflow: hidden; border-radius: 14px; background: var(--white); }
+  .gallery__frame :global(img) { width: 100%; height: auto; }
+  .gallery__frame--video { background: var(--linen); display: grid; place-items: center; }
+  .gallery__frame--video video { max-height: 88vh; width: auto; max-width: 100%; }
+  .gallery__dots { display: none; }
+
+  /* info */
+  .info { min-width: 0; }
+  .info__sticky { position: sticky; top: calc(var(--header-h) + 34px + 1.5rem); display: grid; gap: 1.3rem; padding-bottom: 2rem; }
+  .info__ribbon { justify-self: start; background: var(--linen); }
+  .info__name { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 1.6rem + 2.4vw, 3.9rem); line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance; }
+  .info__sub { font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+  .info__price { font-family: var(--serif); font-size: 1.9rem; font-weight: 400; overflow: hidden; }
+  .info__price [data-price] { display: inline-block; }
+  .info__range { font-family: var(--sans); font-size: 0.85rem; }
+
+  .options { display: grid; gap: 1.4rem; padding-block: 0.4rem; }
+  .opt { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .opt__legend { display: flex; gap: 0.7em; padding: 0; margin-bottom: 0.8rem; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
+  .opt__value { color: var(--ink-mute); font-weight: 400; letter-spacing: 0.08em; text-transform: none; font-size: 0.85rem; }
+  .opt__values { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .opt__choice { position: relative; cursor: pointer; }
+  .opt__choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .pill {
+    display: inline-flex; align-items: center; min-height: 2.8rem; padding: 0 1.15rem; border-radius: 999px;
+    border: 1px solid rgba(34, 23, 39, 0.18); font-size: 0.88rem;
+    transition: background 0.35s var(--ease-out), color 0.35s, border-color 0.35s;
+  }
+  .opt__choice:hover .pill { border-color: var(--ink); }
+  .opt__choice input:checked + .pill { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+  .opt__choice input:focus-visible + .pill, .opt__choice input:focus-visible + .swatch { outline: 1.5px solid var(--lily); outline-offset: 3px; }
+  .swatch { display: block; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(34, 23, 39, 0.15); position: relative; }
+  .swatch::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid transparent; transition: border-color 0.35s; }
+  .opt__choice input:checked + .swatch::after { border-color: var(--ink); }
+
+  .buy { display: grid; gap: 0.7rem; }
+  .buy__note { font-size: 0.78rem; text-align: center; }
+  .standard { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; padding: 1.2rem 0; border-block: 1px solid rgba(34, 23, 39, 0.12); font-size: 0.82rem; color: var(--ink-soft); }
+  .standard li { display: flex; gap: 0.6rem; align-items: baseline; }
+  .standard li::before { content: '✦'; color: var(--honey); font-size: 0.7rem; }
+  .info__desc { font-size: 1rem; }
+  .info__desc :global(a), .info__acc :global(a) { text-decoration: underline; text-underline-offset: 3px; }
+
+  /* related */
+  .related__head { display: grid; gap: 1rem; justify-items: start; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .related__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+
+  /* sticky purchase bar */
+  .buybar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+    padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
+    background: rgba(247, 242, 235, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(34, 23, 39, 0.1);
+    transform: translateY(105%); transition: transform 0.6s var(--ease-out);
+  }
+  .buybar.is-on { transform: none; }
+  .buybar__inner { max-width: var(--max); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .buybar__meta { display: grid; min-width: 0; }
+  .buybar__name { font-family: var(--serif); font-size: 1.2rem; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .buybar__price { font-size: 0.85rem; color: var(--ink-soft); }
+  .buybar .btn { min-height: 2.9rem; flex: none; }
+
+  @media (max-width: 960px) {
+    .pdp__grid { grid-template-columns: 1fr; }
+    .gallery { margin-inline: calc(var(--gutter) * -1); }
+    .gallery__track {
+      grid-auto-flow: column; grid-auto-columns: 100%; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .gallery__track::-webkit-scrollbar { display: none; }
+    .gallery__slide { scroll-snap-align: start; padding-inline: var(--gutter); }
+    /* Each slide keeps (roughly) its own shape so studio shots never sit in a box. */
+    .gallery__track { align-items: center; }
+    .gallery__frame { aspect-ratio: var(--ar, 1); min-height: 0; background: transparent; }
+    .gallery__frame :global(img) { width: 100%; height: 100%; object-fit: cover; }
+    .gallery__frame--video { display: block; position: relative; }
+    .gallery__frame--video video { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; object-fit: cover; }
+    .gallery__dots { display: flex; justify-content: center; gap: 0.45rem; margin-top: 1rem; }
+    .gallery__dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(34, 23, 39, 0.2); transition: background 0.3s, transform 0.3s; }
+    .gallery__dots span.is-active { background: var(--ink); transform: scale(1.3); }
+    .info__sticky { position: static; }
+    .related__grid { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; }
+  }
+  @media (min-width: 961px) { .buybar { display: none; } }
+</style>

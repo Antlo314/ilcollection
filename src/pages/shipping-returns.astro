@@ -1,0 +1,104 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const sections = [
+  {
+    title: 'Processing time',
+    body: [
+      'All orders are processed within 2–4 business days (excluding weekends and holidays).',
+      'Because our products are made in small batches to preserve freshness and quality, processing times may be slightly longer during restocks, new releases, or sales events.',
+      'You will receive a confirmation email with tracking information once your order has shipped.',
+    ],
+  },
+  {
+    title: 'Shipping rates & delivery',
+    body: [
+      'Shipping costs are calculated at checkout based on your location and package weight. We currently ship within the United States and to the US Virgin Islands.',
+      'Standard shipping: 3–7 business days after processing. Expedited shipping: 2–3 business days after processing.',
+      'Delivery times are estimates and may vary due to factors beyond our control (weather, carrier delays, etc.).',
+    ],
+  },
+  {
+    title: 'Order tracking',
+    body: ['Once your order has shipped, you’ll receive a tracking number via email. Please allow up to 24 hours for tracking updates to appear.'],
+  },
+  {
+    title: 'Incorrect addresses',
+    body: [
+      `Please double-check your shipping details before submitting your order. If an address error is made, contact us within 4 hours at ${site.email}.`,
+      'We are not responsible for orders shipped to incorrect addresses provided at checkout.',
+    ],
+  },
+  {
+    title: 'Lost or damaged packages',
+    body: [`If your package is lost or arrives damaged, please email ${site.email} within 48 hours of “delivered” status. Include your order number and photos (if applicable), and our team will be happy to help resolve the issue.`],
+  },
+  {
+    title: 'Returns, exchanges & refunds',
+    body: [
+      'Due to the nature of our body care products being handmade, personal-use items, all sales are final for sanitary and safety reasons. We do not accept returns, exchanges, or issue refunds once an order has been shipped.',
+      'However, your satisfaction matters deeply to us. If your order arrives damaged, incorrect, or defective, please contact us within 48 hours of “delivered” status so we can make it right.',
+    ],
+  },
+  {
+    title: 'Requesting a replacement',
+    body: [
+      `Email ${site.email} with your order number and clear photos of the product(s) in question. Our team will review your request within 2–3 business days and respond with next steps.`,
+      'If approved, we will send a replacement or store credit, depending on the situation.',
+    ],
+  },
+  {
+    title: 'Good to know',
+    body: [
+      'Shipping fees are non-refundable.',
+      'IL Collection is not responsible for lost or stolen packages after delivery has been confirmed by the carrier.',
+      'All products are carefully packaged and inspected before shipping to ensure quality and freshness.',
+    ],
+  },
+];
+---
+<Base title="Shipping & Returns" description="Shipping, delivery, and returns information for Incandescent Lily Collection orders.">
+  <section class="policy" data-hero>
+    <div class="wrap policy__head">
+      <p class="eyebrow" data-reveal>The IL Collection guarantee</p>
+      <h1 class="h1" data-split>Shipping &amp; <em>returns.</em></h1>
+      <p class="lead" data-reveal>Every order is prepared in small batches with care and intention, so you receive your products in their purest and safest form — and your experience, from checkout to delivery, feels seamless and secure.</p>
+    </div>
+  </section>
+
+  <section class="section--tight">
+    <div class="wrap policy__body">
+      <nav class="policy__toc" aria-label="On this page">
+        {sections.map((s, i) => <a href={`#p-${i}`}>{s.title}</a>)}
+      </nav>
+      <div class="policy__sections">
+        {sections.map((s, i) => (
+          <section id={`p-${i}`} class="policy__section" data-reveal>
+            <h2 class="h3">{s.title}</h2>
+            <div class="prose">{s.body.map((t) => <p>{t}</p>)}</div>
+          </section>
+        ))}
+        <p class="policy__sign" data-reveal>With love and light,<br /><em>Incandescent Lily Collection</em></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .policy { padding: calc(var(--header-h) + 34px + clamp(3rem, 9vh, 6rem)) 0 clamp(2rem, 4vw, 3rem); }
+  .policy__head { display: grid; gap: 1.6rem; justify-items: start; }
+  .policy__head .lead { max-width: 52ch; }
+  .policy__body { display: grid; grid-template-columns: 16rem 1fr; gap: clamp(2rem, 6vw, 7rem); align-items: start; padding-bottom: var(--section); }
+  .policy__toc { position: sticky; top: calc(var(--header-h) + 3rem); display: grid; gap: 0.7rem; font-size: 0.85rem; color: var(--ink-mute); }
+  .policy__toc a:hover { color: var(--lily); }
+  .policy__sections { display: grid; gap: 0; border-top: 1px solid rgba(34, 23, 39, 0.12); }
+  .policy__section { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 1.5rem 3rem; padding: 2.2rem 0; border-bottom: 1px solid rgba(34, 23, 39, 0.12); scroll-margin-top: calc(var(--header-h) + 3rem); }
+  .policy__sign { font-family: var(--serif); font-size: 1.6rem; line-height: 1.3; margin-top: 3rem; }
+  .policy__sign em { color: var(--lily); }
+  @media (max-width: 960px) {
+    .policy__body { grid-template-columns: 1fr; }
+    .policy__toc { display: none; }
+    .policy__section { grid-template-columns: 1fr; }
+  }
+</style>

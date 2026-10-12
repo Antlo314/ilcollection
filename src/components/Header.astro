@@ -1,0 +1,159 @@
+---
+import { site, collections } from '../data/site';
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const is = (p: string) => (p === '/' ? path === '/' : path.startsWith(p));
+const nav = [
+  { href: '/shop', label: 'Shop' },
+  { href: '/shop?c=rituals', label: 'Rituals' },
+  { href: '/our-story', label: 'Our Story' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<header class="site-header" data-header>
+  <div class="announce" aria-label="Announcement">
+    <p class="announce__long">Handcrafted in small batches with purity, purpose &amp; divine intention <span aria-hidden="true">✦</span> Shipping within the U.S. &amp; USVI</p>
+    <p class="announce__short">Plant-based <span aria-hidden="true">✦</span> Small batch <span aria-hidden="true">✦</span> Black-owned</p>
+  </div>
+  <div class="bar wrap">
+    <nav class="nav nav--left" aria-label="Primary">
+      {nav.slice(0, 3).map((n) => (
+        <a href={n.href} class:list={['nav__link', { 'is-active': is(n.href.split('?')[0]) && !n.href.includes('?') }]}>{n.label}</a>
+      ))}
+    </nav>
+
+    <a href="/" class="logo" aria-label={`${site.name} — home`}>
+      <img src="/media/brand/logo.png" alt="" width="640" height="216" class="logo__dark" />
+      <img src="/media/brand/logo-light.png" alt="" width="640" height="216" class="logo__light" aria-hidden="true" />
+    </a>
+
+    <div class="nav nav--right">
+      <a href="/contact" class:list={['nav__link hide-sm', { 'is-active': is('/contact') }]}>Contact</a>
+      <a href={site.cartUrl} class="icon-btn" aria-label="View bag">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="sr-only">Menu</span>
+        <span class="menu-btn__line"></span><span class="menu-btn__line"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu" data-menu hidden>
+  <div class="menu__inner wrap">
+    <nav class="menu__nav" aria-label="Mobile">
+      <a href="/" class="menu__link">Home</a>
+      {nav.map((n) => <a href={n.href} class="menu__link">{n.label}</a>)}
+    </nav>
+    <div class="menu__foot">
+      <div class="menu__cols">
+        {collections.slice(1).map((c) => <a href={`/shop?c=${c.key}`}>{c.label}</a>)}
+      </div>
+      <div class="menu__contact">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={site.phoneHref}>{site.phone}</a>
+        <a href={site.social.instagram} target="_blank" rel="noopener">Instagram {site.handle}</a>
+      </div>
+    </div>
+  </div>
+  <img src="/media/brand/lily-mark-light.png" alt="" class="menu__lily" aria-hidden="true" width="524" height="512" />
+</div>
+
+<style>
+  .site-header {
+    position: fixed; inset: 0 0 auto; z-index: 100;
+    color: var(--ink);
+    transition: transform 0.7s var(--ease-out), background-color 0.5s var(--ease-out), color 0.5s var(--ease-out);
+  }
+  .site-header::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: rgba(247, 242, 235, 0.82);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid rgba(34, 23, 39, 0.08);
+    opacity: 0; transition: opacity 0.5s var(--ease-out);
+  }
+  :global(.header-solid) .site-header::before { opacity: 1; }
+  :global(.header-hidden) .site-header { transform: translateY(calc(-100% + 0px)); }
+
+  .announce {
+    height: 34px; display: grid; place-items: center; overflow: hidden;
+    background: var(--plum); color: rgba(247, 242, 235, 0.86);
+    font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
+    padding-inline: 1rem;
+  }
+  .announce p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .announce span { color: var(--honey-soft); margin: 0 0.6em; }
+  .announce__short { display: none; }
+
+  .bar {
+    height: var(--header-h);
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
+  }
+  .nav { display: flex; align-items: center; gap: clamp(1.2rem, 2.4vw, 2.4rem); }
+  .nav--right { justify-content: flex-end; }
+  .nav__link {
+    position: relative; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    padding-block: 0.4rem;
+  }
+  .nav__link::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: right; transition: transform 0.6s var(--ease-out);
+  }
+  .nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); transform-origin: left; }
+
+  .logo { position: relative; display: block; width: clamp(150px, 15vw, 210px); }
+  .logo img { width: 100%; height: auto; }
+  .logo__light { position: absolute; inset: 0; opacity: 0; }
+
+  .icon-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; transition: background 0.4s; }
+  .icon-btn:hover { background: rgba(34, 23, 39, 0.06); }
+
+  .menu-btn { display: none; position: relative; width: 40px; height: 40px; }
+  .menu-btn__line {
+    position: absolute; left: 9px; right: 9px; height: 1px; background: currentColor;
+    transition: transform 0.6s var(--ease-out), top 0.6s var(--ease-out);
+  }
+  .menu-btn__line:first-of-type { top: 16px; }
+  .menu-btn__line:last-of-type { top: 23px; }
+  .menu-btn[aria-expanded='true'] .menu-btn__line:first-of-type { top: 20px; transform: rotate(45deg); }
+  .menu-btn[aria-expanded='true'] .menu-btn__line:last-of-type { top: 20px; transform: rotate(-45deg); }
+
+  /* menu overlay */
+  .menu {
+    position: fixed; inset: 0; z-index: 90;
+    background: var(--plum); color: var(--bone);
+    padding-top: calc(var(--header-h) + 34px + 2rem);
+    overflow: hidden auto;
+  }
+  .menu[hidden] { display: none; }
+  .menu__inner { min-height: 100%; display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; padding-bottom: 2.5rem; }
+  .menu__nav { display: flex; flex-direction: column; }
+  .menu__link {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(2.8rem, 11vw, 5rem); line-height: 1.08;
+    display: block; overflow: hidden;
+  }
+  .menu__link:hover { color: var(--honey-soft); font-style: italic; }
+  .menu__foot { display: grid; gap: 2rem; font-size: 0.85rem; color: rgba(247, 242, 235, 0.7); }
+  .menu__cols { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.7rem; }
+  .menu__contact { display: grid; gap: 0.35rem; }
+  .menu__lily { position: absolute; right: -6%; bottom: -4%; width: min(70vw, 420px); opacity: 0.06; pointer-events: none; }
+
+  /* while the menu is open the header sits on plum */
+  :global(.menu-open) .site-header { color: var(--bone); }
+  :global(.menu-open) .site-header::before { opacity: 0 !important; }
+  :global(.menu-open) .logo__light { opacity: 1; }
+  :global(.menu-open) .logo__dark { opacity: 0; }
+
+  @media (max-width: 960px) {
+    .nav--left { display: none; }
+    .hide-sm { display: none; }
+    .menu-btn { display: block; }
+    .bar { grid-template-columns: auto 1fr auto; }
+    .logo { grid-column: 1; }
+    .nav--right { grid-column: 3; gap: 0.25rem; }
+    .announce { font-size: 0.58rem; letter-spacing: 0.14em; }
+    .announce__long { display: none; }
+    .announce__short { display: block; }
+  }
+</style>

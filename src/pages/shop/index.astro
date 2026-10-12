@@ -1,0 +1,144 @@
+---
+import Base from '../../layouts/Base.astro';
+import Img from '../../components/Img.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { products, collections, media } from '../../data/site';
+
+// Merchandised order: signature skin + body first, rituals and devotionals last.
+const order = [
+  'favor-face-serum', 'illumine-brightening-serum', 'brightstar-glow-bar', 'whole-body-healing-salve', 'blush-bloom-toner',
+  'brightstar-cleanser', 'manuka-honey-mask', 'lip-love-balm', 'woke-body-oil', 'lemongrass-growth-mist',
+  'new-life-hair-healing-bar', 'brightstar-healing-bar', 'enlighten-mist', 'awaken-healing-candle', 'garden-restore-teas',
+  'reign-sanitary-napkins', 'incandescent-luxe-box', 'glow-grow-duo', 'woke-his-hers-set', 'four-step-miracle-kit',
+  'awaken-devotional', 'resolved-devotional',
+];
+const sorted = [...products].sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
+const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all' ? products.length : products.filter((p) => p.tags.includes(c.key)).length]));
+---
+<Base title="Shop the Collection" description="Shop the Incandescent Lily Collection: plant-based skin care, hair care, body oils, herbal teas, candles, and curated rituals — handmade in small batches.">
+  <section class="shop-hero" data-hero>
+    <div class="wrap shop-hero__inner">
+      <p class="eyebrow" data-reveal>The Collection</p>
+      <h1 class="h1" data-split>Pure plants, <em>poured with intention.</em></h1>
+      <p class="lead" data-reveal>Every formula is 100% plant-based and handmade in small batches — free of parabens, sulfates, dyes, and synthetic fragrance.</p>
+    </div>
+    <div class="shop-hero__band wrap" data-parallax-scope>
+      <div class="frame frame--soft shop-hero__img" data-clip>
+        <div data-parallax="0.1" class="shop-hero__parallax">
+          <Img media={media.brand.lineupWide} alt="The Incandescent Lily Collection lineup of amber bottles and jars" sizes="(max-width: 1440px) 96vw, 1380px" eager />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section shop" id="collection">
+    <div class="wrap">
+      <div class="filters" role="toolbar" aria-label="Filter products" data-filters>
+        {collections.map((c) => (
+          <button type="button" class:list={['chip', { 'is-active': c.key === 'all' }]} data-filter={c.key} aria-pressed={c.key === 'all' ? 'true' : 'false'}>
+            {c.label}<sup>{counts[c.key]}</sup>
+          </button>
+        ))}
+      </div>
+      <p class="shop__count muted" aria-live="polite" data-count>{products.length} products</p>
+      <div class="grid" data-grid>
+        {sorted.map((p, i) => <ProductCard product={p} eager={i < 4} />)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { gsap } from 'gsap';
+  import { Flip } from 'gsap/Flip';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(Flip, ScrollTrigger);
+
+  const grid = document.querySelector<HTMLElement>('[data-grid]')!;
+  const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-card]'));
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+  const count = document.querySelector<HTMLElement>('[data-count]')!;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function apply(key: string, animate = true) {
+    const state = Flip.getState(cards);
+    let shown = 0;
+    cards.forEach((card) => {
+      const match = key === 'all' || (card.dataset.tags || '').split(' ').includes(key);
+      card.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    chips.forEach((c) => {
+      const on = c.dataset.filter === key;
+      c.classList.toggle('is-active', on);
+      c.setAttribute('aria-pressed', String(on));
+    });
+    count.textContent = `${shown} ${shown === 1 ? 'product' : 'products'}`;
+    if (animate && !reduce) {
+      Flip.from(state, {
+        duration: 0.9, ease: 'expo.inOut', absolute: true, stagger: 0.025,
+        onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.8, delay: 0.25, ease: 'expo.out' }),
+        onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.94, duration: 0.4 }),
+        onComplete: () => ScrollTrigger.refresh(),
+      });
+    } else {
+      ScrollTrigger.refresh();
+    }
+  }
+
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    const key = chip.dataset.filter!;
+    apply(key);
+    const url = new URL(location.href);
+    if (key === 'all') url.searchParams.delete('c'); else url.searchParams.set('c', key);
+    history.replaceState(null, '', url);
+  }));
+
+  const initial = new URLSearchParams(location.search).get('c');
+  if (initial && chips.some((c) => c.dataset.filter === initial)) apply(initial, false);
+</script>
+
+<style>
+  .shop-hero { padding-top: calc(var(--header-h) + 34px + clamp(3rem, 8vh, 6rem)); }
+  .shop-hero__inner { display: grid; grid-template-columns: 1fr minmax(0, 24rem); gap: 1.6rem 3rem; align-items: end; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+  .shop-hero__inner .eyebrow { grid-column: 1 / -1; }
+  .shop-hero__inner h1 { max-width: 13ch; }
+  .shop-hero__inner .lead { padding-bottom: 0.6rem; }
+  @media (max-width: 860px) { .shop-hero__inner { grid-template-columns: 1fr; } }
+  .shop-hero__img { aspect-ratio: 21 / 8; }
+  .shop-hero__parallax { position: absolute; inset: -12% 0; }
+  .shop-hero__parallax :global(img) { width: 100%; height: 100%; object-fit: cover; }
+
+  :global(.header-hidden) .filters { top: 0.75rem; }
+  .filters {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    position: sticky; top: calc(var(--header-h) + 34px + 0.75rem); z-index: 5;
+    transition: top 0.7s var(--ease-out);
+    padding: 0.5rem; margin: 0 -0.5rem;
+  }
+  .chip {
+    position: relative; display: inline-flex; align-items: flex-start; gap: 0.3em;
+    padding: 0.75rem 1.2rem; border-radius: 999px;
+    border: 1px solid rgba(34, 23, 39, 0.16); background: rgba(247, 242, 235, 0.85);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+    transition: background 0.4s var(--ease-out), color 0.4s var(--ease-out), border-color 0.4s;
+  }
+  .chip sup { font-size: 0.62em; letter-spacing: 0.05em; opacity: 0.6; top: -0.1em; }
+  .chip:hover { border-color: var(--ink); }
+  .chip.is-active { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+  .shop__count { margin: 1.4rem 0 2rem; font-size: 0.85rem; letter-spacing: 0.04em; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(2.2rem, 4vw, 3.5rem) clamp(1rem, 2vw, 1.75rem); }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .shop-hero__img { aspect-ratio: 16 / 10; }
+    .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+    .filters::-webkit-scrollbar { display: none; }
+    .chip { flex: none; }
+    :global(.card__name) { font-size: 1.2rem; }
+  }
+  @media (max-width: 420px) {
+    .grid { gap: 2rem 0.75rem; }
+  }
+</style>
