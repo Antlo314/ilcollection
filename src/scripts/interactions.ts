@@ -12,6 +12,17 @@ document.querySelectorAll<HTMLElement>('[data-rail]').forEach((rail) => {
   section?.querySelector('[data-rail-next]')?.addEventListener('click', () => rail.scrollBy({ left: step() * 2, behavior: 'smooth' }));
 });
 
+/* ---------- edge fades: melt only where there is more to see ---------- */
+document.querySelectorAll<HTMLElement>('[data-drag-scroll]').forEach((el) => {
+  const sync = () => {
+    el.classList.toggle('is-scrolled', el.scrollLeft > 8);
+    el.classList.toggle('is-end', el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+  };
+  el.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
+  sync();
+});
+
 /* ---------- click-and-drag horizontal scrolling for mouse users ---------- */
 document.querySelectorAll<HTMLElement>('[data-drag-scroll]').forEach((el) => {
   let down = false, moved = false, startX = 0, startLeft = 0;

@@ -34,11 +34,11 @@ const pillars = [
 ];
 
 const results = [
-  { img: b.resultsNeck, title: 'Whole Body Healing Salve', note: '3 weeks · twice daily', href: '/shop/whole-body-healing-salve' },
-  { img: b.resultsGlowBar, title: 'Brightstar™ Manuka Honey Glow Bar', note: '3-day transformation', href: '/shop/brightstar-glow-bar' },
-  { img: b.resultsAcne, title: '4-Step Miracle Kit', note: 'Results of 40 days', href: '/shop/four-step-miracle-kit' },
-  { img: b.resultsHair, title: 'Lemongrass Growth & Refresher Mist™', note: '10 months of use', href: '/shop/lemongrass-growth-mist' },
-  { img: b.resultsBrows, title: 'Whole Body Healing Salve', note: '3 weeks · twice daily', href: '/shop/whole-body-healing-salve' },
+  { img: media.cards.resultsNeck, title: 'Whole Body Healing Salve', note: '3 weeks · twice daily', href: '/shop/whole-body-healing-salve' },
+  { img: media.cards.resultsGlowBar, title: 'Brightstar™ Manuka Honey Glow Bar', note: '3-day transformation', href: '/shop/brightstar-glow-bar' },
+  { img: media.cards.resultsAcne, title: '4-Step Miracle Kit', note: 'Results of 40 days', href: '/shop/four-step-miracle-kit' },
+  { img: media.cards.resultsHair, title: 'Lemongrass Growth & Refresher Mist™', note: '10 months of use', href: '/shop/lemongrass-growth-mist' },
+  { img: media.cards.resultsBrows, title: 'Whole Body Healing Salve', note: '3 weeks · twice daily', href: '/shop/whole-body-healing-salve' },
 ];
 
 const blends = [
@@ -76,7 +76,7 @@ const reign = bySlug('reign-sanitary-napkins');
 
       <div class="hero__art">
         <div class="hero__arch halo">
-          <div class="frame frame--arch" data-clip>
+          <div class="frame frame--arch frame--glow hero__breath" data-clip>
             <Img media={b.lifeCleanser} alt="Brightstar Manuka Honey Cleanser on a wooden tray with lavender and eucalyptus" sizes="(max-width: 960px) 80vw, 34vw" eager />
           </div>
         </div>
@@ -112,7 +112,7 @@ const reign = bySlug('reign-sanitary-napkins');
         <a href="/shop" class="link-line">Explore all</a>
       </div>
     </div>
-    <div class="rail" data-rail data-drag-scroll>
+    <div class="rail rail-fade" data-rail data-drag-scroll>
       {mostLoved.map((p, i) => (
         <div class="rail__item" data-reveal>
           <ProductCard product={p} sizes="(max-width: 640px) 72vw, (max-width: 1100px) 40vw, 24vw" eager={i < 2} />
@@ -132,7 +132,7 @@ const reign = bySlug('reign-sanitary-napkins');
     <div class="pillars__grid" data-drag-scroll>
       {pillars.map((p, i) => (
         <article class="pillar">
-          <div class="frame frame--arch pillar__img" data-clip data-parallax-scope>
+          <div class="frame frame--arch frame--glow pillar__img" data-clip data-parallax-scope>
             <div data-parallax="0.12" class="pillar__parallax">
               <Img media={p.img} alt={p.alt} sizes="(max-width: 860px) 78vw, 30vw" />
             </div>
@@ -235,9 +235,15 @@ const reign = bySlug('reign-sanitary-napkins');
         <p class="eyebrow" data-reveal>Real skin, real stories</p>
         <h2 class="h2" data-split>Results that <em>speak softly</em> — and last.</h2>
       </div>
-      <p class="section-head__note muted" data-reveal>Shared by our customers. Individual results vary with consistent use.</p>
+      <div class="section-head__aside" data-reveal>
+        <p class="section-head__note muted">Shared by our customers. Individual results vary with consistent use.</p>
+        <div class="rail-nav">
+          <button class="rail-btn" type="button" data-rail-prev aria-label="Previous stories">←</button>
+          <button class="rail-btn" type="button" data-rail-next aria-label="Next stories">→</button>
+        </div>
+      </div>
     </div>
-    <div class="rail rail--results" data-drag-scroll>
+    <div class="rail rail--results rail-fade" data-rail data-drag-scroll>
       {results.map((r) => (
         <a href={r.href} class="result" data-reveal>
           <div class="frame frame--soft result__img">
@@ -292,7 +298,7 @@ const reign = bySlug('reign-sanitary-napkins');
       <div class="gallery__grid">
         {gallery.map((g) => (
           <a href={g.href} class="gallery__item" data-parallax-scope>
-            <div class="frame frame--soft" data-clip>
+            <div class="frame frame--soft frame--glow" data-clip>
               <div data-parallax={String(g.speed)} class="gallery__parallax">
                 <Img media={g.img} alt={g.alt} sizes="(max-width: 700px) 46vw, 32vw" />
               </div>
@@ -366,6 +372,10 @@ const reign = bySlug('reign-sanitary-napkins');
   .hero__ctas { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 0.4rem; }
   .hero__art { position: relative; padding: 4% 8% 10% 12%; }
   .hero__arch .frame { aspect-ratio: 3 / 4; }
+  /* the hero image breathes — a slow, almost imperceptible drift */
+  .hero__breath :global(img) { animation: breath 24s ease-in-out infinite alternate; transform-origin: 55% 45%; }
+  @keyframes breath { from { scale: 1; } to { scale: 1.07; } }
+  @media (prefers-reduced-motion: reduce) { .hero__breath :global(img) { animation: none; } }
   .hero__inset { position: absolute; left: 0; bottom: 2%; width: 40%; aspect-ratio: 1; border: 6px solid var(--bone); border-radius: 50%; }
   .badge { position: absolute; right: 0; top: 0; width: clamp(96px, 11vw, 150px); aspect-ratio: 1; display: grid; place-items: center; }
   .badge__ring { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -380,6 +390,7 @@ const reign = bySlug('reign-sanitary-napkins');
   .section-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(2.4rem, 5vw, 4rem); }
   .section-head h2 { margin-top: 1.1rem; max-width: 16ch; }
   .section-head__aside { display: flex; align-items: center; gap: 2rem; flex: none; }
+  .results .section-head__aside { flex: 0 1 auto; }
   .section-head__note { max-width: 30ch; font-size: 0.9rem; }
   .rail-nav { display: flex; gap: 0.5rem; }
   .rail-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(34, 23, 39, 0.2); transition: background 0.4s, color 0.4s, border-color 0.4s; }
@@ -458,8 +469,8 @@ const reign = bySlug('reign-sanitary-napkins');
   /* ---------- results ---------- */
   .rail--results { grid-auto-columns: clamp(260px, 30vw, 420px); }
   .result { display: grid; gap: 0.7rem; align-content: start; }
-  .result__img { aspect-ratio: 4 / 5; background: var(--white); }
-  .result__img :global(img) { object-fit: contain; transition: transform 1s var(--ease-out); }
+  .result__img { aspect-ratio: 4 / 5; background: var(--linen); }
+  .result__img :global(img) { transition: transform 1s var(--ease-out); }
   .result:hover .result__img :global(img) { transform: scale(1.03); }
   .result__note { color: var(--honey); margin-top: 0.4rem; }
   .result__title { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; line-height: 1.15; }
@@ -530,11 +541,17 @@ const reign = bySlug('reign-sanitary-napkins');
 
     /* pillars become a gentle swipe */
     .pillars__grid {
+      --fade-l: 0px; --fade-r: var(--rail-fade);
+      mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+      transition: --fade-l 0.5s var(--ease-out), --fade-r 0.5s var(--ease-out);
       grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(78vw, 360px);
       overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
       padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); gap: 1.25rem;
     }
     .pillars__grid::-webkit-scrollbar { display: none; }
+    .pillars__grid.is-scrolled, .indulge__cards.is-scrolled { --fade-l: var(--rail-fade); }
+    .pillars__grid.is-end, .indulge__cards.is-end { --fade-r: 0px; }
     .pillar { scroll-snap-align: start; }
     .pillar:nth-child(2) { margin-top: 0; }
     .pillar__img { margin-bottom: 0.8rem; }
@@ -546,6 +563,10 @@ const reign = bySlug('reign-sanitary-napkins');
     .indulge__track { display: block; width: auto; min-height: 0; padding: var(--section) 0; }
     .indulge__intro { width: auto; padding: 0 var(--gutter); margin-bottom: 2.2rem; }
     .indulge__cards {
+      --fade-l: 0px; --fade-r: var(--rail-fade);
+      mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+      transition: --fade-l 0.5s var(--ease-out), --fade-r 0.5s var(--ease-out);
       overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
       padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); gap: 1.1rem;
     }
@@ -566,6 +587,7 @@ const reign = bySlug('reign-sanitary-napkins');
     .hero__copy { gap: 1.2rem; }
     .hero__ctas { gap: 1.4rem; }
     .rail-nav { display: none; }
+    .results .section-head__aside { display: block; }
     .rail { grid-auto-columns: 72vw; gap: 0.9rem; }
     .rail--results { grid-auto-columns: 78vw; }
     .mission__inner { gap: 1.5rem; }

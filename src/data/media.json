@@ -219,5 +219,37 @@
       "height": 1280,
       "muted": false
     }
+  },
+  "cards": {
+    "resultsNeck": {
+      "src": "/media/c/brand-results-neck-800.webp",
+      "srcset": "/media/c/brand-results-neck-400.webp 400w, /media/c/brand-results-neck-800.webp 800w",
+      "width": 800,
+      "height": 1000
+    },
+    "resultsGlowBar": {
+      "src": "/media/c/brand-results-glow-bar-800.webp",
+      "srcset": "/media/c/brand-results-glow-bar-400.webp 400w, /media/c/brand-results-glow-bar-800.webp 800w",
+      "width": 800,
+      "height": 1000
+    },
+    "resultsAcne": {
+      "src": "/media/c/brand-results-acne-800.webp",
+      "srcset": "/media/c/brand-results-acne-400.webp 400w, /media/c/brand-results-acne-800.webp 800w",
+      "width": 800,
+      "height": 1000
+    },
+    "resultsHair": {
+      "src": "/media/c/brand-results-hair-800.webp",
+      "srcset": "/media/c/brand-results-hair-400.webp 400w, /media/c/brand-results-hair-800.webp 800w",
+      "width": 800,
+      "height": 1000
+    },
+    "resultsBrows": {
+      "src": "/media/c/brand-results-brows-800.webp",
+      "srcset": "/media/c/brand-results-brows-400.webp 400w, /media/c/brand-results-brows-800.webp 800w",
+      "width": 800,
+      "height": 1000
+    }
   }
 }
