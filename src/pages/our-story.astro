@@ -3,10 +3,11 @@ import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import Marquee from '../components/Marquee.astro';
 import { media, mission, standard, values, site } from '../data/site';
+import { breadcrumbs } from '../data/seo';
 const b = media.brand;
 const v = media.video;
 ---
-<Base title="Our Story" description="Incandescent Lily Collection creates luxurious, plant-based wellness and body care rooted in purity, purpose, and divine intention — a Black-owned collection from NEBA Ministry & Mentorship.">
+<Base title="Our Story" description="Black-owned, faith-rooted, 100% plant-based body care made with purity, purpose, and divine intention — the story of Incandescent Lily Collection." image="/og-story.jpg" pageType="AboutPage" schema={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Our Story', path: '/our-story' }])]}>
   <section class="story-hero" data-hero>
     <div class="wrap story-hero__inner">
       <p class="eyebrow" data-reveal>Our Story</p>

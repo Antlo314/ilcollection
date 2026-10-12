@@ -4,6 +4,7 @@ import Img from '../components/Img.astro';
 import ProductCard from '../components/ProductCard.astro';
 import Marquee from '../components/Marquee.astro';
 import { media, bySlug, firstImage, priceLabel, values, mission, faqs, site } from '../data/site';
+import { itemList } from '../data/seo';
 
 const b = media.brand;
 const v = media.video;
@@ -60,12 +61,12 @@ const gallery = [
 
 const reign = bySlug('reign-sanitary-napkins');
 ---
-<Base>
+<Base intro description="Black-owned, 100% plant-based skin, hair & body care — manuka honey cleansers, healing salves, body oils, herbal teas & candles, handmade in small batches." schema={[itemList(mostLoved, 'Most adored')]}>
   <!-- ============ HERO ============ -->
   <section class="hero" data-hero>
     <div class="wrap hero__grid">
       <div class="hero__copy">
-        <p class="eyebrow" data-reveal>Plant-born body care, made by hand</p>
+        <p class="eyebrow" data-reveal>Black-owned, plant-based body care</p>
         <h1 class="h1 hero__title" data-split>Tender care,<br /> rooted in <em>purity.</em></h1>
         <p class="lead" data-reveal>Velvety oils, healing butters, and warm botanicals — lovingly made from the plants God gave us, so your spirit, mind, and body feel cherished.</p>
         <div class="hero__ctas" data-reveal>

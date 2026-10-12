@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
+import { breadcrumbs } from '../data/seo';
 
 const sections = [
   {
@@ -58,7 +59,7 @@ const sections = [
   },
 ];
 ---
-<Base title="Shipping & Returns" description="Shipping, delivery, and returns information for Incandescent Lily Collection orders.">
+<Base title="Shipping & Returns" description="Processing in 2–4 business days, delivery across the U.S. and USVI, and our care promise for damaged or incorrect orders from Incandescent Lily Collection." schema={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Shipping & Returns', path: '/shipping-returns' }])]}>
   <section class="policy" data-hero>
     <div class="wrap policy__head">
       <p class="eyebrow" data-reveal>The IL Collection guarantee</p>

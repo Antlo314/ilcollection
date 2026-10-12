@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Img from '../../components/Img.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { products, collections, media } from '../../data/site';
+import { breadcrumbs, itemList } from '../../data/seo';
 
 // Merchandised order: signature skin + body first, indulgences and devotionals last.
 const order = [
@@ -15,7 +16,7 @@ const order = [
 const sorted = [...products].sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
 const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all' ? products.length : products.filter((p) => p.tags.includes(c.key)).length]));
 ---
-<Base title="Shop the Collection" description="Shop the Incandescent Lily Collection: plant-based skin care, hair care, body oils, herbal teas, candles, and curated indulgences — lovingly handmade in small batches.">
+<Base title="Shop Plant-Based Skin, Hair & Body Care" description="Shop Black-owned, 100% plant-based skin care, hair care, body oils, herbal teas, soy candles, and gift sets — handmade in small batches. Ships across the U.S." image="/og-shop.jpg" imageAlt="The Incandescent Lily Collection lineup" pageType="CollectionPage" schema={[breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Shop', path: '/shop' }]), itemList(sorted, 'The Incandescent Lily Collection')]}>
   <section class="shop-hero" data-hero>
     <div class="wrap shop-hero__inner">
       <p class="eyebrow" data-reveal>The Collection</p>

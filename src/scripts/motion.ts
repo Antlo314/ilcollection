@@ -90,9 +90,9 @@ function intro(): Promise<void> {
   lenis?.stop();
   return new Promise((resolve) => {
     gsap.timeline({ onComplete: () => { pre.style.display = 'none'; lenis?.start(); } })
-      .to('.preloader__lily', { clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: 'expo.inOut' })
-      .fromTo('.preloader__word span, .preloader__word em', { yPercent: 110, y: 0 }, { yPercent: 0, duration: 1.1, stagger: 0.1 }, '-=0.7')
-      .to(pre, { clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'expo.inOut', onStart: () => resolve() }, '+=0.35');
+      .to('.preloader__lily', { clipPath: 'inset(0% 0 0 0)', duration: 1, ease: 'expo.inOut' })
+      .fromTo('.preloader__word span, .preloader__word em', { yPercent: 110, y: 0 }, { yPercent: 0, duration: 0.9, stagger: 0.08 }, '-=0.6')
+      .to(pre, { clipPath: 'inset(0 0 100% 0)', duration: 0.9, ease: 'expo.inOut', onStart: () => resolve() }, '+=0.15');
   });
 }
 

@@ -2,8 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import { site, faqs, media } from '../data/site';
+import { breadcrumbs, faqPage } from '../data/seo';
 ---
-<Base title="Contact & FAQ" description="Reach Incandescent Lily Collection customer care by phone, email, or social media — Monday through Friday, 9am to 7pm EST.">
+<Base title="Contact & FAQ" description="Questions about our plant-based skin and hair care? Reach Incandescent Lily Collection by phone, email, or social — Monday through Friday, 9am–7pm EST." pageType="ContactPage" schema={[faqPage('/contact'), breadcrumbs([{ name: 'Home', path: '/' }, { name: 'Contact & FAQ', path: '/contact' }])]}>
   <section class="contact" data-hero>
     <div class="wrap contact__grid">
       <div class="contact__intro">

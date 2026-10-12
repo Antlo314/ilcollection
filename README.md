@@ -24,6 +24,31 @@ npm run preview    # serve the production build
 3. Once the domain is known, set `site: 'https://your-domain.com'` in `astro.config.mjs`
    so canonical and Open Graph URLs become absolute.
 
+## SEO & icons
+
+Built in:
+
+- **Absolute canonical URLs + Open Graph/Twitter cards** on every page. The origin comes from
+  `SITE_URL` if set, otherwise Vercel's production domain (so a custom domain is picked up
+  automatically), falling back to `ilcollection.vercel.app`.
+- **Share images** (1200×630): `og.jpg`, `og-shop.jpg`, `og-story.jpg`, and one per product in `public/og/`.
+- **Structured data (JSON-LD)**: Organization/OnlineStore, WebSite, merchant return policy, Product
+  (price or price range, availability, shipping times, images) on every product, BreadcrumbList,
+  CollectionPage + ItemList on the shop, FAQPage on contact, AboutPage on Our Story.
+- **`/sitemap.xml`** (with product image entries) and **`/robots.txt`** pointing to it.
+- **Icons**: `favicon.ico` (16/32/48), PNG favicons, Apple touch icon, 192/512 + maskable app icons,
+  and `site.webmanifest`.
+- Preloaded hero fonts; the lily curtain plays only on the home page (product pages — where search
+  traffic lands — open instantly).
+
+After launch:
+
+1. In [Google Search Console](https://search.google.com/search-console), add the site. To verify
+   with a meta tag, put the token in a Vercel environment variable named
+   `PUBLIC_GOOGLE_SITE_VERIFICATION` and redeploy (Bing: `PUBLIC_BING_SITE_VERIFICATION`).
+2. Submit `https://<your-domain>/sitemap.xml` in Search Console and Bing Webmaster Tools.
+3. Check a product page in the [Rich Results Test](https://search.google.com/test/rich-results).
+
 ## Where things live
 
 | Path | What |

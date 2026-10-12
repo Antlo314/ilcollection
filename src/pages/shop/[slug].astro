@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Img from '../../components/Img.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { products, collections, standard, money, type Product, type Media } from '../../data/site';
+import { productNode, breadcrumbs } from '../../data/seo';
 
 export function getStaticPaths() {
   return products.map((product) => ({ params: { slug: product.slug }, props: { product } }));
@@ -23,28 +24,23 @@ const defaultVariant = product.variants.find((v) => v.key === defaultKey);
 const startPrice = defaultVariant?.price ?? product.price;
 const variantMap = Object.fromEntries(product.variants.map((v) => [v.key, v.price]));
 const plain = product.description.map((d) => ('text' in d ? d.text : (d.items ?? []).join(' '))).join(' ');
-const metaDescription = `${product.name} — ${product.sub}. ${plain}`.slice(0, 155).replace(/\s+\S*$/, '') + '…';
+const clip = (t: string, n: number) => (t.length <= n ? t : t.slice(0, n).replace(/\s+\S*$/, '').replace(/[,;:—-]$/, '') + '…');
+// Short names borrow their subtitle for a richer title ("Awaken™ — A 30-Day Mentorship Devotional").
+const seoTitle = `${product.name} — ${product.sub}`.length <= 42 ? `${product.name} — ${product.sub}` : product.name;
+const metaDescription = clip(`${product.sub}. ${plain.replace(/\s+/g, ' ').trim()}`, 155);
 const imgs = product.media.filter((m) => m.type === 'image') as unknown as Media[];
 // Mobile carousel slot shape: the media's own aspect, clamped so slides stay a similar height.
 const slotRatio = (m: { width: number; height: number }) => Math.min(1.5, Math.max(0.8, m.width / m.height)).toFixed(3);
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: product.name,
-  description: plain.slice(0, 500),
-  image: imgs.map((m) => m.src),
-  brand: { '@type': 'Brand', name: 'Incandescent Lily Collection' },
-  offers: {
-    '@type': product.priceMin === product.priceMax ? 'Offer' : 'AggregateOffer',
-    priceCurrency: 'USD',
-    ...(product.priceMin === product.priceMax ? { price: product.priceMin } : { lowPrice: product.priceMin, highPrice: product.priceMax }),
-    availability: 'https://schema.org/InStock',
-    url: product.buyUrl,
-  },
-};
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Shop', path: '/shop' },
+  ...(collection ? [{ name: collection.label, path: `/shop?c=${collection.key}` }] : []),
+  { name: product.name, path: `/shop/${product.slug}` },
+];
+const schema = [productNode(product), breadcrumbs(crumbs)];
 ---
-<Base title={product.name} description={metaDescription} image={imgs[0]?.src} jsonLd={jsonLd}>
+<Base title={seoTitle} description={metaDescription} image={`/og/${product.slug}.jpg`} imageAlt={product.name} type="product" pageType="ItemPage" price={{ amount: product.priceMin }} schema={schema}>
   <article class="pdp">
     <div class="wrap pdp__grid">
       <nav class="crumbs" aria-label="Breadcrumb" data-reveal>

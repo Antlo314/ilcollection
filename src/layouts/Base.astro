@@ -10,50 +10,109 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
 
+import cormorant300 from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-300-normal.woff2?url';
+import jostVar from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
+import { graph, webPage, abs } from '../data/seo';
+
 interface Props {
   title?: string;
   description?: string;
+  /** Share image (site-relative or absolute); 1200×630 works best. */
   image?: string;
-  jsonLd?: Record<string, unknown>;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  /** Open Graph type */
+  type?: 'website' | 'product' | 'article';
+  /** Extra schema.org nodes for this page (merged into the site graph). */
+  schema?: unknown[];
+  /** schema.org WebPage subtype for this page */
+  pageType?: string;
+  /** Product price for og product tags */
+  price?: { amount: number; currency?: string };
+  noindex?: boolean;
+  /** Show the lily curtain on first visit (home only by default). */
+  intro?: boolean;
   bodyClass?: string;
 }
-const { title, description = site.description, image = '/og.jpg', jsonLd, bodyClass } = Astro.props;
-const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Black-Owned, Plant-Based Body Care`;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
-const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
+const {
+  title, description = site.description, image = '/og.jpg', imageAlt, imageWidth = 1200, imageHeight = 630,
+  type = 'website', schema = [], pageType, price, noindex = false, intro = false, bodyClass,
+} = Astro.props;
+// Short brand suffix keeps titles inside Google's ~60-character display.
+const fullTitle = title ? `${title} | Incandescent Lily` : 'Incandescent Lily | Black-Owned, Plant-Based Body Care';
+// Clean, extension-free canonical path ("/shop.html" -> "/shop", "/index" -> "/").
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const canonical = abs(path === '/' ? '/' : path.replace(/\/$/, ''));
+const ogImage = abs(image);
+const ld = graph(webPage({ path, name: fullTitle, description, type: pageType, image }), ...schema);
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+    <meta name="author" content={site.name} />
     <meta name="theme-color" content="#f7f2eb" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:type" content="website" />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />}
+    {import.meta.env.PUBLIC_BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION} />}
+
+    <!-- icons -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="IL Collection" />
+    <meta name="application-name" content="IL Collection" />
+
+    <!-- fonts the first paint needs -->
+    <link rel="preload" href={cormorant300} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jostVar} as="font" type="font/woff2" crossorigin />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:image:alt" content={imageAlt ?? `${site.name} — plant-based body care`} />
+    {price && <meta property="product:price:amount" content={price.amount.toFixed(2)} />}
+    {price && <meta property="product:price:currency" content={price.currency ?? 'USD'} />}
+    {price && <meta property="product:availability" content="in stock" />}
+    {price && <meta property="product:brand" content={site.name} />}
     <meta name="twitter:card" content="summary_large_image" />
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
-    <script is:inline>
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt ?? `${site.name} — plant-based body care`} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <script is:inline define:vars={{ intro }}>
       document.documentElement.classList.add('js');
-      try { if (sessionStorage.getItem('ilc-intro')) document.documentElement.classList.add('intro-seen'); } catch (e) {}
+      try { if (!intro || sessionStorage.getItem('ilc-intro')) document.documentElement.classList.add('intro-seen'); } catch (e) { document.documentElement.classList.add('intro-seen'); }
     </script>
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="preloader" data-preloader aria-hidden="true">
+    {intro && <div class="preloader" data-preloader aria-hidden="true">
       <div class="preloader__inner">
         <div class="preloader__lily"><img src="/media/brand/lily-mark.png" alt="" width="524" height="512" /></div>
         <p class="preloader__word"><span>Incandescent</span> <em>Lily</em></p>
       </div>
-    </div>
+    </div>}
 
     <Header />
     <main id="main">
