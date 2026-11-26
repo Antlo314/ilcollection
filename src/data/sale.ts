@@ -8,8 +8,8 @@
 export const sale = {
   enabled: true,
   name: 'The Glow Weekend',
-  percent: 20,
-  code: 'GLOW20',
+  percent: 25,
+  code: 'GLOW25',
   /** Eastern Time, so the sale opens and closes at midnight for the business. */
   start: '2026-11-27T00:00:00-05:00',
   end: '2026-11-30T23:59:59-05:00',
