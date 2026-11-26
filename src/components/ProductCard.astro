@@ -6,7 +6,7 @@ const { product, sizes = '(max-width: 640px) 50vw, (max-width: 1100px) 33vw, 25v
 // 4:5 card derivatives produced by _tools/cards.mjs (saliency crops / blurred-extension fits).
 const [first, second] = product.card;
 ---
-<article class="card" data-tags={product.tags.join(' ')} data-card>
+<article class="card" data-tags={product.tags.join(' ')} data-card data-price={product.priceMin} data-name={product.name} data-search={`${product.name} ${product.sub} ${product.tags.join(' ')} ${product.ribbon}`.toLowerCase()}>
   <div class="card__media">
     {product.ribbon && <span class="ribbon card__ribbon">{product.ribbon}</span>}
     <Img media={first} alt={product.name} sizes={sizes} eager={eager} />

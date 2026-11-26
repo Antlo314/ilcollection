@@ -13,6 +13,8 @@ import { site } from '../data/site';
 import cormorant300 from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-300-normal.woff2?url';
 import jostVar from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
 import { graph, webPage, abs } from '../data/seo';
+import { sale } from '../data/sale';
+const saleWindow = sale.enabled ? { start: sale.start, end: sale.end, teaseDays: sale.teaseDays } : null;
 
 interface Props {
   title?: string;
@@ -99,8 +101,14 @@ const ld = graph(webPage({ path, name: fullTitle, description, type: pageType, i
     <meta name="twitter:image:alt" content={imageAlt ?? `${site.name} — plant-based body care`} />
 
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
-    <script is:inline define:vars={{ intro }}>
+    <script is:inline define:vars={{ intro, saleWindow }}>
       document.documentElement.classList.add('js');
+      // Sale phase before first paint, so the announcement bar never flickers.
+      if (saleWindow) {
+        var r = document.documentElement, now = Date.now(), s = Date.parse(saleWindow.start), e = Date.parse(saleWindow.end);
+        r.dataset.saleStart = saleWindow.start; r.dataset.saleEnd = saleWindow.end; r.dataset.saleTease = saleWindow.teaseDays;
+        if (now <= e && now >= s - saleWindow.teaseDays * 864e5) r.classList.add('sale-on', now >= s ? 'sale-live' : 'sale-soon');
+      }
       try { if (!intro || sessionStorage.getItem('ilc-intro')) document.documentElement.classList.add('intro-seen'); } catch (e) { document.documentElement.classList.add('intro-seen'); }
     </script>
   </head>
@@ -126,6 +134,7 @@ const ld = graph(webPage({ path, name: fullTitle, description, type: pageType, i
     <script>
       import '../scripts/motion';
       import '../scripts/interactions';
+      import '../scripts/sale';
     </script>
 
     <style>

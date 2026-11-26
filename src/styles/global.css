@@ -404,3 +404,35 @@ html.js:not(.motion-ready) [data-split] { animation: js-fallback 0.01s 2.5s forw
 html.js:not(.motion-ready) [data-clip] { animation: clip-fallback 0.01s 2.5s forwards; }
 @keyframes clip-fallback { to { clip-path: none; } }
 @media (prefers-reduced-motion: reduce) { .js [data-clip] { clip-path: none; } }
+
+/* ---------- sale (see src/data/sale.ts + src/scripts/sale.ts) ---------- */
+html:not(.sale-on) .sale-only,
+html:not(.sale-live) .sale-live-only,
+html.sale-on .no-sale-only { display: none !important; }
+
+/* a compact offer strip: name, offer, code, live countdown */
+.sale-strip {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.6rem;
+  padding: clamp(1.1rem, 2.4vw, 1.6rem) clamp(1.2rem, 3vw, 2.2rem);
+  border-radius: 18px; background: var(--plum); color: var(--bone);
+}
+.sale-strip::before {
+  content: ''; position: absolute; inset: -40% -10% auto auto; width: 60%; aspect-ratio: 1; z-index: -1;
+  background: radial-gradient(closest-side, rgba(234, 210, 164, 0.35), transparent 70%);
+  animation: breathe 9s ease-in-out infinite;
+}
+.sale-strip__name { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem); line-height: 1; color: var(--honey-soft); }
+.sale-strip__offer { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247, 242, 235, 0.82); }
+.sale-strip__meta { display: grid; gap: 0.45rem; }
+.sale-strip__side { display: flex; align-items: center; flex-wrap: wrap; gap: 0.8rem 1.2rem; }
+.sale-clock { display: grid; gap: 0.1rem; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(247, 242, 235, 0.6); }
+.sale-clock [data-countdown] { font-family: var(--serif); font-size: 1.35rem; letter-spacing: 0.02em; text-transform: none; color: var(--bone); font-variant-numeric: tabular-nums; }
+.code-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.9rem; padding: 0 1.1rem;
+  border: 1px dashed rgba(234, 210, 164, 0.7); border-radius: 999px;
+  font-size: 0.74rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--honey-soft);
+  transition: background 0.35s var(--ease-out), color 0.35s, border-color 0.35s;
+}
+.code-btn:hover, .code-btn.is-copied { background: var(--honey-soft); color: var(--plum); border-style: solid; }
+.code-btn small { font-size: 0.62rem; letter-spacing: 0.14em; opacity: 0.7; }

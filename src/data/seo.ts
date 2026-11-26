@@ -100,7 +100,7 @@ const plain = (p: Product) =>
 
 const categoryName: Record<string, string> = {
   skin: 'Skin Care', hair: 'Hair Care', body: 'Body Care', wellness: 'Wellness', home: 'Home Fragrance',
-  indulgences: 'Gift Sets', devotional: 'Devotional Books',
+  indulgences: 'Gift Sets', devotional: 'Devotional Books', tools: 'Bath & Shower Accessories',
 };
 
 export const productNode = (p: Product) => {
@@ -120,8 +120,12 @@ export const productNode = (p: Product) => {
     category: categoryName[p.tags[0]] ?? 'Body Care',
     ...(isBook ? { author: { '@type': 'Person', name: 'Melanie JC' } } : {}),
     additionalProperty: [
-      { '@type': 'PropertyValue', name: 'Formulation', value: isBook ? 'Devotional' : '100% plant-based' },
-      { '@type': 'PropertyValue', name: 'Made', value: 'Handmade in small batches' },
+      ...(p.tags.includes('tools')
+        ? [{ '@type': 'PropertyValue', name: 'Material', value: 'Authentic African net mesh' }]
+        : [
+            { '@type': 'PropertyValue', name: 'Formulation', value: isBook ? 'Devotional' : '100% plant-based' },
+            { '@type': 'PropertyValue', name: 'Made', value: 'Handmade in small batches' },
+          ]),
     ],
     offers: {
       '@type': single ? 'Offer' : 'AggregateOffer',

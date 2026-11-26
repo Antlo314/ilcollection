@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import Img from '../components/Img.astro';
 import ProductCard from '../components/ProductCard.astro';
 import Marquee from '../components/Marquee.astro';
+import SaleStrip from '../components/SaleStrip.astro';
+import { sale } from '../data/sale';
 import { media, bySlug, firstImage, priceLabel, values, mission, faqs, site } from '../data/site';
 import { itemList } from '../data/seo';
 
@@ -13,6 +15,8 @@ const mostLoved = [
   'enlighten-mist', 'garden-restore-teas', 'lip-love-balm', 'woke-body-oil', 'brightstar-glow-bar',
   'awaken-healing-candle', 'favor-face-serum', 'lemongrass-growth-mist', 'brightstar-cleanser', 'manuka-honey-mask',
 ].map(bySlug);
+
+const lather = ['lily-lather-facial-sponge', 'lily-lather-body-net'].map(bySlug);
 
 const indulgences = ['incandescent-luxe-box', 'glow-grow-duo', 'woke-his-hers-set', 'four-step-miracle-kit'].map(bySlug);
 
@@ -97,6 +101,40 @@ const reign = bySlug('reign-sanitary-napkins');
   </section>
 
   <Marquee items={values} />
+
+  <!-- ============ JUST ADDED: LILY LATHER + SALE ============ -->
+  <section class="section lather" id="lily-lather">
+    <div class="wrap lather__grid">
+      <div class="lather__media">
+        <div class="lather__film frame frame--soft halo" data-clip>
+          {sale.enabled && (
+            <video class="sale-only" src={sale.video.square} poster={sale.video.poster} autoplay muted loop playsinline preload="metadata" aria-label={`${sale.name}: ${sale.percent}% off, featuring the Lily Lather net sponges`}></video>
+          )}
+          <div class="no-sale-only lather__still">
+            <Img media={lather[0].media[1] as any} alt="A woman cleansing her face with the Lily Lather facial net sponge" sizes="(max-width: 960px) 92vw, 44vw" />
+          </div>
+        </div>
+      </div>
+      <div class="lather__copy">
+        <p class="eyebrow" data-reveal>Just added · Lily Lather™</p>
+        <h2 class="h2" data-split>Lather, <em>lovingly.</em></h2>
+        <p class="lead" data-reveal>Authentic African net sponges that turn your favorite ILC bar or cleanser into a rich, creamy lather — a gentle polish for face and body, and a reach that finally finds the middle of your back.</p>
+        <div class="lather__products">
+          {lather.map((p) => (
+            <a href={`/shop/${p.slug}`} class="mini" data-reveal>
+              <div class="mini__img"><Img media={p.media[0] as any} alt={p.name} sizes="(max-width: 640px) 40vw, 14vw" /></div>
+              <div class="mini__meta">
+                <span class="mini__sub">{p.sub}</span>
+                <span class="mini__name">{p.name.replace('Lily Lather™ ', '')}</span>
+                <span class="mini__price">{priceLabel(p)} <span class="mini__go" aria-hidden="true">→</span></span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <SaleStrip class="lather__sale" />
+      </div>
+    </div>
+  </section>
 
   <!-- ============ MOST ADORED ============ -->
   <section class="section" id="loved">
@@ -387,6 +425,28 @@ const reign = bySlug('reign-sanitary-napkins');
   .scroll-cue span { position: absolute; inset: 0; background: var(--ink); animation: cue 2.4s var(--ease-soft) infinite; }
   @keyframes cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(100%); } }
 
+  /* ---------- lily lather + sale ---------- */
+  .lather__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 6vw, 7rem); align-items: center; }
+  .lather__film { aspect-ratio: 4 / 5; width: 100%; max-height: 86vh; }
+  .lather__film video, .lather__still { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lather__film video { object-fit: cover; }
+  .lather__still :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .lather__copy { display: grid; gap: 1.6rem; justify-items: start; }
+  .lather__copy .lead { max-width: 42ch; }
+  .lather__products { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; }
+  .mini { display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; align-items: center; padding: 0.8rem; border-radius: 16px; background: var(--white); border: 1px solid rgba(34, 23, 39, 0.08); transition: border-color 0.4s, box-shadow 0.5s var(--ease-out), transform 0.5s var(--ease-out); }
+  .mini:hover { border-color: rgba(81, 10, 106, 0.35); box-shadow: 0 24px 40px -30px rgba(42, 25, 50, 0.5); transform: translateY(-2px); }
+  .mini__img { aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--white); }
+  .mini__img :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+  .mini:hover .mini__img :global(img) { transform: scale(1.06); }
+  .mini__meta { display: grid; gap: 0.15rem; min-width: 0; }
+  .mini__sub { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--honey); }
+  .mini__name { font-family: var(--serif); font-size: 1.2rem; line-height: 1.12; }
+  .mini__price { font-size: 0.88rem; color: var(--ink-soft); }
+  .mini__go { display: inline-block; transition: transform 0.4s var(--ease-out); color: var(--lily); }
+  .mini:hover .mini__go { transform: translateX(4px); }
+  .lather__sale { width: 100%; }
+
   /* ---------- section heads & rails ---------- */
   .section-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: clamp(2.4rem, 5vw, 4rem); }
   .section-head h2 { margin-top: 1.1rem; max-width: 16ch; }
@@ -557,7 +617,8 @@ const reign = bySlug('reign-sanitary-napkins');
     .pillar:nth-child(2) { margin-top: 0; }
     .pillar__img { margin-bottom: 0.8rem; }
 
-    .textures__grid, .garden__grid, .reign__grid, .faq__grid { grid-template-columns: 1fr; }
+    .textures__grid, .garden__grid, .reign__grid, .faq__grid, .lather__grid { grid-template-columns: 1fr; }
+    .lather__film { max-width: 520px; margin-inline: auto; }
     .textures__film { aspect-ratio: 4 / 5; max-width: 480px; margin-inline: auto; }
 
     /* indulgences: intro on top, cards swipe beneath */
@@ -586,6 +647,7 @@ const reign = bySlug('reign-sanitary-napkins');
   }
   @media (max-width: 640px) {
     .hero__copy { gap: 1.2rem; }
+    .lather__products { grid-template-columns: 1fr; }
     .hero__ctas { gap: 1.4rem; }
     .rail-nav { display: none; }
     .results .section-head__aside { display: block; }

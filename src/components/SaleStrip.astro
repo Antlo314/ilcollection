@@ -1,0 +1,19 @@
+---
+import { sale } from '../data/sale';
+interface Props { class?: string; compact?: boolean }
+const { class: cls, compact = false } = Astro.props;
+---
+{sale.enabled && (
+  <aside class:list={['sale-strip sale-only', cls]} aria-label={`${sale.name} sale`}>
+    <div class="sale-strip__meta">
+      <p class="sale-strip__name">{sale.name}</p>
+      <p class="sale-strip__offer">{sale.percent}% off everything · {sale.dates}{compact ? '' : ' · Applied at checkout with your code'}</p>
+    </div>
+    <div class="sale-strip__side">
+      <p class="sale-clock"><span data-sale-phase>Opens in</span><span data-countdown></span></p>
+      <button type="button" class="code-btn" data-copy={sale.code} aria-label={`Copy code ${sale.code}`}>
+        {sale.code} <small>Copy</small>
+      </button>
+    </div>
+  </aside>
+)}

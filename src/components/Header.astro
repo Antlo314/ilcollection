@@ -1,5 +1,6 @@
 ---
 import { site, collections } from '../data/site';
+import { sale } from '../data/sale';
 const path = Astro.url.pathname.replace(/\.html$/, '');
 const is = (p: string) => (p === '/' ? path === '/' : path.startsWith(p));
 const nav = [
@@ -11,8 +12,22 @@ const nav = [
 ---
 <header class="site-header" data-header>
   <div class="announce" aria-label="Announcement">
-    <p class="announce__long">Lovingly handcrafted in small batches <span aria-hidden="true">✦</span> Gently shipped across the U.S. &amp; USVI</p>
-    <p class="announce__short">Plant-born <span aria-hidden="true">✦</span> Small batch <span aria-hidden="true">✦</span> Black-owned</p>
+    <div class="no-sale-only">
+      <p class="announce__long">Lovingly handcrafted in small batches <span aria-hidden="true">✦</span> Gently shipped across the U.S. &amp; USVI</p>
+      <p class="announce__short">Plant-born <span aria-hidden="true">✦</span> Small batch <span aria-hidden="true">✦</span> Black-owned</p>
+    </div>
+    {sale.enabled && (
+      <a href="/shop" class="announce__sale sale-only">
+        <p class="announce__long">
+          <strong>{sale.name}</strong> <span aria-hidden="true">✦</span> {sale.percent}% off everything, {sale.datesShort}
+          <span aria-hidden="true">✦</span> Code <b>{sale.code}</b>
+          <span aria-hidden="true">✦</span> <span data-sale-phase>Opens in</span> <span class="announce__clock" data-countdown></span>
+        </p>
+        <p class="announce__short">
+          {sale.percent}% off <span aria-hidden="true">✦</span> Code <b>{sale.code}</b> <span aria-hidden="true">✦</span> <span class="announce__clock" data-countdown data-format="short"></span>
+        </p>
+      </a>
+    )}
   </div>
   <div class="bar wrap">
     <nav class="nav nav--left" aria-label="Primary">
@@ -82,8 +97,15 @@ const nav = [
     font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
     padding-inline: 1rem;
   }
+  .announce > * { max-width: 100%; min-width: 0; }
   .announce p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-  .announce span { color: var(--honey-soft); margin: 0 0.6em; }
+  .announce span[aria-hidden] { color: var(--honey-soft); margin: 0 0.6em; }
+  .announce__sale { color: var(--bone); }
+  .announce__sale strong { font-weight: 500; color: var(--honey-soft); }
+  .announce__sale b { font-weight: 600; letter-spacing: 0.24em; }
+  .announce__clock { font-variant-numeric: tabular-nums; color: var(--honey-soft); }
+  .announce__sale:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+  :global(html.sale-on) .announce { background: linear-gradient(90deg, var(--plum-deep), var(--lily) 50%, var(--plum-deep)); }
   .announce__short { display: none; }
 
   .bar {

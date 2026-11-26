@@ -31,6 +31,7 @@ export const collections = [
   { key: 'skin', label: 'Skin' },
   { key: 'hair', label: 'Hair' },
   { key: 'body', label: 'Body' },
+  { key: 'tools', label: 'Bath Tools' },
   { key: 'wellness', label: 'Wellness' },
   { key: 'home', label: 'Home & Aroma' },
   { key: 'indulgences', label: 'Indulgences' },

@@ -1,0 +1,8 @@
+{
+  "name": "ilc-video",
+  "private": true,
+  "type": "module",
+  "description": "Renders promo videos from HTML scenes. See README.md.",
+  "scripts": { "render": "node render.mjs" },
+  "devDependencies": { "puppeteer-core": "^24.0.0" }
+}

@@ -1,5 +1,294 @@
 [
   {
+    "slug": "lily-lather-facial-sponge",
+    "name": "Lily Lather™ Facial African Net Sponge",
+    "sub": "Facial Cleansing Puff",
+    "ribbon": "Just Added",
+    "price": 7.98,
+    "priceMin": 7.98,
+    "priceMax": 7.98,
+    "tags": [
+      "tools",
+      "skin"
+    ],
+    "pairs": [
+      "brightstar-cleanser",
+      "brightstar-glow-bar",
+      "manuka-honey-mask",
+      "lily-lather-body-net"
+    ],
+    "description": [
+      {
+        "type": "p",
+        "text": "A palm-sized teardrop with authentic African netting and a two-finger grip. Designed to exfoliate and give a deep cleanse and rich lather with your favorite facial cleanser or bar soap."
+      },
+      {
+        "type": "p",
+        "text": "Gathered sage-green mesh meets a soft, taupe teardrop backing. The rounded end gives you room to build a lather, while the tapered tip reaches the folds beside your nose. Slip two fingers under the elastic band for a steady grip as you cleanse."
+      },
+      {
+        "type": "h",
+        "text": "Details"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Approx. 2.95 × 2.17 inches at the backing",
+          "Gathered African netting",
+          "Taupe foam backing with a wide elastic finger band",
+          "Includes one facial cleansing puff"
+        ]
+      }
+    ],
+    "info": [
+      {
+        "title": "Use & Care",
+        "body": [
+          {
+            "type": "p",
+            "text": "Wet the mesh, then rub it against your facial bar or add a small amount of cleanser, and gently squeeze to build a lather. Use light pressure and avoid the eye area. Rinse thoroughly after use and air-dry in a well-ventilated spot with both sides exposed."
+          }
+        ]
+      }
+    ],
+    "options": [
+      {
+        "title": "Color",
+        "kind": "swatch",
+        "values": [
+          {
+            "id": 1,
+            "label": "Sage",
+            "color": "#9DB88A"
+          },
+          {
+            "id": 2,
+            "label": "Olive",
+            "color": "#5E7A34"
+          },
+          {
+            "id": 3,
+            "label": "Gray",
+            "color": "#BDBDB9"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "key": "1",
+        "price": 7.98,
+        "inStock": true
+      },
+      {
+        "key": "2",
+        "price": 7.98,
+        "inStock": true
+      },
+      {
+        "key": "3",
+        "price": 7.98,
+        "inStock": true
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/p/lily-lather-facial-sponge-0-1254.webp",
+        "srcset": "/media/p/lily-lather-facial-sponge-0-640.webp 640w, /media/p/lily-lather-facial-sponge-0-1254.webp 1254w",
+        "width": 1254,
+        "height": 1254,
+        "alpha": false
+      },
+      {
+        "type": "image",
+        "src": "/media/p/lily-lather-facial-sponge-1-1254.webp",
+        "srcset": "/media/p/lily-lather-facial-sponge-1-640.webp 640w, /media/p/lily-lather-facial-sponge-1-1254.webp 1254w",
+        "width": 1254,
+        "height": 1254,
+        "alpha": false
+      },
+      {
+        "type": "image",
+        "src": "/media/p/lily-lather-facial-sponge-2-1254.webp",
+        "srcset": "/media/p/lily-lather-facial-sponge-2-640.webp 640w, /media/p/lily-lather-facial-sponge-2-1254.webp 1254w",
+        "width": 1254,
+        "height": 1254,
+        "alpha": false
+      }
+    ],
+    "buyUrl": "https://www.nebaministry.org/product-page/lily-lather-facial-african-net-sponge",
+    "card": [
+      {
+        "src": "/media/c/lily-lather-facial-sponge-0-800.webp",
+        "srcset": "/media/c/lily-lather-facial-sponge-0-400.webp 400w, /media/c/lily-lather-facial-sponge-0-800.webp 800w",
+        "width": 800,
+        "height": 1000
+      },
+      {
+        "src": "/media/c/lily-lather-facial-sponge-1-800.webp",
+        "srcset": "/media/c/lily-lather-facial-sponge-1-400.webp 400w, /media/c/lily-lather-facial-sponge-1-800.webp 800w",
+        "width": 800,
+        "height": 1000
+      }
+    ]
+  },
+  {
+    "slug": "lily-lather-body-net",
+    "name": "Lily Lather™ African Body Net Sponge",
+    "sub": "Exfoliating Body Net",
+    "ribbon": "Just Added",
+    "price": 10.98,
+    "priceMin": 10.98,
+    "priceMax": 10.98,
+    "tags": [
+      "tools",
+      "body"
+    ],
+    "pairs": [
+      "whole-body-healing-salve",
+      "woke-body-oil",
+      "brightstar-healing-bar",
+      "lily-lather-facial-sponge"
+    ],
+    "description": [
+      {
+        "type": "p",
+        "text": "A long, stretchable, authentic African exfoliating net that whips your favorite body wash or bar soap into a rich lather — and reaches all the way across your back."
+      },
+      {
+        "type": "p",
+        "text": "The open weave gently buffs as you wash, and the knotted ends give you a grip for reaching across your back and shoulders. Gather it in your palm for smaller areas, or hold both ends to use its full reach."
+      },
+      {
+        "type": "h",
+        "text": "Details"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Stretches to approximately 42 inches",
+          "Open-weave, stretchable mesh with knotted ends",
+          "Designed for body use",
+          "Includes one body net"
+        ]
+      }
+    ],
+    "info": [
+      {
+        "title": "Use & Care",
+        "body": [
+          {
+            "type": "p",
+            "text": "Wet the net and work in your favorite body wash or bar soap. Use light pressure as you wash. Rinse thoroughly, shake out excess water, and hang it open to air-dry."
+          }
+        ]
+      }
+    ],
+    "options": [
+      {
+        "title": "Length",
+        "kind": "choice",
+        "values": [
+          {
+            "id": 1,
+            "label": "42 inches",
+            "color": null
+          }
+        ]
+      },
+      {
+        "title": "Color",
+        "kind": "swatch",
+        "values": [
+          {
+            "id": 2,
+            "label": "Sage",
+            "color": "#9DB88A"
+          },
+          {
+            "id": 3,
+            "label": "Olive",
+            "color": "#5E7A34"
+          },
+          {
+            "id": 4,
+            "label": "Gray",
+            "color": "#BDBDB9"
+          },
+          {
+            "id": 5,
+            "label": "Black",
+            "color": "#232023"
+          }
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "key": "1-2",
+        "price": 10.98,
+        "inStock": true
+      },
+      {
+        "key": "1-3",
+        "price": 10.98,
+        "inStock": true
+      },
+      {
+        "key": "1-4",
+        "price": 10.98,
+        "inStock": true
+      },
+      {
+        "key": "1-5",
+        "price": 10.98,
+        "inStock": true
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/p/lily-lather-body-net-0-1254.webp",
+        "srcset": "/media/p/lily-lather-body-net-0-640.webp 640w, /media/p/lily-lather-body-net-0-1254.webp 1254w",
+        "width": 1254,
+        "height": 1254,
+        "alpha": false
+      },
+      {
+        "type": "image",
+        "src": "/media/p/lily-lather-body-net-1-1254.webp",
+        "srcset": "/media/p/lily-lather-body-net-1-640.webp 640w, /media/p/lily-lather-body-net-1-1254.webp 1254w",
+        "width": 1254,
+        "height": 1254,
+        "alpha": false
+      },
+      {
+        "type": "image",
+        "src": "/media/p/lily-lather-body-net-2-1254.webp",
+        "srcset": "/media/p/lily-lather-body-net-2-640.webp 640w, /media/p/lily-lather-body-net-2-1254.webp 1254w",
+        "width": 1254,
+        "height": 1254,
+        "alpha": false
+      }
+    ],
+    "buyUrl": "https://www.nebaministry.org/product-page/lily-lather-african-body-net-sponge",
+    "card": [
+      {
+        "src": "/media/c/lily-lather-body-net-0-800.webp",
+        "srcset": "/media/c/lily-lather-body-net-0-400.webp 400w, /media/c/lily-lather-body-net-0-800.webp 800w",
+        "width": 800,
+        "height": 1000
+      },
+      {
+        "src": "/media/c/lily-lather-body-net-1-800.webp",
+        "srcset": "/media/c/lily-lather-body-net-1-400.webp 400w, /media/c/lily-lather-body-net-1-800.webp 800w",
+        "width": 800,
+        "height": 1000
+      }
+    ]
+  },
+  {
     "slug": "new-life-hair-healing-bar",
     "name": "New Life™ Hair Healing Bar",
     "sub": "Neem + Aloe 2-in-1 Scalp & Hair Bar",

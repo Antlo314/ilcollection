@@ -2,11 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import Img from '../../components/Img.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import SaleStrip from '../../components/SaleStrip.astro';
 import { products, collections, media } from '../../data/site';
 import { breadcrumbs, itemList } from '../../data/seo';
 
 // Merchandised order: signature skin + body first, indulgences and devotionals last.
 const order = [
+  'lily-lather-facial-sponge', 'lily-lather-body-net',
   'favor-face-serum', 'illumine-brightening-serum', 'brightstar-glow-bar', 'whole-body-healing-salve', 'blush-bloom-toner',
   'brightstar-cleanser', 'manuka-honey-mask', 'lip-love-balm', 'woke-body-oil', 'lemongrass-growth-mist',
   'new-life-hair-healing-bar', 'brightstar-healing-bar', 'enlighten-mist', 'awaken-healing-candle', 'garden-restore-teas',
@@ -34,6 +36,7 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
 
   <section class="section shop" id="collection">
     <div class="wrap">
+      <SaleStrip class="shop__sale" />
       <div class="filters" role="toolbar" aria-label="Filter products" data-filters>
         {collections.map((c) => (
           <button type="button" class:list={['chip', { 'is-active': c.key === 'all' }]} data-filter={c.key} aria-pressed={c.key === 'all' ? 'true' : 'false'}>
@@ -41,9 +44,31 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
           </button>
         ))}
       </div>
-      <p class="shop__count muted" aria-live="polite" data-count>{products.length} products</p>
+      <div class="shop__tools">
+        <p class="shop__count muted" aria-live="polite" data-count>{products.length} products</p>
+        <div class="shop__controls">
+          <label class="search">
+            <span class="sr-only">Search products</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" placeholder="Search the collection" autocomplete="off" data-search />
+          </label>
+          <label class="sort">
+            <span class="sr-only">Sort products</span>
+            <select data-sort>
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="name">Name: A – Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
       <div class="grid" data-grid>
         {sorted.map((p, i) => <ProductCard product={p} eager={i < 4} />)}
+      </div>
+      <div class="empty" data-empty hidden>
+        <p class="h3">Nothing found — <em>yet.</em></p>
+        <p class="muted">Try another word, or <button type="button" class="link-line" data-reset>see the whole collection</button>.</p>
       </div>
     </div>
   </section>
@@ -57,15 +82,34 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
 
   const grid = document.querySelector<HTMLElement>('[data-grid]')!;
   const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-card]'));
+  const featured = [...cards];
   const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
   const count = document.querySelector<HTMLElement>('[data-count]')!;
+  const search = document.querySelector<HTMLInputElement>('[data-search]')!;
+  const sort = document.querySelector<HTMLSelectElement>('[data-sort]')!;
+  const empty = document.querySelector<HTMLElement>('[data-empty]')!;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let key = 'all';
+  let flip: gsap.core.Timeline | null = null;
 
-  function apply(key: string, animate = true) {
+  const sorters: Record<string, (a: HTMLElement, b: HTMLElement) => number> = {
+    'price-asc': (a, b) => Number(a.dataset.price) - Number(b.dataset.price),
+    'price-desc': (a, b) => Number(b.dataset.price) - Number(a.dataset.price),
+    name: (a, b) => (a.dataset.name || '').localeCompare(b.dataset.name || ''),
+  };
+
+  function apply(next = key, animate = true) {
+    key = next;
+    flip?.progress(1).kill();
     const state = Flip.getState(cards);
+    const words = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const order = sorters[sort.value] ? [...featured].sort(sorters[sort.value]) : featured;
+    order.forEach((card) => grid.appendChild(card));
     let shown = 0;
     cards.forEach((card) => {
-      const match = key === 'all' || (card.dataset.tags || '').split(' ').includes(key);
+      const inCollection = key === 'all' || (card.dataset.tags || '').split(' ').includes(key);
+      const hay = card.dataset.search || '';
+      const match = inCollection && words.every((w) => hay.includes(w));
       card.style.display = match ? '' : 'none';
       if (match) shown++;
     });
@@ -75,28 +119,57 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
       c.setAttribute('aria-pressed', String(on));
     });
     count.textContent = `${shown} ${shown === 1 ? 'product' : 'products'}`;
+    empty.hidden = shown > 0;
+    // Leaving cards are briefly re-shown by Flip so they can fade; pin the final state afterwards
+    // (also covers a new filter landing mid-animation).
+    const settle = () => {
+      cards.forEach((card) => {
+        const on = shownSet.has(card);
+        card.style.display = on ? '' : 'none';
+        if (on) { gsap.killTweensOf(card); gsap.set(card, { clearProps: 'opacity,scale,transform' }); }
+      });
+      ScrollTrigger.refresh();
+    };
+    const shownSet = new Set(cards.filter((c) => c.style.display !== 'none'));
     if (animate && !reduce) {
-      Flip.from(state, {
+      flip = Flip.from(state, {
         duration: 0.9, ease: 'expo.inOut', absolute: true, stagger: 0.025,
         onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.8, delay: 0.25, ease: 'expo.out' }),
         onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.94, duration: 0.4 }),
-        onComplete: () => ScrollTrigger.refresh(),
+        onComplete: settle,
       });
     } else {
-      ScrollTrigger.refresh();
+      settle();
     }
   }
 
-  chips.forEach((chip) => chip.addEventListener('click', () => {
-    const key = chip.dataset.filter!;
-    apply(key);
+  const syncUrl = () => {
     const url = new URL(location.href);
-    if (key === 'all') url.searchParams.delete('c'); else url.searchParams.set('c', key);
+    const set = (k: string, v: string, def: string) => (v === def ? url.searchParams.delete(k) : url.searchParams.set(k, v));
+    set('c', key, 'all');
+    set('q', search.value.trim(), '');
+    set('sort', sort.value, 'featured');
     history.replaceState(null, '', url);
-  }));
+  };
 
-  const initial = new URLSearchParams(location.search).get('c');
-  if (initial && chips.some((c) => c.dataset.filter === initial)) apply(initial, false);
+  chips.forEach((chip) => chip.addEventListener('click', () => { apply(chip.dataset.filter!); syncUrl(); }));
+  sort.addEventListener('change', () => { apply(); syncUrl(); });
+  let typing = 0;
+  search.addEventListener('input', () => {
+    clearTimeout(typing);
+    typing = window.setTimeout(() => { apply(key, false); syncUrl(); }, 140);
+  });
+  document.querySelector('[data-reset]')?.addEventListener('click', () => {
+    search.value = ''; sort.value = 'featured'; apply('all'); syncUrl(); search.focus();
+  });
+
+  const params = new URLSearchParams(location.search);
+  const initial = params.get('c');
+  if (params.get('q')) search.value = params.get('q')!;
+  if (params.get('sort') && sorters[params.get('sort')!]) sort.value = params.get('sort')!;
+  if ((initial && chips.some((c) => c.dataset.filter === initial)) || params.has('q') || params.has('sort')) {
+    apply(initial && chips.some((c) => c.dataset.filter === initial) ? initial : 'all', false);
+  }
 </script>
 
 <style>
@@ -128,7 +201,25 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
   .chip sup { font-size: 0.62rem; letter-spacing: 0.04em; opacity: 0.6; top: -0.15em; }
   .chip:hover { border-color: var(--ink); }
   .chip.is-active { background: var(--ink); color: var(--bone); border-color: var(--ink); }
-  .shop__count { margin: 1.4rem 0 2rem; font-size: 0.85rem; letter-spacing: 0.04em; }
+  .shop__sale { margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+  .shop__tools { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin: 1.4rem 0 2rem; }
+  .shop__count { font-size: 0.85rem; letter-spacing: 0.04em; }
+  .shop__controls { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .search, .sort {
+    display: flex; align-items: center; gap: 0.55rem; min-height: 2.9rem; padding: 0 1.1rem;
+    border: 1px solid rgba(34, 23, 39, 0.16); border-radius: 999px; background: var(--white);
+    transition: border-color 0.3s;
+  }
+  .search:focus-within, .sort:focus-within { border-color: var(--lily); }
+  .search svg { color: var(--ink-mute); flex: none; }
+  .search input, .sort select { border: 0; background: transparent; outline: none; font-size: 0.88rem; min-width: 0; }
+  .search input { width: clamp(11rem, 18vw, 16rem); }
+  .search input::-webkit-search-cancel-button { cursor: pointer; }
+  .sort { padding-right: 0.6rem; }
+  .sort select { cursor: pointer; padding-right: 0.3rem; }
+  .empty { text-align: center; display: grid; gap: 0.8rem; justify-items: center; padding: 4rem 0 2rem; }
+  .empty[hidden] { display: none; }
+  .empty .link-line { font-size: inherit; }
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(2.2rem, 4vw, 3.5rem) clamp(1rem, 2vw, 1.75rem); }
   @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 760px) {
@@ -137,6 +228,12 @@ const counts = Object.fromEntries(collections.map((c) => [c.key, c.key === 'all'
     .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
     .filters::-webkit-scrollbar { display: none; }
     .chip { flex: none; min-height: 2.75rem; align-items: center; padding: 0 1.1rem; }
+    .shop__controls { width: 100%; flex-wrap: nowrap; }
+    .search { flex: 1 1 0; min-width: 0; }
+    .sort { flex: none; padding-left: 0.8rem; }
+    .sort select { max-width: 7.5rem; }
+    .search input { width: 100%; }
+    .shop__count { order: 2; }
     :global(.card__name) { font-size: 1.2rem; }
   }
   @media (max-width: 420px) {

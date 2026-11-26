@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Img from '../../components/Img.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import SaleStrip from '../../components/SaleStrip.astro';
 import { products, collections, standard, money, type Product, type Media } from '../../data/site';
 import { productNode, breadcrumbs } from '../../data/seo';
 
@@ -13,9 +14,16 @@ const { product } = Astro.props as { product: Product };
 
 const firstTag = product.tags[0];
 const collection = collections.find((c) => c.key === firstTag);
-const related = products
-  .filter((p) => p.slug !== product.slug && p.tags.some((t) => product.tags.includes(t)))
-  .slice(0, 4);
+const isTool = product.tags.includes('tools');
+// Hand-picked pairings first (`pairs` in products.json), then products sharing a collection.
+const pairs = ((product as { pairs?: string[] }).pairs ?? []).map((s) => products.find((p) => p.slug === s)).filter(Boolean) as Product[];
+const related = [
+  ...pairs,
+  ...products.filter((p) => p.slug !== product.slug && !pairs.includes(p) && p.tags.some((t) => product.tags.includes(t))),
+].slice(0, 4);
+const highlights = isTool
+  ? ['Authentic African netting', 'Builds a rich, creamy lather', 'Quick-drying open weave', 'Pairs with any bar or cleanser']
+  : standard.slice(0, 4);
 const fill = products.filter((p) => p.slug !== product.slug && !related.includes(p));
 while (related.length < 4 && fill.length) related.push(fill.shift()!);
 
@@ -83,6 +91,8 @@ const schema = [productNode(product), breadcrumbs(crumbs)];
           <p class="info__sub" data-reveal>{product.sub}</p>
           <p class="info__price" data-reveal><span data-price>{money(startPrice)}</span>{product.priceMin !== product.priceMax && <span class="muted info__range"> · {money(product.priceMin)} – {money(product.priceMax)}</span>}</p>
 
+          <SaleStrip class="info__sale" compact />
+
           <form class="options" data-options data-variants={JSON.stringify(variantMap)} data-reveal onsubmit="return false">
             {product.options.map((o, oi) => (
               <fieldset class="opt">
@@ -106,10 +116,14 @@ const schema = [productNode(product), breadcrumbs(crumbs)];
           <div class="buy" data-reveal data-buy>
             <a href={product.buyUrl} class="btn btn--block" data-magnetic>Make it yours <span class="arrow" aria-hidden="true">→</span></a>
             <p class="buy__note muted">Secure checkout on the IL Collection store · Lovingly packed in 2–4 business days</p>
+            <button type="button" class="share" data-share aria-label={`Share ${product.name}`}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+              <span data-share-label>Share with someone you love</span>
+            </button>
           </div>
 
           <ul class="standard" role="list" data-reveal>
-            {standard.slice(0, 4).map((s) => <li>{s}</li>)}
+            {highlights.map((s) => <li>{s}</li>)}
           </ul>
 
           <div class="prose info__desc" data-reveal>
@@ -133,13 +147,13 @@ const schema = [productNode(product), breadcrumbs(crumbs)];
                 </div></div>
               </details>
             ))}
-            <details>
+            {!isTool && <details>
               <summary>Our Gentle Promise<span class="plus" aria-hidden="true"></span></summary>
               <div class="panel"><div class="panel-inner prose">
                 <p>Products created with plants to combat premature aging, nurture hypersensitive skin, and help skin naturally heal — aiding common conditions such as eczema, acne, hyperpigmentation, psoriasis, and scarring.</p>
                 <ul>{standard.map((s) => <li>{s}</li>)}</ul>
               </div></div>
-            </details>
+            </details>}
             <details>
               <summary>Shipping &amp; Tender Care<span class="plus" aria-hidden="true"></span></summary>
               <div class="panel"><div class="panel-inner prose">
@@ -156,7 +170,7 @@ const schema = [productNode(product), breadcrumbs(crumbs)];
   <section class="section related bg-linen">
     <div class="wrap">
       <div class="related__head">
-        <p class="eyebrow" data-reveal>Layer the glow</p>
+        <p class="eyebrow" data-reveal>{isTool ? 'Complete the ritual' : 'Layer the glow'}</p>
         <h2 class="h2" data-split>Pairs <em>beautifully</em> with</h2>
       </div>
       <div class="related__grid">
@@ -204,6 +218,20 @@ const schema = [productNode(product), breadcrumbs(crumbs)];
     };
     form.addEventListener('change', update);
   }
+
+  /* share: native sheet on phones, copy link elsewhere */
+  const share = document.querySelector<HTMLButtonElement>('[data-share]');
+  share?.addEventListener('click', async () => {
+    const data = { title: document.title, url: location.href.split('?')[0] };
+    const label = share.querySelector<HTMLElement>('[data-share-label]')!;
+    try {
+      if (navigator.share) { await navigator.share(data); return; }
+      await navigator.clipboard.writeText(data.url);
+      const was = label.textContent;
+      label.textContent = 'Link copied ✓';
+      setTimeout(() => (label.textContent = was), 1800);
+    } catch { /* share sheet dismissed */ }
+  });
 
   /* mobile gallery dots */
   const track = document.querySelector<HTMLElement>('[data-gallery-track]');
@@ -281,6 +309,11 @@ const schema = [productNode(product), breadcrumbs(crumbs)];
 
   .buy { display: grid; gap: 0.7rem; }
   .buy__note { font-size: 0.78rem; text-align: center; }
+  .share { justify-self: center; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--ink-soft); border-radius: 999px; transition: color 0.3s, background 0.3s; }
+  .share:hover { color: var(--lily); background: rgba(81, 10, 106, 0.06); }
+  .info__sale { padding: 1rem 1.2rem; gap: 0.8rem 1.2rem; }
+  .info__sale :global(.sale-strip__name) { font-size: 1.45rem; }
+  .info__sale :global(.sale-strip__offer) { font-size: 0.66rem; }
   .standard { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; padding: 1.2rem 0; border-block: 1px solid rgba(34, 23, 39, 0.12); font-size: 0.82rem; color: var(--ink-soft); }
   .standard li { display: flex; gap: 0.6rem; align-items: baseline; }
   .standard li::before { content: '✦'; color: var(--honey); font-size: 0.7rem; }

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Glow Weekend — promo</title>
+<style>
+  @font-face { font-family: 'Cormorant'; font-weight: 300; font-style: normal; src: url('/node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-300-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Cormorant'; font-weight: 300; font-style: italic; src: url('/node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-300-italic.woff2') format('woff2'); }
+  @font-face { font-family: 'Cormorant'; font-weight: 400; font-style: normal; src: url('/node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Cormorant'; font-weight: 400; font-style: italic; src: url('/node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-italic.woff2') format('woff2'); }
+  @font-face { font-family: 'Jost'; font-weight: 100 900; src: url('/node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2') format('woff2'); }
+
+  :root {
+    --bone: #f7f2eb; --linen: #efe6da; --ink: #221727; --plum: #2a1932; --plum-deep: #1c1022;
+    --lily: #510a6a; --honey: #c08a3e; --honey-soft: #ead2a4; --white: #fffdf9;
+    /* 1u = 1% of the frame width, so both 9:16 and 4:5 renders share one layout */
+    --u: 1vw;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 100vw; height: 100vh; overflow: hidden; background: var(--plum-deep); }
+  body { font-family: 'Jost', sans-serif; color: var(--bone); -webkit-font-smoothing: antialiased; }
+  .stage { position: fixed; inset: 0; overflow: hidden; background: radial-gradient(120% 80% at 50% 38%, #3a2245 0%, var(--plum) 45%, var(--plum-deep) 100%); }
+  .scene { position: absolute; inset: 0; }
+  .glow { position: absolute; left: 50%; top: 42%; width: 140vw; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(234, 210, 164, 0.42), rgba(139, 90, 162, 0.16) 52%, transparent 74%); filter: blur(10px); }
+  .grain { position: absolute; inset: 0; opacity: 0.06; pointer-events: none; z-index: 50;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .mask { display: block; overflow: hidden; padding-bottom: 0.06em; }
+  .mask > span { display: block; }
+  .eyebrow { font-size: calc(2.6 * var(--u)); letter-spacing: 0.32em; text-transform: uppercase; font-weight: 450; color: var(--honey-soft); }
+  .serif { font-family: 'Cormorant', serif; font-weight: 300; }
+
+  /* ---------- 1. title ---------- */
+  .s1 { display: grid; place-content: center; justify-items: center; text-align: center; gap: calc(3.2 * var(--u)); }
+  .s1 .lily { width: calc(13 * var(--u)); }
+  .s1 .brand { font-size: calc(2.5 * var(--u)); letter-spacing: 0.42em; text-transform: uppercase; color: rgba(247, 242, 235, 0.78); padding-left: 0.42em; }
+  .s1 .title { font-size: calc(19 * var(--u)); line-height: 0.92; letter-spacing: -0.02em; }
+  .s1 .title em { font-style: italic; color: var(--honey-soft); }
+  .s1 .when { display: flex; gap: 0.9em; align-items: center; font-size: calc(2.9 * var(--u)); letter-spacing: 0.3em; text-transform: uppercase; color: var(--bone); }
+  .s1 .when i { font-style: normal; color: var(--honey); }
+
+  /* ---------- 2 & 3. lifestyle ---------- */
+  .shot { overflow: hidden; }
+  .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .shot .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(28, 16, 34, 0) 45%, rgba(28, 16, 34, 0.55) 72%, rgba(28, 16, 34, 0.88) 100%); }
+  .lower { position: absolute; left: calc(7 * var(--u)); right: calc(7 * var(--u)); bottom: calc(9 * var(--u)); display: grid; gap: calc(1.8 * var(--u)); }
+  .lower .name { font-size: calc(9.4 * var(--u)); line-height: 0.98; letter-spacing: -0.01em; }
+  .lower .name em { font-style: italic; color: var(--honey-soft); }
+  .lower .line { font-size: calc(3.3 * var(--u)); font-weight: 350; color: rgba(247, 242, 235, 0.86); display: flex; gap: 0.8em; align-items: center; }
+  .lower .price { display: inline-block; padding: 0.35em 0.9em; border-radius: 999px; background: var(--bone); color: var(--plum); font-weight: 500; letter-spacing: 0.04em; }
+  .tag { justify-self: start; padding: 0.55em 1.2em; border-radius: 999px; border: 1px solid rgba(234, 210, 164, 0.7); }
+
+  /* ---------- 4. duo ---------- */
+  .s4 { background: var(--bone); color: var(--ink); display: grid; align-content: center; justify-items: center; gap: calc(5 * var(--u)); padding: 0 calc(6 * var(--u)); }
+  .s4 .eyebrow { color: var(--honey); }
+  .s4 .head { text-align: center; display: grid; gap: calc(2.2 * var(--u)); }
+  .s4 .head h2 { font-size: calc(13 * var(--u)); line-height: 0.95; font-weight: 300; }
+  .s4 .head h2 em { font-style: italic; color: var(--lily); }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: calc(4 * var(--u)); width: 100%; }
+  .pcard { background: var(--white); border-radius: calc(3.5 * var(--u)); overflow: hidden; box-shadow: 0 calc(5 * var(--u)) calc(9 * var(--u)) calc(-5 * var(--u)) rgba(42, 25, 50, 0.45); }
+  .pcard img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .pcard .meta { padding: calc(2.6 * var(--u)) calc(3 * var(--u)) calc(3.2 * var(--u)); display: grid; gap: calc(0.8 * var(--u)); }
+  .pcard .k { font-size: calc(2.1 * var(--u)); letter-spacing: 0.22em; text-transform: uppercase; color: var(--honey); font-weight: 500; }
+  .pcard .n { font-family: 'Cormorant', serif; font-size: calc(5.2 * var(--u)); line-height: 1.02; }
+  .pcard .p { font-size: calc(3 * var(--u)); color: #5d4e60; }
+  .swatches { display: flex; gap: calc(3.5 * var(--u)); align-items: center; font-size: calc(2.4 * var(--u)); letter-spacing: 0.2em; text-transform: uppercase; color: #5d4e60; }
+  .swatches span { display: inline-flex; align-items: center; gap: 0.6em; }
+  .swatches b { width: calc(3.2 * var(--u)); aspect-ratio: 1; border-radius: 50%; display: inline-block; box-shadow: inset 0 0 0 1px rgba(34, 23, 39, 0.15); }
+
+  /* ---------- 5. offer ---------- */
+  .s5 { display: grid; place-content: center; justify-items: center; text-align: center; gap: calc(2.6 * var(--u)); }
+  .s5 .ring { position: absolute; left: 50%; top: 44%; width: calc(86 * var(--u)); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; border: 1px solid rgba(234, 210, 164, 0.32); }
+  .s5 .ring.r2 { width: calc(104 * var(--u)); border-color: rgba(234, 210, 164, 0.14); }
+  .s5 .kicker { font-size: calc(7 * var(--u)); font-style: italic; color: var(--honey-soft); }
+  .s5 .big { display: flex; align-items: flex-start; justify-content: center; font-size: calc(46 * var(--u)); line-height: 0.8; letter-spacing: -0.04em; font-weight: 300; }
+  .s5 .big sup { font-size: 0.34em; line-height: 1; margin-top: 0.32em; margin-left: 0.02em; color: var(--honey-soft); }
+  .s5 .off { font-size: calc(4.6 * var(--u)); letter-spacing: 0.42em; text-transform: uppercase; padding-left: 0.42em; font-weight: 400; }
+  .s5 .dates { font-size: calc(3.2 * var(--u)); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(247, 242, 235, 0.82); margin-top: calc(1.5 * var(--u)); }
+  .s5 .code { margin-top: calc(2.4 * var(--u)); display: inline-flex; align-items: center; gap: 0.7em; padding: 0.7em 1.5em; border-radius: 999px; border: 2px dashed var(--honey-soft); font-size: calc(3.6 * var(--u)); letter-spacing: 0.22em; text-transform: uppercase; }
+  .s5 .code b { color: var(--honey-soft); font-weight: 600; }
+  .s5 .foot { position: absolute; left: 0; right: 0; bottom: calc(7 * var(--u)); display: grid; justify-items: center; gap: calc(1.6 * var(--u)); }
+  .s5 .foot img { width: calc(34 * var(--u)); }
+  .s5 .foot p { font-size: calc(2.5 * var(--u)); letter-spacing: 0.26em; text-transform: uppercase; color: rgba(247, 242, 235, 0.7); }
+
+  /* 4:5 frames are shorter: tighten the tall-only spacing */
+  @media (max-aspect-ratio: 9/14) { .s5 .foot { bottom: calc(12 * var(--u)); } }
+  @media (min-aspect-ratio: 9/14) {
+    .s1 .title { font-size: calc(16 * var(--u)); }
+    .s4 { gap: calc(3 * var(--u)); padding: 0 calc(14 * var(--u)); }
+    .s4 .head h2 { font-size: calc(10 * var(--u)); }
+    .pcard .meta { padding: calc(1.8 * var(--u)) calc(2.6 * var(--u)) calc(2.2 * var(--u)); }
+    .s5 { gap: calc(1.6 * var(--u)); padding-bottom: calc(12 * var(--u)); }
+    .s5 .big { font-size: calc(34 * var(--u)); }
+    .s5 .kicker { font-size: calc(6 * var(--u)); }
+    .s5 .ring { width: calc(70 * var(--u)); top: 40%; }
+    .s5 .ring.r2 { width: calc(86 * var(--u)); }
+    .s5 .foot { bottom: calc(4.5 * var(--u)); }
+    .s5 .foot img { width: calc(26 * var(--u)); }
+    .lower { bottom: calc(6 * var(--u)); }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="glow" id="glow"></div>
+
+  <!-- 1. title -->
+  <section class="scene s1" id="s1">
+    <img class="lily" src="/public/media/brand/lily-mark-honey.png" alt="" />
+    <p class="brand" id="brand">Incandescent Lily Collection</p>
+    <h1 class="title serif">
+      <span class="mask"><span>The <em>Glow</em></span></span>
+      <span class="mask"><span>Weekend</span></span>
+    </h1>
+    <p class="when" id="when"><span>Friday</span><i>✦</i><span>Monday</span></p>
+  </section>
+
+  <!-- 2. facial sponge -->
+  <section class="scene shot" id="s2">
+    <img src="/public/media/p/lily-lather-facial-sponge-1-1254.webp" alt="" style="object-position: 50% 30%" />
+    <div class="shade"></div>
+    <div class="lower">
+      <p class="eyebrow tag">Just added</p>
+      <h2 class="name serif"><span class="mask"><span>Lily Lather™</span></span><span class="mask"><span><em>Facial Net Sponge</em></span></span></h2>
+      <p class="line"><span>A deep-cleansing, creamy lather</span><span class="price">$7.98</span></p>
+    </div>
+  </section>
+
+  <!-- 3. body net -->
+  <section class="scene shot" id="s3">
+    <img src="/public/media/p/lily-lather-body-net-2-1254.webp" alt="" style="object-position: 50% 35%" />
+    <div class="shade"></div>
+    <div class="lower">
+      <p class="eyebrow tag">Just added</p>
+      <h2 class="name serif"><span class="mask"><span>Lily Lather™</span></span><span class="mask"><span><em>African Body Net</em></span></span></h2>
+      <p class="line"><span>Reaches all the way across your back</span><span class="price">$10.98</span></p>
+    </div>
+  </section>
+
+  <!-- 4. duo -->
+  <section class="scene s4" id="s4">
+    <div class="head">
+      <p class="eyebrow">New · Lily Lather™</p>
+      <h2 class="serif"><span class="mask"><span>Lather,</span></span><span class="mask"><span><em>lovingly.</em></span></span></h2>
+    </div>
+    <div class="duo">
+      <div class="pcard"><img src="/public/media/p/lily-lather-facial-sponge-0-1254.webp" alt="" /><div class="meta"><span class="k">Face</span><span class="n">Facial Sponge</span><span class="p">$7.98</span></div></div>
+      <div class="pcard"><img src="/public/media/p/lily-lather-body-net-0-1254.webp" alt="" /><div class="meta"><span class="k">Body</span><span class="n">Body Net</span><span class="p">$10.98</span></div></div>
+    </div>
+    <p class="swatches"><span><b style="background:#9DB88A"></b>Sage</span><span><b style="background:#5E7A34"></b>Olive</span><span><b style="background:#BDBDB9"></b>Gray</span><span><b style="background:#232023"></b>Black</span></p>
+  </section>
+
+  <!-- 5. offer -->
+  <section class="scene s5" id="s5">
+    <div class="ring r2"></div><div class="ring"></div>
+    <p class="kicker serif">The Glow Weekend</p>
+    <p class="big serif"><span id="pct">20</span><sup>%</sup></p>
+    <p class="off">Off everything</p>
+    <p class="dates">Fri, Nov 27 – Mon, Nov 30</p>
+    <p class="code">Code <b>GLOW20</b></p>
+    <div class="foot">
+      <img src="/public/media/brand/logo-light.png" alt="" />
+      <p>@ilcollection__ · Link in bio</p>
+    </div>
+  </section>
+
+  <div class="grain"></div>
+</div>
+
+<script type="module">
+  import { gsap } from '/node_modules/gsap/index.js';
+
+  const PERCENT = 20;
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+  const tl = gsap.timeline({ paused: true, defaults: { ease: 'expo.out' } });
+  const ease = 'expo.inOut';
+
+  gsap.set(['#s2', '#s3', '#s4', '#s5'], { autoAlpha: 0 });
+
+  /* ambient glow breathes the whole time */
+  tl.fromTo('#glow', { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.4, ease: 'power2.out' }, 0);
+  tl.to('#glow', { scale: 1.12, duration: 4, ease: "sine.inOut", yoyo: true, repeat: 3 }, 2.4);
+
+  /* 1 — title */
+  tl.from('#s1 .lily', { y: 40, opacity: 0, scale: 0.9, duration: 1.4 }, 0.2)
+    .from('#brand', { opacity: 0, letterSpacing: '0.8em', duration: 1.6, ease: 'power3.out' }, 0.45)
+    .from('#s1 .mask > span', { yPercent: 110, duration: 1.2, stagger: 0.16 }, 0.9)
+    .from('#when > *', { opacity: 0, y: 16, duration: 0.9, stagger: 0.1 }, 1.7)
+    .to('#s1', { opacity: 0, scale: 1.06, filter: 'blur(6px)', duration: 0.7, ease: 'power2.in' }, 3.05);
+
+  /* 2 — facial sponge: soft wipe up, slow push in */
+  tl.set('#s2', { autoAlpha: 1 }, 3.2)
+    .fromTo('#s2', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease }, 3.2)
+    .fromTo('#s2 img', { scale: 1.22 }, { scale: 1.04, duration: 4.2, ease: 'power1.out' }, 3.2)
+    .from('#s2 .tag', { opacity: 0, y: 20, duration: 0.8 }, 3.75)
+    .from('#s2 .mask > span', { yPercent: 110, duration: 1, stagger: 0.12 }, 3.85)
+    .from('#s2 .line > *', { opacity: 0, y: 18, duration: 0.8, stagger: 0.12 }, 4.25);
+
+  /* 3 — body net: wipe from the right */
+  tl.set('#s3', { autoAlpha: 1 }, 6.7)
+    .fromTo('#s3', { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease }, 6.7)
+    .fromTo('#s3 img', { scale: 1.2, xPercent: 4 }, { scale: 1.03, xPercent: 0, duration: 4.2, ease: 'power1.out' }, 6.7)
+    .to('#s2', { xPercent: -18, duration: 1, ease }, 6.7)
+    .set('#s2', { autoAlpha: 0 }, 7.7)
+    .from('#s3 .tag', { opacity: 0, y: 20, duration: 0.8 }, 7.25)
+    .from('#s3 .mask > span', { yPercent: 110, duration: 1, stagger: 0.12 }, 7.35)
+    .from('#s3 .line > *', { opacity: 0, y: 18, duration: 0.8, stagger: 0.12 }, 7.75);
+
+  /* 4 — the duo on bone */
+  tl.set('#s4', { autoAlpha: 1 }, 10.2)
+    .fromTo('#s4', { clipPath: 'circle(0% at 50% 60%)' }, { clipPath: 'circle(150% at 50% 60%)', duration: 1.2, ease }, 10.2)
+    .set('#s3', { autoAlpha: 0 }, 11.4)
+    .from('#s4 .eyebrow', { opacity: 0, y: 16, duration: 0.8 }, 10.6)
+    .from('#s4 .mask > span', { yPercent: 110, duration: 1.1, stagger: 0.12 }, 10.7)
+    .from('#s4 .pcard', { y: 160, opacity: 0, rotate: (i) => (i ? 4 : -4), duration: 1.3, stagger: 0.14 }, 10.85)
+    .to('#s4 .pcard', { y: (i) => (i ? -10 : 10), duration: 2.2, ease: 'sine.inOut' }, 12.1)
+    .from('#s4 .swatches > span', { opacity: 0, y: 14, duration: 0.7, stagger: 0.08 }, 11.6);
+
+  /* 5 — the offer */
+  const counter = { v: 0 };
+  tl.set('#s5', { autoAlpha: 1 }, 13.9)
+    .to('#s4', { yPercent: -100, duration: 1, ease }, 13.9)
+    .fromTo('#s5', { yPercent: 100 }, { yPercent: 0, duration: 1, ease }, 13.9)
+    .from('#s5 .ring', { scale: 0.6, opacity: 0, duration: 1.8, stagger: 0.12 }, 14.3)
+    .from('#s5 .kicker', { opacity: 0, y: 20, duration: 0.9 }, 14.4)
+    .from('#s5 .big', { opacity: 0, scale: 0.86, duration: 1.2 }, 14.5)
+    .fromTo(counter, { v: 0 }, { v: PERCENT, duration: 1.1, ease: 'power3.out', onUpdate: () => { $('#pct').textContent = Math.round(counter.v); } }, 14.5)
+    .from('#s5 .off', { opacity: 0, letterSpacing: '0.9em', duration: 1.2, ease: 'power3.out' }, 14.9)
+    .from('#s5 .dates', { opacity: 0, y: 16, duration: 0.8 }, 15.2)
+    .from('#s5 .code', { opacity: 0, scale: 0.9, duration: 0.9 }, 15.45)
+    .from('#s5 .foot > *', { opacity: 0, y: 16, duration: 0.9, stagger: 0.12 }, 15.7)
+    .to('#s5 .code', { scale: 1.05, duration: 0.6, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 16.6)
+    .to({}, { duration: 0.1 }, 18.4); // hold the end card
+
+  window.DURATION = tl.duration();
+  window.seek = (t) => { tl.seek(t, false); };
+  window.ready = (async () => {
+    await document.fonts.ready;
+    await Promise.all($$('img').map((img) => img.decode().catch(() => {})));
+    tl.seek(0);
+    return true;
+  })();
+  if (!navigator.webdriver) { tl.play(); tl.repeat?.(-1); }
+</script>
+</body>
+</html>

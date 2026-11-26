@@ -1,7 +1,7 @@
 # Incandescent Lily Collection — website
 
 A premium, holistic redesign of the Incandescent Lily Collection (ILC) store, rebuilt from the
-original Wix site at nebaministry.org/ilcollection. All 22 products, their copy, variants,
+original Wix site at nebaministry.org/ilcollection. All products (24, including the Lily Lather™ net sponges), their copy, variants,
 prices, imagery, and videos were migrated.
 
 **Stack:** [Astro 7](https://astro.build) (static output) · GSAP 3.15 (ScrollTrigger, SplitText, Flip) ·
@@ -55,6 +55,8 @@ After launch:
 | --- | --- |
 | `src/data/products.json` | Every product: name, subtitle, price range, variants, copy, media, card crops |
 | `src/data/site.ts` | Contact details, social links, collections, mission, FAQs, helpers |
+| `src/data/sale.ts` | The current sale: name, percent, code, start/end dates (drives the countdown bar and sale banners) |
+| `_video/` | The Glow Weekend promo video source and renderer (see `_video/README.md`) |
 | `src/pages/` | `index`, `shop/index`, `shop/[slug]` (one page per product), `our-story`, `contact`, `shipping-returns`, `404` |
 | `src/components/` | Header, Footer, ProductCard, Marquee, Img |
 | `src/styles/global.css` | Design tokens (palette, type scale), buttons, cards, accordions |
@@ -64,6 +66,22 @@ After launch:
 
 To edit a product, change its entry in `products.json` (prices in `variants` are keyed by the
 sorted option-value ids). Variant prices update live on the product page.
+
+## Sales & promotions
+
+Edit `src/data/sale.ts` to run a sale. The site handles the timing on its own:
+
+- **7 days before** `start` (`teaseDays`): the announcement bar turns into a countdown ("Opens in …"),
+  and sale banners appear on the home page, shop, and every product page.
+- **During the sale**: the countdown switches to "Ends in …"; visitors can tap the code to copy it.
+- **After** `end`: everything sale-related hides itself, and the home page shows the Lily Lather photo
+  instead of the sale video.
+
+The discount itself is applied by the Wix store at checkout, so create a matching coupon there
+(same code, percent, and dates).
+
+The shop page also supports search (`?q=`), sorting (`?sort=price-asc|price-desc|name`), and
+collection filters (`?c=`), all reflected in the URL so filtered views can be shared.
 
 ## Motion system
 
