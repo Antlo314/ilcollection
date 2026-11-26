@@ -9,7 +9,7 @@ const SITE_ID = `${ORIGIN}/#website`;
 
 export const keywords = [
   'Black-owned skincare', 'plant-based body care', 'natural skincare', 'vegan body care', 'manuka honey skincare',
-  'eczema care', 'hyperpigmentation', 'natural hair growth oil', 'loc care', 'beard oil', 'herbal tea', 'soy candle',
+  'eczema care', 'hyperpigmentation', 'natural hair growth oil', 'loc care', 'beard oil', 'herbal tea',
   'non-toxic sanitary pads', 'Incandescent Lily Collection', 'IL Collection',
 ];
 

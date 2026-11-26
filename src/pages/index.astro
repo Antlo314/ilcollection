@@ -13,7 +13,7 @@ const v = media.video;
 
 const mostLoved = [
   'enlighten-mist', 'garden-restore-teas', 'lip-love-balm', 'woke-body-oil', 'brightstar-glow-bar',
-  'awaken-healing-candle', 'favor-face-serum', 'lemongrass-growth-mist', 'brightstar-cleanser', 'manuka-honey-mask',
+  'whole-body-healing-salve', 'favor-face-serum', 'lemongrass-growth-mist', 'brightstar-cleanser', 'manuka-honey-mask',
 ].map(bySlug);
 
 const lather = ['lily-lather-facial-sponge', 'lily-lather-body-net'].map(bySlug);
@@ -23,8 +23,8 @@ const indulgences = ['incandescent-luxe-box', 'glow-grow-duo', 'woke-his-hers-se
 const pillars = [
   {
     word: 'Spirit', img: b.lifeTeaBible, alt: 'An open Bible and journal beside a cup of Garden Restoré tea',
-    copy: 'Light the Awaken™ candle, let a cup of tea steep slowly, and settle into a 30-day devotional — quiet moments for reflection, prayer, and rest.',
-    links: [{ href: '/shop?c=devotional', label: 'Devotionals' }, { href: '/shop/awaken-healing-candle', label: 'Awaken Candle' }],
+    copy: 'Let a cup of tea steep slowly and settle into a 30-day devotional — quiet moments for reflection, prayer, and rest.',
+    links: [{ href: '/shop?c=devotional', label: 'Devotionals' }, { href: '/shop/awaken-devotional', label: 'Awaken Devotional' }],
   },
   {
     word: 'Mind', img: b.lifeMistsTray, alt: 'Three Enlighten Mist bottles on a stone tray with eucalyptus',
@@ -65,7 +65,7 @@ const gallery = [
 
 const reign = bySlug('reign-sanitary-napkins');
 ---
-<Base intro description="Black-owned, 100% plant-based skin, hair & body care — manuka honey cleansers, healing salves, body oils, herbal teas & candles, handmade in small batches." schema={[itemList(mostLoved, 'Most adored')]}>
+<Base intro description="Black-owned, 100% plant-based skin, hair & body care — manuka honey cleansers, healing salves, body oils, herbal teas & devotionals, handmade in small batches." schema={[itemList(mostLoved, 'Most adored')]}>
   <!-- ============ HERO ============ -->
   <section class="hero" data-hero>
     <div class="wrap hero__grid">

@@ -27,5 +27,8 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
+  ],
+  "redirects": [
+    { "source": "/shop/awaken-healing-candle", "destination": "/shop", "permanent": true }
   ]
 }

@@ -656,7 +656,7 @@
         "body": [
           {
             "type": "p",
-            "text": "Pair “AWAKEN” with our WOKE Body Oil or AWAKEN Candle to create a sacred self-care moment that engages your senses while nurturing your soul."
+            "text": "Pair “AWAKEN” with our WOKE Body Oil to create a sacred self-care moment that engages your senses while nurturing your soul."
           }
         ]
       }
@@ -1614,7 +1614,7 @@
         "body": [
           {
             "type": "p",
-            "text": "Pair “AWAKEN” with our WOKE Body Oil or AWAKEN Candle to create a sacred self-care moment that engages your senses while nurturing your soul."
+            "text": "Pair “AWAKEN” with our WOKE Body Oil to create a sacred self-care moment that engages your senses while nurturing your soul."
           }
         ]
       }
@@ -1806,85 +1806,6 @@
       {
         "src": "/media/c/lemongrass-growth-mist-1-800.webp",
         "srcset": "/media/c/lemongrass-growth-mist-1-400.webp 400w, /media/c/lemongrass-growth-mist-1-800.webp 800w",
-        "width": 800,
-        "height": 1000
-      }
-    ]
-  },
-  {
-    "slug": "awaken-healing-candle",
-    "name": "Awaken™ Healing Soy Candle",
-    "sub": "14 oz Pure Soy Candle",
-    "ribbon": "",
-    "price": 29.98,
-    "priceMin": 29.98,
-    "priceMax": 29.98,
-    "tags": [
-      "home",
-      "wellness"
-    ],
-    "description": [
-      {
-        "type": "p",
-        "text": "“Awaken” Soy Candle~ 14 oz."
-      },
-      {
-        "type": "p",
-        "text": "AWAKEN— our first luxurious candle inspired by the transformative essence of our renown WOKE healing body oil. Elevate your senses with restorative extracts like ylang-ylang and lavender. Crafted with 100% soy wax, this candle offers a toxin-free, longer-lasting burn that’s better for you and your environment."
-      },
-      {
-        "type": "p",
-        "text": "Light the AWAKEN candle during moments of reflection, prayer, or relaxation, and let its warm glow and healing fragrance restore balance to your spirit."
-      }
-    ],
-    "info": [
-      {
-        "title": "Key Ingredients & Benefits",
-        "body": [
-          {
-            "type": "p",
-            "text": "Soy Wax – Clean-burning and eco-friendly, it provides a smooth, even melt and lasting fragrance."
-          },
-          {
-            "type": "p",
-            "text": "Lily of the Valley- Fresh, airy scent brings peace, renewal, and a gentle lift to the atmosphere."
-          },
-          {
-            "type": "p",
-            "text": "Ylang Ylang – A calming floral that balances emotions and uplifts the spirit."
-          },
-          {
-            "type": "p",
-            "text": "Vanilla Extract – Warm and soothing, it comforts the senses and adds cozy sweetness."
-          },
-          {
-            "type": "p",
-            "text": "Rose Extract – Restores harmony, eases stress, and opens the heart to love."
-          },
-          {
-            "type": "p",
-            "text": "Jasmine – Enhances mood, clarity, and spiritual awakening."
-          }
-        ]
-      }
-    ],
-    "options": [],
-    "variants": [],
-    "media": [
-      {
-        "type": "image",
-        "src": "/media/brand/candle-1200.webp",
-        "srcset": "/media/brand/candle-700.webp 700w, /media/brand/candle-1200.webp 1200w",
-        "width": 1200,
-        "height": 1200,
-        "alpha": false
-      }
-    ],
-    "buyUrl": "https://www.nebaministry.org/product-page/awaken-soy-candle-10oz",
-    "card": [
-      {
-        "src": "/media/c/awaken-healing-candle-0-800.webp",
-        "srcset": "/media/c/awaken-healing-candle-0-400.webp 400w, /media/c/awaken-healing-candle-0-800.webp 800w",
         "width": 800,
         "height": 1000
       }
